@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Keylor\\Documents\\StarFood\\StarFood.csproj",
+      "projectUniqueName": "C:\\Users\\Keylor\\Source\\Repos\\StarFood\\StarFood.csproj",
       "projectName": "StarFood",
-      "projectPath": "C:\\Users\\Keylor\\Documents\\StarFood\\StarFood.csproj",
+      "projectPath": "C:\\Users\\Keylor\\Source\\Repos\\StarFood\\StarFood.csproj",
       "packagesPath": "C:\\Users\\Keylor\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Keylor\\Documents\\StarFood\\obj\\",
+      "outputPath": "C:\\Users\\Keylor\\Source\\Repos\\StarFood\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Keylor\\AppData\\Roaming\\NuGet\\NuGet.Config",
