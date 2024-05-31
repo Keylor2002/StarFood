@@ -18,7 +18,69 @@ namespace StarFood.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=SQL8010.site4now.net;Initial Catalog=db_aa9678_starfood;User Id=db_aa9678_starfood_admin;Password=StarFood!1812;Trusted_Connection=True;");
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Data Source=SQL8010.site4now.net;Initial Catalog=db_aa9678_starfood;User Id=db_aa9678_starfood_admin;Password=StarFood!1812");
+            }
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Configuración de relaciones con DeleteBehavior.Restrict para evitar ciclos
+            modelBuilder.Entity<PedidoDeProducto>()
+                .HasOne(p => p.Producto)
+                .WithMany()
+                .HasForeignKey(p => p.IDProducto)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<PedidoDeProducto>()
+                .HasOne(p => p.Proveedor)
+                .WithMany()
+                .HasForeignKey(p => p.IDProveedor)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Producto>()
+                .HasOne(p => p.Proveedor)
+                .WithMany()
+                .HasForeignKey(p => p.IDProveedor)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Producto>()
+                .HasOne(p => p.Categoria)
+                .WithMany()
+                .HasForeignKey(p => p.CategoriaID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Platillo>()
+                .HasOne(p => p.Categoria)
+                .WithMany()
+                .HasForeignKey(p => p.CategoriaID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Factura>()
+                .HasOne(f => f.Pedido)
+                .WithMany()
+                .HasForeignKey(f => f.IDPedido)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Factura>()
+                .HasOne(f => f.MetodoPago)
+                .WithMany()
+                .HasForeignKey(f => f.IDMetodoPago)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<PlatilloProducto>()
+                .HasOne(pp => pp.Platillo)
+                .WithMany()
+                .HasForeignKey(pp => pp.IDPlatillo)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<PlatilloProducto>()
+                .HasOne(pp => pp.Producto)
+                .WithMany()
+                .HasForeignKey(pp => pp.IDProducto)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
