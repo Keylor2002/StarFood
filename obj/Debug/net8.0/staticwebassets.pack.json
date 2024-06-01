@@ -5,7 +5,15 @@
       "PackagePath": "staticwebassets\\StarFood.bundle.scp.css"
     },
     {
+<<<<<<< HEAD
       "Id": "C:\\Users\\joshu\\OneDrive - Informática Empresarial Occidente\\DOCUMENTS\\IVYear_Semester1\\IF7100-INGENIERÍA DE SOFTWARE\\PROYECTO\\StarFood\\wwwroot\\css\\site.css",
+=======
+      "Id": "C:\\Users\\edmol\\Source\\Repos\\StarFood\\wwwroot\\css\\LoginStyles.css",
+      "PackagePath": "staticwebassets\\css\\LoginStyles.css"
+    },
+    {
+      "Id": "C:\\Users\\edmol\\Source\\Repos\\StarFood\\wwwroot\\css\\site.css",
+>>>>>>> Vista Login y Crear Usuario
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {

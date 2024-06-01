@@ -1,0 +1,57 @@
+body {
+    font-family: "Myriad pro Semibold";
+    background-color: #002750; /* Color de fondo deseado */
+    color: #fff; /* Color de texto blanco */
+}
+
+.login-container {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    background-color: #002750; /* Mismo color de fondo que el body */
+    border: 1px solid transparent;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 50px; /* Espacio arriba para centrar en la página */
+    
+}
+
+.logo {
+    width: 100px; /* Ajusta el tamaño según tu necesidad */
+    margin-bottom: 20px;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #828282; /* Color de fondo del campo de entrada */
+    color: #000000; /* Color de texto oscuro para los campos */
+}
+
+button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #69D0D7; 
+    color: #000000;
+    font-size: 16px;
+}
+
+.btn-crear-cuenta {
+    background-color: #69D0D7;
+    margin-left: 10px;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+::placeholder {
+    color: #393939; /* Color de texto gris oscuro */
+}

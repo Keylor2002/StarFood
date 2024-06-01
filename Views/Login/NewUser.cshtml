@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "NewUser";
+}
+
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+   
+    <link rel="stylesheet" href="~/css/LoginStyles.css" asp-append-version="true" />
+    <h8 class="brand-text">Starfood</h8>
+</head>
+    <body>
+        <div class="login-container">
+       
+
+            <img src="~/Content/logo.png" alt="Logo" class="logo" />
+
+            <H1>Nueva Cuenta</H1>
+
+            <h4>Ingrese su direccion de Correo</h4>
+            <input type="email" placeholder="Correo electrónico" />
+
+            <h4>Ingrese Contraseña</h4>
+
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <input type="password" class="form-control" id="password" placeholder="Ingrese contraseña">
+                </div>
+                <div class="col-sm-6">
+                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirme contraseña">
+                </div>
+            </div>
+           
+
+            <button class="btn-crear-cuenta">Crear Cuenta</button>
+        </div>
+    </body>
+</html>
