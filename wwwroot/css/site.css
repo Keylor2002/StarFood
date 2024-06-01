@@ -1,18 +1,44 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    background-color: #002750;
+    color: #ffffff;
+}
+
+.sidebar {
+    color: black;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 250px;
+    padding-top: 3.5rem;
+    background-color: #f8f9fa;
+    z-index: 1;
+}
+
+.navbar {
+    z-index: 2;
+}
+
+.main-content {
+    margin-left: 250px;
+    padding-top: 3.5rem;
+}
+
+.card-body a.nav-link {
+    color: black;
 }
