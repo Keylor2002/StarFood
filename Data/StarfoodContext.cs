@@ -26,7 +26,7 @@ namespace StarFood.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=SQL8010.site4now.net;Initial Catalog=db_aa9678_starfood;User Id=db_aa9678_starfood_admin;Password=StarFood!1812");
+                optionsBuilder.UseSqlServer("Data Source=SQL8010.site4now.net;Initial Catalog=db_aa9682_starfood;User Id=db_aa9682_starfood_admin;Password=StarFood01.");
             }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
