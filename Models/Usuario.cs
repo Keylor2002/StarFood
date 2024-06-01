@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace StarFood.Models
 {
-    public class Usuario
+    public class Usuario : IdentityUser
     {
         [Key]
         public int IDUsuario { get; set; }
