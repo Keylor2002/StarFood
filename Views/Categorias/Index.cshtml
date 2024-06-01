@@ -1,0 +1,105 @@
+﻿@{
+    ViewData["Title"] = "Categoria";
+}
+
+<h2>Categorías</h2>
+
+<div>
+    <form id="categoryForm">
+        <input type="hidden" id="IDCategoria" name="IDCategoria" />
+        <div class="form-group">
+            <label for="NombreCategoria">Nombre de la Categoría:</label>
+            <input type="text" id="NombreCategoria" name="NombreCategoria" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="reset" class="btn btn-secondary">Cancelar</button>
+    </form>
+</div>
+
+<hr />
+
+<div>
+    <h3>Lista de Categorías</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre de la Categoría</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="categoryTableBody">
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            loadCategories();
+
+            $('#categoryForm').on('submit', function (e) {
+                e.preventDefault();
+                var category = {
+                    IDCategoria: $('#IDCategoria').val(),
+                    NombreCategoria: $('#NombreCategoria').val()
+                };
+
+                if (category.IDCategoria) {
+                    $.post('@Url.Action("UpdateCategory", "Categorias")', category, function (response) {
+                        if (response.success) {
+                            loadCategories();
+                            $('#categoryForm')[0].reset();
+                        } else {
+                            alert('Error al actualizar la categoría.');
+                        }
+                    });
+                } else {
+                    $.post('@Url.Action("AddCategory", "Categorias")', category, function (response) {
+                        if (response.success) {
+                            loadCategories();
+                            $('#categoryForm')[0].reset();
+                        } else {
+                            alert('Error al añadir la categoría.');
+                        }
+                    });
+                }
+            });
+
+            $('body').on('click', '.edit-btn', function () {
+                var category = $(this).data('category');
+                $('#IDCategoria').val(category.iDCategoria);
+                $('#NombreCategoria').val(category.nombreCategoria);
+            });
+
+            $('body').on('click', '.delete-btn', function () {
+                if (confirm('¿Estás seguro de que quieres eliminar esta categoría?')) {
+                    var id = $(this).data('id');
+                    $.post('@Url.Action("DeleteCategory", "Categorias")', { id: id }, function (response) {
+                        if (response.success) {
+                            loadCategories();
+                        } else {
+                            alert('Error al eliminar la categoría.');
+                        }
+                    });
+                }
+            });
+
+            function loadCategories() {
+                $.get('@Url.Action("CategoryList", "Categorias")', function (response) {
+                    var rows = '';
+                    response.data.forEach(function (category) {
+                        rows += '<tr>';
+                        rows += '<td>' + category.nombreCategoria + '</td>';
+                        rows += '<td>';
+                        rows += '<button class="btn btn-sm btn-primary edit-btn" data-category=\'{"iDCategoria": "' + category.idCategoria + '", "nombreCategoria": "' + category.nombreCategoria + '"}\'>Editar</button> ';
+                        rows += '<button class="btn btn-sm btn-danger delete-btn" data-id="' + category.idCategoria + '">Eliminar</button>';
+                        rows += '</td>';
+                        rows += '</tr>';
+                    });
+                    $('#categoryTableBody').html(rows);
+                });
+            }
+        });
+    </script>
+}

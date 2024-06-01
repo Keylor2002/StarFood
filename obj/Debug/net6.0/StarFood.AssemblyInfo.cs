@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StarFood")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3c520ec3a926bd0897aa1751926434b533c03852")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1b57d969663a0749f3e46a268d010bbc649d0a1b")]
 [assembly: System.Reflection.AssemblyProductAttribute("StarFood")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StarFood")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

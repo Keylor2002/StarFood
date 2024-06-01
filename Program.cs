@@ -1,7 +1,10 @@
+using StarFood.Business_Logic;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<BusinessCategorias>();
 
 var app = builder.Build();
 
