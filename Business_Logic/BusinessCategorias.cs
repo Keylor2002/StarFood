@@ -12,19 +12,23 @@ namespace StarFood.Business_Logic
 
         public BusinessCategorias()
         {
-            _context = new StarfoodContext(); // Inicializa tu contexto de datos
+            _context = new StarfoodContext(); // Initialize the DbContext
         }
 
-        // Método para obtener la lista de categorías
+        // Return the Category List
         public List<Categoria> CategoryList()
         {
             return _context.Categorias.ToList();
         }
 
-        // Método para agregar una nueva categoría
-        public void AddCategory(Categoria categoria)
+        // Create a new Category
+        public void CreateCategory(Categoria categoria)
         {
             _context.Categorias.Add(categoria);
+        }
+
+        public void SaveCategory(Categoria categoria)
+        {
             _context.SaveChanges();
         }
 

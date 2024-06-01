@@ -5,6 +5,11 @@ namespace StarFood.Data
 {
     public class StarfoodContext : DbContext
     {
+        public StarfoodContext() { }
+        public StarfoodContext(DbContextOptions<StarfoodContext> options)
+            : base(options)
+        {
+        }
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Proveedor> Proveedores { get; set; }
         public DbSet<Producto> Productos { get; set; }

@@ -27,14 +27,17 @@ namespace StarFood.Controllers
         }
 
         [HttpPost]
-        public JsonResult CreateCategory([FromBody] Categoria categoria)
+        public IActionResult CreateCategory([FromBody] Categoria categoria)
         {
             if (ModelState.IsValid)
             {
-                _businessCategorias.AddCategory(categoria);
-                return Json(new { success = true, message = "Categoría creada correctamente." });
+                var Category = new Categoria() { Nombre = categoria.Nombre};
+                _businessCategorias.CreateCategory(categoria);
+                _businessCategorias.SaveCategory(categoria);
+                String url = "Categorias/Index";
+                return Redirect(url);
             }
-            return Json(new { success = false, message = "Datos inválidos." });
+            return View(categoria);
         }
 
         [HttpPut]
