@@ -1,6 +1,10 @@
 {
   "Version": 1,
+<<<<<<< HEAD
   "Hash": "dF9NUOdqNGsGuKPjQ6AGweMI+adNn64uH1LjgKlVoZk=",
+=======
+  "Hash": "m7sQ5u//udkMfiOO0Z3w6i05xusOvL8b9G7K9WbydiE=",
+>>>>>>> Vista Login y Crear Usuario
   "Source": "StarFood",
   "BasePath": "_content/StarFood",
   "Mode": "Default",
@@ -55,7 +59,30 @@
       "OriginalItemSpec": "C:\\Users\\joshu\\OneDrive - Informática Empresarial Occidente\\DOCUMENTS\\IVYear_Semester1\\IF7100-INGENIERÍA DE SOFTWARE\\PROYECTO\\StarFood\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\StarFood.bundle.scp.css"
     },
     {
+<<<<<<< HEAD
       "Identity": "C:\\Users\\joshu\\OneDrive - Informática Empresarial Occidente\\DOCUMENTS\\IVYear_Semester1\\IF7100-INGENIERÍA DE SOFTWARE\\PROYECTO\\StarFood\\wwwroot\\css\\site.css",
+=======
+      "Identity": "C:\\Users\\edmol\\Source\\Repos\\StarFood\\wwwroot\\css\\LoginStyles.css",
+      "SourceId": "StarFood",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\edmol\\Source\\Repos\\StarFood\\wwwroot\\",
+      "BasePath": "_content/StarFood",
+      "RelativePath": "css/LoginStyles.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\LoginStyles.css"
+    },
+    {
+      "Identity": "C:\\Users\\edmol\\Source\\Repos\\StarFood\\wwwroot\\css\\site.css",
+>>>>>>> Vista Login y Crear Usuario
       "SourceId": "StarFood",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\joshu\\OneDrive - Informática Empresarial Occidente\\DOCUMENTS\\IVYear_Semester1\\IF7100-INGENIERÍA DE SOFTWARE\\PROYECTO\\StarFood\\wwwroot\\",
