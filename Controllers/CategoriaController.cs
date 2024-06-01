@@ -14,7 +14,7 @@ namespace StarFood.Controllers
             _businessCategorias = businessCategorias;
         }
 
-        public IActionResult Index()
+        public ActionResult Index()
         {
             return View();
         }
@@ -22,40 +22,29 @@ namespace StarFood.Controllers
         [HttpGet]
         public JsonResult CategoryList()
         {
-            List<Categoria> categoryList = _businessCategorias.CategoryList();
+            List<Categoria> categoryList = _businessCategorias.GetCategories();
             return Json(new { data = categoryList });
         }
 
         [HttpPost]
-        public IActionResult CreateCategory([FromBody] Categoria categoria)
+        public JsonResult AddCategory(Categoria categoria)
         {
-            if (ModelState.IsValid)
-            {
-                var Category = new Categoria() { Nombre = categoria.Nombre};
-                _businessCategorias.CreateCategory(categoria);
-                _businessCategorias.SaveCategory(categoria);
-                String url = "Categorias/Index";
-                return Redirect(url);
-            }
-            return View(categoria);
+            bool result = _businessCategorias.AddCategory(categoria);
+            return Json(new { success = result });
         }
 
-        [HttpPut]
-        public JsonResult UpdateCategory([FromBody] Categoria categoria)
+        [HttpPost]
+        public JsonResult UpdateCategory(Categoria categoria)
         {
-            if (ModelState.IsValid)
-            {
-                _businessCategorias.UpdateCategory(categoria);
-                return Json(new { success = true, message = "Categoría actualizada correctamente." });
-            }
-            return Json(new { success = false, message = "Datos inválidos." });
+            bool result = _businessCategorias.UpdateCategory(categoria);
+            return Json(new { success = result });
         }
 
-        [HttpDelete]
+        [HttpPost]
         public JsonResult DeleteCategory(int id)
         {
-            _businessCategorias.DeleteCategory(id);
-            return Json(new { success = true, message = "Categoría eliminada correctamente." });
+            bool result = _businessCategorias.DeleteCategory(id);
+            return Json(new { success = result });
         }
     }
 }

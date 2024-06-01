@@ -1,65 +1,39 @@
-﻿using StarFood.Models;
-using System;
+﻿using StarFood.Data;
+using StarFood.Models;
 using System.Collections.Generic;
-using System.Linq;
-using StarFood.Data;
 
 namespace StarFood.Business_Logic
 {
     public class BusinessCategorias
     {
-        private readonly StarfoodContext _context;
+        private readonly DataCategory _dataCategory;
 
-        public BusinessCategorias()
+        public BusinessCategorias(DataCategory dataCategory)
         {
-            _context = new StarfoodContext(); // Initialize the DbContext
+            _dataCategory = dataCategory;
         }
 
-        // Return the Category List
-        public List<Categoria> CategoryList()
+        public List<Categoria> GetCategories()
         {
-            return _context.Categorias.ToList();
+            return _dataCategory.CategoryList();
         }
 
-        // Create a new Category
-        public void CreateCategory(Categoria categoria)
+        public bool AddCategory(Categoria categoria)
         {
-            _context.Categorias.Add(categoria);
+            // Aquí puedes agregar lógica de negocio adicional antes de añadir la categoría.
+            return _dataCategory.AddCategory(categoria);
         }
 
-        public void SaveCategory(Categoria categoria)
+        public bool UpdateCategory(Categoria categoria)
         {
-            _context.SaveChanges();
+            // Aquí puedes agregar lógica de negocio adicional antes de actualizar la categoría.
+            return _dataCategory.UpdateCategory(categoria);
         }
 
-        // Método para actualizar una categoría existente
-        public void UpdateCategory(Categoria categoria)
+        public bool DeleteCategory(int id)
         {
-            var existingCategory = _context.Categorias.Find(categoria.IDCategoria);
-            if (existingCategory != null)
-            {
-                existingCategory.Nombre = categoria.Nombre;
-                _context.SaveChanges();
-            }
-            else
-            {
-                throw new ArgumentException("Categoría no encontrada");
-            }
-        }
-
-        // Método para eliminar una categoría
-        public void DeleteCategory(int id)
-        {
-            var categoria = _context.Categorias.Find(id);
-            if (categoria != null)
-            {
-                _context.Categorias.Remove(categoria);
-                _context.SaveChanges();
-            }
-            else
-            {
-                throw new ArgumentException("Categoría no encontrada");
-            }
+            // Aquí puedes agregar lógica de negocio adicional antes de eliminar la categoría.
+            return _dataCategory.DeleteCategory(id);
         }
     }
 }

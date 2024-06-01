@@ -55,7 +55,7 @@
                         }
                     });
                 } else {
-                    $.post('@Url.Action("CreateCategory", "Categorias")', category, function (response) {
+                    $.post('@Url.Action("AddCategory", "Categorias")', category, function (response) {
                         if (response.success) {
                             loadCategories();
                             $('#categoryForm')[0].reset();
