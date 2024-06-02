@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StarFood.Data;
 
@@ -11,9 +12,11 @@ using StarFood.Data;
 namespace StarFood.Migrations
 {
     [DbContext(typeof(StarfoodContext))]
-    partial class StarfoodContextModelSnapshot : ModelSnapshot
+    [Migration("20240602044555_addUserServices")]
+    partial class addUserServices
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
