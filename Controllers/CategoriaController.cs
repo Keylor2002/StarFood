@@ -30,6 +30,7 @@ namespace StarFood.Controllers
         public JsonResult AddCategory(Categoria categoria)
         {
             bool result = _businessCategorias.AddCategory(categoria);
+
             return Json(new { success = result });
         }
 

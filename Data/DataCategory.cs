@@ -41,8 +41,10 @@ namespace StarFood.Data
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                // Log the exception (use a logging framework or System.Diagnostics)
+                Console.WriteLine(ex.Message);
                 categoriaList = new List<Categoria>();
             }
             return categoriaList;
@@ -54,7 +56,7 @@ namespace StarFood.Data
             {
                 using (SqlConnection sqlConnection = new SqlConnection(_connectionString))
                 {
-                    string sqlInsertCategoria = "INSERT INTO [dbo].[Categoria] ([Nombre]) VALUES (@Nombre)";
+                    string sqlInsertCategoria = "INSERT INTO [db_aa9682_starfood].[Categoria] ([Nombre]) VALUES (@Nombre)";
                     SqlCommand sqlCommand = new SqlCommand(sqlInsertCategoria, sqlConnection);
                     sqlCommand.Parameters.AddWithValue("@Nombre", categoria.Nombre);
 
@@ -64,8 +66,10 @@ namespace StarFood.Data
                     return rowsAffected > 0;
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                // Log the exception (use a logging framework or System.Diagnostics)
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }
@@ -87,8 +91,10 @@ namespace StarFood.Data
                     return rowsAffected > 0;
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                // Log the exception (use a logging framework or System.Diagnostics)
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }
@@ -109,11 +115,12 @@ namespace StarFood.Data
                     return rowsAffected > 0;
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                // Log the exception (use a logging framework or System.Diagnostics)
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }
     }
 }
-
