@@ -1,5 +1,4 @@
 body {
-    font-family: "Myriad pro Semibold";
     background-color: #002750; /* Color de fondo deseado */
     color: #fff; /* Color de texto blanco */
 }
@@ -21,6 +20,7 @@ body {
     margin-bottom: 20px;
 }
 
+input[type="text"],
 input[type="email"],
 input[type="password"] {
     width: calc(100% - 20px);

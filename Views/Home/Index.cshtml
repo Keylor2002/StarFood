@@ -1,81 +1,103 @@
-﻿@{
+﻿@using StarFood.Utility;
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
-<div class="text-left">
-    <div class="container-fluid">
-        <header class="row py-0">
-            <div class="col-md-6">
-                <h1 class="display-5">Soda La Estrella del Sur</h1>
-                <p class="lead" style="color: 69D0D7;">Starfood</p>
+
+               
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    
+    <div>
+        
+        <h1> Welcome to Starfood</h1>
+        
+        @if (User.IsInRole(Roles.Admin_Role))
+        {
+          
+            <div class="text-left">
+                <div class="container-fluid">
+                    <header class="row py-0">
+                        <div class="col-md-6">
+                            <h1 class="display-5">Soda La Estrella del Sur</h1>
+                            <p class="lead" style="color: #69D0D7;">Starfood</p>
+                        </div>
+                    </header>
+                </div>
+
+                <div class="container mt-4">
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <a href="" class="nav-link">
+                                        <i class="fas fa-tags fa-3x mb-3"></i>
+                                        <h5 class="card-title">Categorías</h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <a href="url-de-menus" class="nav-link">
+                                        <i class="fas fa-box fa-3x mb-3"></i>
+                                        <h5 class="card-title">Productos</h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <a href="url-de-menus" class="nav-link">
+                                        <i class="fas fa-utensils fa-3x mb-3"></i>
+                                        <h5 class="card-title">Menús</h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <a href="url-de-platillos" class="nav-link">
+                                        <i class="fas fa-utensil-spoon fa-3x mb-3"></i>
+                                        <h5 class="card-title">Platillos</h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <a href="url-de-proveedores" class="nav-link">
+                                        <i class="fas fa-truck fa-3x mb-3"></i>
+                                        <h5 class="card-title">Proveedores</h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <a href="url-de-historial" class="nav-link">
+                                        <i class="fas fa-history fa-3x mb-3"></i>
+                                        <h5 class="card-title">Historial</h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </header>
+        }
+
     </div>
 
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-md-3 mb-3">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <a href="@Url.Action("Index", "Login")" class="nav-link">
-                            <i class="fas fa-tags fa-3x mb-3"></i>
-                            <h5 class="card-title">Categorías</h5>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <a href="url-de-menus" class="nav-link">
-                            <i class="fas fa-box fa-3x mb-3"></i>
-                            <h5 class="card-title">Productos</h5>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <a href="url-de-menus" class="nav-link">
-                            <i class="fas fa-utensils fa-3x mb-3"></i>
-                            <h5 class="card-title">Menús</h5>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <a href="url-de-platillos" class="nav-link">
-                            <i class="fas fa-utensil-spoon fa-3x mb-3"></i>
-                            <h5 class="card-title">Platillos</h5>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <a href="url-de-proveedores" class="nav-link">
-                            <i class="fas fa-truck fa-3x mb-3"></i>
-                            <h5 class="card-title">Proveedores</h5>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <a href="url-de-historial" class="nav-link">
-                            <i class="fas fa-history fa-3x mb-3"></i>
-                            <h5 class="card-title">Historial</h5>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+</body>
+</html>
