@@ -1,54 +1,54 @@
 html {
-    font-size: 16px; 
+    font-size: 16px; /* Tamaño de fuente base */
 }
 
-
+/* Media query para pantallas más grandes */
 @media (min-width: 768px) {
     html {
-        font-size: 18px; 
+        font-size: 18px; /* Aumentamos el tamaño de fuente para pantallas más grandes */
     }
 }
 
-
+/* Estilos para el HTML y el body */
 html, body {
-    height: 100%; 
-    margin: 0; 
-    font-family: Arial, sans-serif; 
+    height: 100%; /* Ajustamos la altura al 100% del viewport */
+    margin: 0; /* Eliminamos los márgenes por defecto */
+    font-family: Arial, sans-serif; /* Ejemplo de familia de fuentes */
 }
 
-
+/* Contenedor principal */
 .container {
-    width: 100%; 
-    max-width: 1200px;
-    margin: 0 auto; 
-    padding: 20px; 
-    box-sizing: border-box; 
+    width: 100%; /* El contenedor ocupa todo el ancho disponible */
+    max-width: 1200px; /* Máximo ancho del contenedor */
+    margin: 0 auto; /* Centramos el contenedor horizontalmente */
+    padding: 20px; /* Espacio interno del contenedor */
+    box-sizing: border-box; /* Incluimos el padding en el ancho total */
 }
 
-
+/* Ejemplo de sección con diseño flexible */
 .section {
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-
-
-.element {
-    flex: 1; 
-    margin: 10px; 
-    padding: 10px; 
-    background-color: #f0f0f0; 
-    border: 1px solid #ccc; 
-    text-align: center;
+    display: flex; /* Usamos flexbox para el diseño flexible */
+    justify-content: space-between; /* Distribución de espacio entre elementos */
+    align-items: center; /* Alineación vertical de elementos */
 }
 
+/* Ejemplo de elemento flexible dentro de la sección */
+.element {
+    flex: 1; /* Ocupa todo el espacio disponible */
+    margin: 10px; /* Margen entre elementos */
+    padding: 10px; /* Espacio interno del elemento */
+    background-color: #f0f0f0; /* Color de fondo */
+    border: 1px solid #ccc; /* Borde del elemento */
+    text-align: center; /* Alineación del texto */
+}
 
+/* Media query para pantallas pequeñas */
 @media (max-width: 768px) {
     .section {
-        flex-direction: column; 
+        flex-direction: column; /* Cambiamos a dirección de columna en pantallas pequeñas */
     }
-
     .element {
-        width: 100%; 
+        width: 100%; /* Ancho completo en pantallas pequeñas */
     }
 }
 body {
