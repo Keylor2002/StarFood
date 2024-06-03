@@ -3,7 +3,7 @@ body {
     color: #fff; /* Color de texto blanco */
 }
 
-.div{
+.login-container {
     max-width: 400px;
     margin: auto;
     padding: 20px;
@@ -20,6 +20,7 @@ body {
     margin-bottom: 20px;
 }
 
+input[type="text"],
 input[type="email"],
 input[type="password"] {
     width: calc(100% - 20px);
