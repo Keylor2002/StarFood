@@ -166,7 +166,7 @@ namespace StarFood.Areas.Identity.Pages.Account
 
                     if (Input.Role == null)
                     {
-                        await _userManager.AddToRoleAsync(user, Roles.Employee_Role); //En caso de un auto registro
+                        await _userManager.AddToRoleAsync(user, Roles.Admin_Role); //En caso de un auto registro
                     }
                     else if (User.IsInRole(Roles.Admin_Role))
                     {
