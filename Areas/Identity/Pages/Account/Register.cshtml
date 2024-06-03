@@ -1,4 +1,5 @@
 ﻿@page
+@using StarFood.Utility
 @model RegisterModel
 @{
     ViewData["Title"] = "Register";
@@ -12,6 +13,16 @@
             <h2>Create a new account.</h2>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <div class="form-floating text-info">
+                <input asp-for="Input.IDUsuario" class="form-control text-dark" aria-required="true" />
+                <label asp-for="Input.IDUsuario"></label>
+                <span asp-validation-for="Input.IDUsuario" class="text-danger"></span>
+            </div>
+            <div class="form-floating text-info">
+                <input asp-for="Input.NombreUsuario" class="form-control text-dark" aria-required="true" />
+                <label asp-for="Input.NombreUsuario"></label>
+                <span asp-validation-for="Input.NombreUsuario" class="text-danger"></span>
+            </div>
             <div class="form-floating mb-3">
                 <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
                 <label asp-for="Input.Email">Email</label>
