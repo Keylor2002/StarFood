@@ -7,7 +7,7 @@ using StarFood.Utility;
 
 namespace StarFood.Controllers.User_Controller
 {
-    [Authorize(Roles = Roles.Admin_Role + "," + Roles.Empleado_Role)]
+    [Authorize(Roles = Roles.Admin_Role + "," + Roles.Employee_Role)]
     public class ControladorUsuario : Controller
     {
         private IUnitOfWork _db;
@@ -24,7 +24,7 @@ namespace StarFood.Controllers.User_Controller
             var users = _db.Usuario.GetAll();
             if (User.IsInRole(Roles.Admin_Role))
             {
-                IList<IdentityUser> usersAux = _userManager.GetUsersInRoleAsync(Roles.Empleado_Role).Result;
+                IList<IdentityUser> usersAux = _userManager.GetUsersInRoleAsync(Roles.Employee_Role).Result;
                 List<Models.Usuario> usersList = new List<Models.Usuario>();
                 foreach (var user in usersAux)
                 {
@@ -114,7 +114,7 @@ namespace StarFood.Controllers.User_Controller
         [HttpGet]
         public IActionResult GetAllMedical()
         {
-            IList<IdentityUser> users = _userManager.GetUsersInRoleAsync(Roles.Empleado_Role).Result;
+            IList<IdentityUser> users = _userManager.GetUsersInRoleAsync(Roles.Employee_Role).Result;
             List<Models.Usuario> usersList = new List<Models.Usuario>();
             foreach (var user in users)
             {

@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-//using StarFood.Business_Logic;
+using StarFood.Business_Logic;
 using StarFood.Data;
 using StarFood.Models;
 using StarFood.Repository;
@@ -42,6 +42,7 @@ builder.Services.AddTransient<StarfoodContext>();
 //builder.Services.AddScoped<BusinessCategorias>();
 //builder.Services.AddTransient<DataCategory>(provider => new DataCategory(builder.Configuration.GetConnectionString("DefaultConnection")));
 //builder.Services.AddTransient<BusinessCategorias>();
+
 builder.Services.AddControllersWithViews()
         .AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
