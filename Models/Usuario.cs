@@ -6,7 +6,7 @@ namespace StarFood.Models
     public class Usuario : IdentityUser
     {
         [Key]
-        public int IDUsuario { get; set; }
+        public string IDUsuario { get; set; }
 
         [Required]
         [MaxLength(50)]
