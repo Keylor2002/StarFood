@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using StarFood.Business_Logic;
+//using StarFood.Business_Logic;
 using StarFood.Data;
 using StarFood.Models;
 using StarFood.Repository;
@@ -32,13 +32,23 @@ builder.Services.AddDbContext<StarfoodContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")
         ));
 
-builder.Services.AddScoped<BusinessCategorias>();
-builder.Services.AddTransient<DataCategory>(provider => new DataCategory(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddTransient<BusinessCategorias>();
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddTransient<StarfoodContext>();
+
+//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<StarfoodContext>();
+
+//builder.Services.AddScoped<BusinessCategorias>();
+//builder.Services.AddTransient<DataCategory>(provider => new DataCategory(builder.Configuration.GetConnectionString("DefaultConnection")));
+//builder.Services.AddTransient<BusinessCategorias>();
 builder.Services.AddControllersWithViews()
         .AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
         );
+
+builder.Services.AddControllers().AddJsonOptions(x =>
+    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 var app = builder.Build();
 

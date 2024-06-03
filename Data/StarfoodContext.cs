@@ -1,11 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using StarFood.Models;
 
 namespace StarFood.Data
 {
-    public class StarfoodContext : DbContext
+    public class StarfoodContext : IdentityDbContext
     {
-        public StarfoodContext() { }
+        //public StarfoodContext() { }
         public StarfoodContext(DbContextOptions<StarfoodContext> options)
             : base(options)
         {
