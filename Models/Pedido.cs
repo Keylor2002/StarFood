@@ -8,8 +8,7 @@ namespace StarFood.Models
         [Key]
         public int IDPedido { get; set; }
 
-        [ForeignKey("Usuario")]
-        public int IDUsuario { get; set; }
+        public string IDUsuario { get; set; }
         public Usuario Usuario { get; set; }
 
         public DateTime FechaPedido { get; set; }
