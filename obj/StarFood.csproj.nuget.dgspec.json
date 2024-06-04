@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\edmol\\source\\repos\\Keylor2002\\StarFood\\StarFood.csproj": {}
+    "C:\\Users\\Usuario\\Desktop\\U\\2024\\I Ciclo 2024\\Ingeniería del Software SR - IF7100\\Proyecto\\Github\\StarFood\\StarFood.csproj": {}
   },
   "projects": {
-    "C:\\Users\\edmol\\source\\repos\\Keylor2002\\StarFood\\StarFood.csproj": {
+    "C:\\Users\\Usuario\\Desktop\\U\\2024\\I Ciclo 2024\\Ingeniería del Software SR - IF7100\\Proyecto\\Github\\StarFood\\StarFood.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\edmol\\source\\repos\\Keylor2002\\StarFood\\StarFood.csproj",
+        "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\U\\2024\\I Ciclo 2024\\Ingeniería del Software SR - IF7100\\Proyecto\\Github\\StarFood\\StarFood.csproj",
         "projectName": "StarFood",
-        "projectPath": "C:\\Users\\edmol\\source\\repos\\Keylor2002\\StarFood\\StarFood.csproj",
-        "packagesPath": "C:\\Users\\edmol\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\edmol\\source\\repos\\Keylor2002\\StarFood\\obj\\",
+        "projectPath": "C:\\Users\\Usuario\\Desktop\\U\\2024\\I Ciclo 2024\\Ingeniería del Software SR - IF7100\\Proyecto\\Github\\StarFood\\StarFood.csproj",
+        "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Usuario\\Desktop\\U\\2024\\I Ciclo 2024\\Ingeniería del Software SR - IF7100\\Proyecto\\Github\\StarFood\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\edmol\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -93,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
