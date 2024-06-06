@@ -1,0 +1,102 @@
+﻿<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+        <!-- Botón para abrir y cerrar el sidebar -->
+        <button class="sidebar-toggle" id="sidebar-toggle">
+            <i class="fas fa-star"></i>
+        </button>
+    <ul class="sidebar-nav">
+        <h2 style="margin-left:30px">StarFood</h2>
+        <li><a href="#">Inicio</a></li>
+        <li><a href="#">Opciones</a></li>
+        <li><a href="#">Ayuda</a></li>
+    </ul>
+</div>
+
+<script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+
+        if (sidebar.classList.contains('minimized')) {
+            sidebar.classList.remove('minimized');
+            sidebarToggle.innerHTML = '<i class="fas fa-star"></i>';
+        } else {
+            sidebar.classList.add('minimized');
+            sidebarToggle.innerHTML = '<i class="fas fa-star"></i>';
+        }
+    }
+
+    // Agregar evento al botón de toggle
+    document.getElementById('sidebar-toggle').addEventListener('click', toggleSidebar);
+</script>
+
+<style>
+    /* Estilos para el sidebar */
+    .sidebar {
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100vh;
+        background-color: #333;
+        color: #fff;
+        padding: 20px;
+        transition: width 0.3s ease-in-out;
+    }
+
+    .sidebar-nav {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+        .sidebar-nav li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar-nav a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+            .sidebar-nav a:hover {
+                color: #ccc;
+            }
+
+    /* Estilos para el botón de toggle */
+    .sidebar-toggle {
+        position: absolute;
+        top: 20px;
+        left: 10px;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        font-size: 18px;
+        cursor: pointer;
+    }
+
+    /* Estilos para el contenido principal */
+    .content {
+        margin-left: 250px;
+        padding: 20px;
+    }
+
+    /* Estilos para ajustar el tamaño del sidebar */
+    #sidebar {
+        width: 250px;
+    }
+
+        #sidebar.minimized {
+            width: 65px;
+        }
+
+            #sidebar.minimized .sidebar-header {
+                background-color: #444;
+            }
+
+            #sidebar.minimized .sidebar-nav {
+                display: none;
+            }
+
+</style>
+
