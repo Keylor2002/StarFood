@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Keylor\\StarFood\\StarFood.csproj": {}
+    "C:\\Users\\Usuario\\Desktop\\U\\2024\\I Ciclo 2024\\Ingeniería del Software SR - IF7100\\Proyecto\\Github\\StarFood\\StarFood.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Keylor\\StarFood\\StarFood.csproj": {
+    "C:\\Users\\Usuario\\Desktop\\U\\2024\\I Ciclo 2024\\Ingeniería del Software SR - IF7100\\Proyecto\\Github\\StarFood\\StarFood.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Keylor\\StarFood\\StarFood.csproj",
+        "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\U\\2024\\I Ciclo 2024\\Ingeniería del Software SR - IF7100\\Proyecto\\Github\\StarFood\\StarFood.csproj",
         "projectName": "StarFood",
-        "projectPath": "C:\\Users\\Keylor\\StarFood\\StarFood.csproj",
-        "packagesPath": "C:\\Users\\Keylor\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Keylor\\StarFood\\obj\\",
+        "projectPath": "C:\\Users\\Usuario\\Desktop\\U\\2024\\I Ciclo 2024\\Ingeniería del Software SR - IF7100\\Proyecto\\Github\\StarFood\\StarFood.csproj",
+        "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Usuario\\Desktop\\U\\2024\\I Ciclo 2024\\Ingeniería del Software SR - IF7100\\Proyecto\\Github\\StarFood\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Keylor\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -94,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
