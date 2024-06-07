@@ -1,2 +1,182 @@
-﻿<h1>Bienvenido a StarFood</h1>
-<p>Este es un ejemplo de aplicación que utiliza un sidebar.</p>
+﻿<div class="rounded-box">
+    <!--SearchBox-->
+<input type="text" id="searchInput" placeholder="Buscar...">
+    <!--AddButton-->
+<button class="btn btn-primary" id="addButton">Agregar</button>
+<hr />
+    <!--Table-->
+<table class="table table-hover" id="categoryTable">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>C-001</td>
+            <td>Categoría 1</td>
+            <td>10</td>
+            <td>
+                    <!--SeeOptions-->
+                <button margin-left="20px" id="dropdownButton" class="btn btn-secundary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-three-dots"></i>
+                </button>
+                <ul id="dropdown" class="dropdown-menu">
+                        <!--DisableOption-->
+                        <li><a id="disable-dropdown-item" class="dropdown-item" href="#"><i class="bi bi-pencil-fill"></i> Editar</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="bi bi-heartbreak"></i> Inhabilitar</a></li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+<script>
+    //FilterBox
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', filterTable);
+
+    function filterTable() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const rows = document.querySelectorAll('#categoryTable tbody tr');
+
+        rows.forEach(row => {
+            const name = row.querySelector('td:first-child').textContent.toLowerCase();
+            const category = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+
+            if (name.includes(searchTerm) || category.includes(searchTerm)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+
+    // Add event to SeeOptions
+    document.getElementById('dropdownButton').addEventListener('click', function () {
+        // Verify if the SeeOptions is open
+        if (document.getElementById('dropdown').classList.contains('show')) {
+            // Close the SeeOptions
+            document.getElementById('dropdown').classList.remove('show');
+        } else {
+            // Open the SeeOptions
+            document.getElementById('dropdown').classList.add('show');
+        }
+    });
+
+
+    // Mostrar el preview al pasar el mouse sobre la fila
+    const rows = document.querySelectorAll('#categoryTable tbody tr');
+
+    rows.forEach(row => {
+        row.addEventListener('mouseenter', showPreview);
+        row.addEventListener('mouseleave', hidePreview);
+    });
+
+    function showPreview(event) {
+        const row = event.currentTarget;
+        const name = row.querySelector('td:first-child').textContent;
+        const category = row.querySelector('td:nth-child(2)').textContent;
+        const price = row.querySelector('td:nth-child(3)').textContent;
+
+        // Crea y muestra el elemento de preview
+        const preview = document.createElement('div');
+        preview.classList.add('preview');
+        preview.innerHTML = `
+        <h5>${name}</h5>
+        <p>Categoría: ${category}</p>
+        <p>Precio: ${price}</p>
+      `;
+        row.appendChild(preview);
+    }
+
+    function hidePreview(event) {
+        const row = event.currentTarget;
+        const preview = row.querySelector('.preview');
+        row.removeChild(preview);
+    }
+
+</script>
+
+<style>
+    .rounded-box {
+        background-color: var(--color-dark);
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 20px;
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+
+    /* Estilos para la tabla */
+    .table {
+        background-color: var(--color-light);
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+        .table th,
+        .table td {
+            border-color: var(--color-accent);
+            color: var(--color-dark);
+        }
+
+        .table th {
+            background-color: var(--color-accent);
+            color: var(--color-light);
+        }
+
+    .table-hover tbody tr:hover {
+        background-color: var(--color-secondary);
+        color: var(--color-dark);
+    }
+    .btn-primary{
+        background-color: var(--color-secundary);
+        margin-left: 600px;
+        height: 70px;
+        width: 150px;
+    }
+
+    .btn-secundary{
+        background-color: var(--color-light);
+        margin-left: 20px;
+    }
+    /* Estilos para el preview */
+    .preview {
+        position: absolute;
+        background-color: var(--color-light);
+        border: 1px solid var(--color-dark);
+        border-radius: 5px;
+        padding: 0px;
+        z-index: 1;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+        .preview h5 {
+            color: var(--color-accent);
+            margin-bottom: 5px;
+        }
+
+        .preview p {
+            color: var(--color-dark);
+            margin-bottom: 5px;
+        }
+
+    input[type="text"] {
+        width: 50%;
+        height: 70px;
+        padding: 20px;
+        border: 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+        input[type="text"]:focus {
+            border-color: #aaa;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }        
+</style>

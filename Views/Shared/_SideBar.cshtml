@@ -1,102 +1,148 @@
 ﻿<!-- Sidebar -->
 <div class="sidebar" id="sidebar">
-        <!-- Botón para abrir y cerrar el sidebar -->
-        <button class="sidebar-toggle" id="sidebar-toggle">
-            <i class="fas fa-star"></i>
-        </button>
+
+    <button class="sidebar-toggle"  id="sidebar-toggle">
+        <i class="bi bi-star-fill" id="home_icon"></i>
+    </button>
+    <h1></h1>
     <ul class="sidebar-nav">
-        <h2 style="margin-left:30px">StarFood</h2>
-        <li><a href="#">Inicio</a></li>
-        <li><a href="#">Opciones</a></li>
-        <li><a href="#">Ayuda</a></li>
+        <h3 class="title">StarFood</h3>
+        <li><a href="#" class="sidebar-item"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="#" class="sidebar-item"><i class="fas fa-users"></i> Users</a></li>
+        <li><a href="#" class="sidebar-item">
+            <i class="bi bi-body-text"></i> 
+            Facturación
+            </a>
+        </li>
+        <hr />
+        <h3 class="title">Inventario</h3>
+        <li>
+            <a href="#" class="sidebar-item" onclick="openFloatingWindow()">
+                <i class="bi bi-tags"></i>
+                Categorías
+            </a>
+        </li>
+        <li>
+            <a href="#" class="sidebar-item">
+                <i class="bi bi-menu-button-fill"></i>
+                Menús
+            </a>
+        </li>
+        <li>
+            <a href="#" class="sidebar-item">
+                <i class="bi bi-cup-straw"></i>
+                Productos
+            </a>
+        </li>
+        <li>
+            <a href="#" class="sidebar-item">
+                <i class="bi bi-egg-fried"></i>
+                Platillos
+            </a>
+        </li>
+        <hr />
+        <h3 class="title">Gestión</h3>
+        <li>
+            <a href="#" class="sidebar-item">
+                <i class="bi bi-receipt"></i>
+                Pedidos
+            </a>
+        </li>
+        <li>
+            <a href="#" class="sidebar-item">
+                <i class="bi bi-person-lines-fill"></i>
+                Proveedores
+            </a>
+        </li>
+        <li>
+            <a href="#" class="sidebar-item">
+                <i class="bi bi-clock-history"></i>
+                Historial
+            </a>
+        </li>
     </ul>
 </div>
 
 <script>
-    function toggleSidebar() {
+    // Función para minimizar el sidebar
+    function minimizeSidebar() {
         const sidebar = document.getElementById('sidebar');
         const sidebarToggle = document.getElementById('sidebar-toggle');
 
-        if (sidebar.classList.contains('minimized')) {
-            sidebar.classList.remove('minimized');
-            sidebarToggle.innerHTML = '<i class="fas fa-star"></i>';
-        } else {
-            sidebar.classList.add('minimized');
-            sidebarToggle.innerHTML = '<i class="fas fa-star"></i>';
-        }
+        sidebar.classList.add('minimized');
+        sidebarToggle.innerHTML = '<i class="bi bi-star-half"></i>';
+    }
+
+    // Función para maximizar el sidebar
+    function maximizeSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+
+        sidebar.classList.remove('minimized');
+        sidebarToggle.innerHTML = '<i class="bi bi-star-fill"></i>';
     }
 
     // Agregar evento al botón de toggle
-    document.getElementById('sidebar-toggle').addEventListener('click', toggleSidebar);
+    document.getElementById('sidebar-toggle').addEventListener('click', function () {
+        if (sidebar.classList.contains('minimized')) {
+            maximizeSidebar();
+        } else {
+            minimizeSidebar();
+        }
+    });
+
 </script>
 
 <style>
-    /* Estilos para el sidebar */
     .sidebar {
+        position: fixed;
         top: 0;
         left: 0;
         width: 250px;
         height: 100vh;
-        background-color: #333;
-        color: #fff;
+        background-color: var(--color-accent);
+        color: var(--color-light);
         padding: 20px;
         transition: width 0.3s ease-in-out;
     }
 
-    .sidebar-nav {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
-
-        .sidebar-nav li {
-            margin-bottom: 10px;
+        .sidebar.minimized {
+            width: 80px;
         }
 
-        .sidebar-nav a {
-            color: #fff;
-            text-decoration: none;
-        }
-
-            .sidebar-nav a:hover {
-                color: #ccc;
+            .sidebar.minimized .sidebar-nav {
+                display: none;
             }
 
-    /* Estilos para el botón de toggle */
+            .sidebar.minimized .sidebar-item {
+                display: inline-block;
+                margin-right: 20px;
+            }
+
     .sidebar-toggle {
         position: absolute;
         top: 20px;
-        left: 10px;
-        background-color: #333;
-        color: #fff;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        background-color: var(--color-accent);
+        color: var(--color-light);
         border: none;
-        padding: 10px;
-        font-size: 18px;
+        padding: 0px;
+        font-size: 30px;
         cursor: pointer;
     }
 
-    /* Estilos para el contenido principal */
-    .content {
-        margin-left: 250px;
-        padding: 20px;
-    }
-
-    /* Estilos para ajustar el tamaño del sidebar */
-    #sidebar {
-        width: 250px;
-    }
-
-        #sidebar.minimized {
-            width: 65px;
+        .sidebar-toggle:hover {
+            background-color: var(--color-dark);
         }
 
-            #sidebar.minimized .sidebar-header {
-                background-color: #444;
-            }
-
-            #sidebar.minimized .sidebar-nav {
-                display: none;
-            }
+    .sidebar-nav {
+        list-style: none;
+    }
+    .title{
+        color: var(--color-light);
+    }
 
 </style>
 
