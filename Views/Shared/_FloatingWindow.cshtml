@@ -1,0 +1,95 @@
+﻿<!-- Floating Window -->
+<div class="modal fade" id="floatingWindow" tabindex="-1" aria-labelledby="floatingWindowLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="floatingWindowLabel">Floating Window</h5>
+                <button type="button" id="minimized" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Contenido de la ventana flotante -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="minimizeButton" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#floatingWindow">Minimize</button>
+                <button type="button" id="maximizeButton" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#floatingWindow">Maximize</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Función para abrir la ventana flotante
+    function openFloatingWindow() {
+        document.getElementById('floatingWindow').classList.add('show');
+    }
+
+    // Función para minimizar la ventana flotante
+    function minimizeFloatingWindow() {
+        document.getElementById('floatingWindow').classList.add('minimized');
+    }
+
+    // Función para maximizar la ventana flotante
+    function maximizeFloatingWindow() {
+        document.getElementById('floatingWindow').classList.remove('minimized');
+    }
+
+    // Agregar eventos a los botones
+    document.getElementById('floatingWindow').addEventListener('shown.bs.modal', openFloatingWindow);
+    document.getElementById('floatingWindow').addEventListener('hidden.bs.modal', function () {
+        document.getElementById('floatingWindow').classList.remove('minimized');
+    });
+
+    document.getElementById('minimizeButton').addEventListener('click', minimizeFloatingWindow);
+    document.getElementById('maximizeButton').addEventListener('click', maximizeFloatingWindow);
+
+</script>
+
+<style>
+    /* Estilos para la ventana flotante */
+    .modal {
+        background-color: var(--color-light);
+        padding: 20px;
+        border: 1px solid var(--color-dark);
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-header {
+        background-color: var(--color-accent);
+        color: var(--color-dark);
+        padding: 10px;
+        border-bottom: 1px solid var(--color-dark);
+    }
+
+    .modal-footer {
+        background-color: var(--color-accent);
+        color: var(--color-dark);
+        padding: 10px;
+        border-top: 1px solid var(--color-dark);
+    }
+
+    .minimized {
+        width: 200px;
+        height: 100px;
+        padding: 10px;
+        border: 1px solid var(--color-dark);
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+        .minimized .modal-body {
+            padding: 10px;
+            font-size: 1.2rem;
+            font-weight: normal;
+            color: var(--color-dark);
+        }
+
+        .minimized .modal-footer {
+            padding: 10px;
+            font-size: 1.2rem;
+            font-weight: normal;
+            color: var(--color-dark);
+        }
+
+</style>
