@@ -1,0 +1,71 @@
+﻿:root {
+    --color-white: #ecfcf4;
+    --color-fuchsia: #34224e;
+    --color-accent: #a1387e;
+    --color-sky-blue: #08c3ff;
+}
+
+/* Estilos para los títulos */
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--color-primary);
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--color-secondary);
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-accent);
+}
+
+/* Estilos para el texto principal */
+p {
+    font-size: 1.2rem;
+    font-weight: normal;
+    color: var(--color-dark);
+}
+
+/* Estilos para el texto secundario */
+small {
+    font-size: 1rem;
+    font-weight: normal;
+    color: var(--color-secondary);
+}
+
+/* Estilos para el texto de enlaces */
+a {
+    font-size: 1.2rem;
+    font-weight: normal;
+    color: var(--color-accent);
+    text-decoration: none;
+}
+
+    a:hover {
+        color: var(--color-primary);
+    }
+
+/* Estilos para el texto de botones */
+button {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--color-light);
+    background-color: var(--color-accent);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    button:hover {
+        background-color: var(--color-primary);
+    }
+
+i {
+    color: var(--color-accent)
+}
