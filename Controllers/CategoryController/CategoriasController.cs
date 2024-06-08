@@ -45,33 +45,45 @@ namespace StarFood.Controllers.CategoryController
 
 
         // GET: CategoryController/Edit/5
-        public IActionResult Edit(int? id)
+        [HttpGet]
+        public IActionResult Edit(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
-                return NotFound();
+                return NotFound(new { success = false, message = "ID no proporcionado" });
             }
-            var user = _unitOfWork.Categoria.GetFirstOrDefault(x => x.IDCategoria == id, null);
-            if (user == null)
+
+            var categoria = _unitOfWork.Categoria.GetFirstOrDefault(x => x.IDCategoria == id, null);
+            if (categoria == null)
             {
-                return NotFound();
+                return NotFound(new { success = false, message = "Categoría no encontrada" });
             }
-            return View(user);
+
+            return Json(new { success = true, data = categoria });
         }
 
         // POST: CategoryController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Categoria category)
+        public IActionResult Update([FromBody] Categoria categoria)
         {
-            if (ModelState.IsValid)
+            if (categoria == null || categoria.IDCategoria == 0)
             {
-                _unitOfWork.Categoria.Update(category);
-                _unitOfWork.Save();
+                return BadRequest(new { success = false, message = "Datos de categoría no proporcionados o inválidos" });
             }
-            TempData["success"] = "Categoria editada correctamente";
-            return RedirectToAction("Index");
 
+            var categoriaEnDb = _unitOfWork.Categoria.GetFirstOrDefault(x => x.IDCategoria == categoria.IDCategoria, null);
+            if (categoriaEnDb == null)
+            {
+                return NotFound(new { success = false, message = "Categoría no encontrada" });
+            }
+
+            categoriaEnDb.Nombre = categoria.Nombre;
+
+            _unitOfWork.Categoria.Update(categoriaEnDb);
+            _unitOfWork.Save();
+
+            return Json(new { success = true, message = "Categoría actualizada correctamente" });
         }
 
         public IActionResult GetAll()
