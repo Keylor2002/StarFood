@@ -1,15 +1,15 @@
 ﻿<!-- Sidebar -->
 <div class="sidebar" id="sidebar">
 
-    <button class="sidebar-toggle"  id="sidebar-toggle">
+    <button class="sidebar-toggle" id="sidebar-toggle">
         <i class="bi bi-star-fill" id="home_icon"></i>
     </button>
-    <h1></h1>
+    <h2 class="sidebar-title">StarFood</h2>
     <ul class="sidebar-nav">
-        <h2 style="margin-left:30px">StarFood</h2>
-        <li><a href="#">Inicio</a></li>
-        <li><a href="#">Opciones</a></li>
-        <li><a href="#">Ayuda</a></li>
+        <li><a href="#"><i class="bi bi-house-door"></i><span>Inicio</span></a></li>
+        <li><a href="#"><i class="bi bi-gear"></i><span>Opciones</span></a></li>
+        <li><a href="#"><i class="bi bi-question-circle"></i><span>Ayuda</span></a></li>
+        <li><a href="#" id="productos-link"><i class="bi bi-basket"></i><span>Producto</span></a></li>
     </ul>
 </div>
 
@@ -18,27 +18,48 @@
     function minimizeSidebar() {
         const sidebar = document.getElementById('sidebar');
         const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebarTitle = document.querySelector('.sidebar-title');
+        const sidebarNav = document.querySelectorAll('.sidebar-nav li a');
 
         sidebar.classList.add('minimized');
         sidebarToggle.innerHTML = '<i class="bi bi-star-half"></i>';
+        sidebarTitle.style.display = 'none';
+        sidebarNav.forEach(link => {
+            link.querySelector('span').style.display = 'none';
+            link.querySelector('i').style.marginLeft = '10px';
+        });
     }
 
     // Función para maximizar el sidebar
     function maximizeSidebar() {
         const sidebar = document.getElementById('sidebar');
         const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebarTitle = document.querySelector('.sidebar-title');
+        const sidebarNav = document.querySelectorAll('.sidebar-nav li a');
 
         sidebar.classList.remove('minimized');
         sidebarToggle.innerHTML = '<i class="bi bi-star-fill"></i>';
+        sidebarTitle.style.display = 'block';
+        sidebarNav.forEach(link => {
+            link.querySelector('span').style.display = 'inline';
+            link.querySelector('i').style.marginLeft = '0';
+        });
     }
 
     // Agregar evento al botón de toggle
     document.getElementById('sidebar-toggle').addEventListener('click', function () {
+        const sidebar = document.getElementById('sidebar');
         if (sidebar.classList.contains('minimized')) {
             maximizeSidebar();
         } else {
             minimizeSidebar();
         }
+    });
+
+    // Agregar evento al enlace de productos para redirigir
+    document.getElementById('productos-link').addEventListener('click', function (event) {
+        event.preventDefault(); // Evitar el comportamiento predeterminado del enlace
+        window.location.href = '/Productos/Index';
     });
 
 </script>
@@ -54,25 +75,18 @@
         color: var(--color-light);
         padding: 20px;
         transition: width 0.3s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
     }
 
         .sidebar.minimized {
             width: 80px;
+            align-items: center;
         }
 
-            .sidebar.minimized .sidebar-nav {
-                display: none;
-            }
-
-            .sidebar.minimized .sidebar-item {
-                display: inline-block;
-                margin-right: 20px;
-            }
-
     .sidebar-toggle {
-        position: absolute;
-        top: 20px;
-        right: 20px;
+        align-self: flex-end;
         width: 50px;
         height: 50px;
         background-color: var(--color-accent);
@@ -81,18 +95,57 @@
         padding: 0px;
         font-size: 30px;
         cursor: pointer;
+        margin-bottom: 20px;
     }
 
         .sidebar-toggle:hover {
             background-color: var(--color-dark);
         }
 
+    .sidebar-title {
+        color: var(--color-light);
+        margin-left: 30px;
+        margin-bottom: 20px;
+        transition: opacity 0.3s ease-in-out;
+    }
+
     .sidebar-nav {
         list-style: none;
-    }
-    .title{
-        color: var(--color-light);
+        padding: 0;
+        width: 100%;
     }
 
+        .sidebar-nav li {
+            width: 100%;
+        }
+
+            .sidebar-nav li a {
+                display: flex;
+                align-items: center; /* Alinear iconos y texto verticalmente */
+                padding: 10px 30px;
+                color: var(--color-light);
+                text-decoration: none;
+                position: relative;
+            }
+
+                .sidebar-nav li a i {
+                    margin-right: 10px; /* Margen derecho entre el icono y el texto */
+                    transition: margin 0.3s ease-in-out; /* Agregar transición para el margen */
+                }
+
+                .sidebar-nav li a span {
+                    transition: opacity 0.3s ease-in-out;
+                }
+
+            .sidebar-nav li.minimized a i {
+                margin-left: 10px; /* Ajustar la posición del icono cuando el sidebar está minimizado */
+            }
+
+            .sidebar-nav li.minimized a span {
+                display: none;
+            }
+
+            .sidebar-nav li a:hover {
+                background-color: var(--color-dark);
+            }
 </style>
-
