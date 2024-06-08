@@ -2,49 +2,100 @@
     ViewData["Title"] = "Home Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="container mt-4">
-    <div class="rounded-box">
-        <!--SearchBox and AddButton-->
-        <div class="row mb-3 align-items-center">
-            <div class="col-md-10">
-                <input type="text" class="form-control" id="searchInput" placeholder="Buscar...">
-            </div>
-            <div class="col-md-2 text-right">
-                <button class="btn btn-primary" id="addButton">Agregar</button>
-            </div>
-        </div>
-        <hr />
-        <!--Table-->
-        <table class="table table-hover" id="categoryTable">
-            <thead>
-                <tr>
-                    <th>Código</th>
-                    <th>Nombre</th>
-                    <th>Cantidad</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>C-001</td>
-                    <td>Categoría 1</td>
-                    <td>10</td>
-                    <td>
-                        <!--SeeOptions-->
-                        <button id="dropdownButton" class="btn btn-secondary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-three-dots"></i>
-                        </button>
-                        <ul id="dropdown" class="dropdown-menu">
-                            <!--DisableOption-->
-                            <li><a id="disable-dropdown-item" class="dropdown-item" href="#"><i class="bi bi-pencil-fill"></i> Editar</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-heartbreak"></i> Inhabilitar</a></li>
-                        </ul>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <div class="header-container">
+        <h1>Soda Starfood</h1>
+        <a href="tu-enlace-de-WhatsApp" class="whatsapp-button">
+            <i class="bi bi-whatsapp"></i>
+        </a>
     </div>
-</div>
+
+</head>
+<body>
+    <!-- Contenido de la página, incluyendo el carrusel -->
+    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            
+            <div class="carousel-item active">
+                <img src="\Imagenes\comida.jpg" class="d-block w-100 carousel-img" alt="...">
+                <div class="carousel-caption">
+                    <h1>Bienvenidos Al Home Administrador</h1>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <img src="\Imagenes\casado.jpg" class="d-block w-100 carousel-img" alt="...">
+                <div class="carousel-caption">
+                    <h1>Variedad de platillos</h1>
+                </div>
+            </div>
+
+            
+            <div class="carousel-item">
+                <img src="\Imagenes\ensalada.jpg" class="d-block w-100 carousel-img" alt="...">
+                <div class="carousel-caption">
+                    <h1>Disfruta de nuestra variedad de platillos</h1>
+                </div>
+            </div>
+
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <div>
+        <h2>Elige una opcion</h2>
+    </div>
+
+    <section class="container">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          
+            <div class="col">
+                <a href="/otra-vista">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title" style="color: black"><i class="bi bi-basket"></i> Inventario</h5>
+                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="/otra-vista">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title" style="color: black"><i class="bi bi-newspaper"></i> Facturas</h5>
+                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="/otra-vista">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title" style="color: black"><i class="bi bi-inboxes-fill"></i> Productos</h5>
+                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+
+</body>
 
 <script>
     // FilterBox
@@ -110,79 +161,3 @@
         row.removeChild(preview);
     }
 </script>
-
-<style>
-    .rounded-box {
-        background-color: var(--color-dark);
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        padding: 20px;
-        margin: 0 auto; /* Centrar el contenedor */
-    }
-
-    /* Estilos para la tabla */
-    .table {
-        background-color: var(--color-light);
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .table th,
-    .table td {
-        border-color: var(--color-accent);
-        color: var(--color-dark);
-    }
-
-    .table th {
-        background-color: var(--color-accent);
-        color: var(--color-light);
-    }
-
-    .table-hover tbody tr:hover {
-        background-color: var(--color-secondary);
-        color: var(--color-dark);
-    }
-
-    .btn-primary {
-        background-color: var(--color-secondary);
-        width: 100%; /* Hacer que el botón ocupe todo el ancho de la columna */
-    }
-
-    .btn-secondary {
-        background-color: var(--color-light);
-        margin-left: 20px;
-    }
-
-    /* Estilos para el preview */
-    .preview {
-        position: absolute;
-        background-color: var(--color-light);
-        border: 1px solid var(--color-dark);
-        border-radius: 5px;
-        padding: 10px;
-        z-index: 1;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .preview h5 {
-        color: var(--color-accent);
-        margin-bottom: 5px;
-    }
-
-    .preview p {
-        color: var(--color-dark);
-        margin-bottom: 5px;
-    }
-
-    input[type="text"] {
-        width: 100%; /* Hacer que el input ocupe todo el ancho de la columna */
-        padding: 10px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    input[type="text"]:focus {
-        border-color: #aaa;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
-</style>
