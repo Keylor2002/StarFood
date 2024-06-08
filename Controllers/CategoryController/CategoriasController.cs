@@ -5,12 +5,12 @@ using StarFood.Repository.IRepository;
 
 namespace StarFood.Controllers.CategoryController
 {
-    public class CategoryController : Controller
+    public class CategoriasController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
         private IWebHostEnvironment _webHostEnvironment;
         
-        public CategoryController (IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
+        public CategoriasController (IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
             _webHostEnvironment = webHostEnvironment;
@@ -19,8 +19,9 @@ namespace StarFood.Controllers.CategoryController
         // GET: CategoryController
         public IActionResult Index()
         {
-            IEnumerable<Categoria> categoryList = _unitOfWork.Categoria.GetAll();
-            return View(categoryList);
+            //IEnumerable<Categoria> categoryList = _unitOfWork.Categoria.GetAll();
+            //return View(categoryList);
+            return View();
         }
 
         // GET: CategoryController/Create
@@ -29,19 +30,19 @@ namespace StarFood.Controllers.CategoryController
             return View();
         }
 
-        // POST: CategoryController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(Categoria category)
+        public IActionResult Create([FromBody] Categoria categoria)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Categoria.Add(category);
+                _unitOfWork.Categoria.Add(categoria);
                 _unitOfWork.Save();
+                return Json(new { success = true, message = "Categoria creada correctamente" });
             }
-            TempData["success"] = "Categoria agregada correctamente";
-            return RedirectToAction("Index");
+
+            return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
         }
+
 
         // GET: CategoryController/Edit/5
         public IActionResult Edit(int? id)
