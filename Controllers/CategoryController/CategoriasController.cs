@@ -16,7 +16,7 @@ namespace StarFood.Controllers.CategoryController
             _webHostEnvironment = webHostEnvironment;
         }
 
-        // GET: CategoryController
+
         public IActionResult Index()
         {
             //IEnumerable<Categoria> categoryList = _unitOfWork.Categoria.GetAll();
@@ -24,12 +24,13 @@ namespace StarFood.Controllers.CategoryController
             return View();
         }
 
-        // GET: CategoryController/Create
+        
         public IActionResult Create()
         {
             return View();
         }
 
+        // Works
         [HttpPost]
         public IActionResult Create([FromBody] Categoria categoria)
         {
@@ -44,7 +45,7 @@ namespace StarFood.Controllers.CategoryController
         }
 
 
-        // GET: CategoryController/Edit/5
+        // Works
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -62,30 +63,60 @@ namespace StarFood.Controllers.CategoryController
             return Json(new { success = true, data = categoria });
         }
 
-        // POST: CategoryController/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Update([FromBody] Categoria categoria)
+        public IActionResult EjecutarUpdate()
         {
-            if (categoria == null || categoria.IDCategoria == 0)
+            Categoria categoria = new Categoria
             {
-                return BadRequest(new { success = false, message = "Datos de categoría no proporcionados o inválidos" });
-            }
+                IDCategoria = 1,
+                Nombre = "Nueva categoría actualizada" 
+            };
 
-            var categoriaEnDb = _unitOfWork.Categoria.GetFirstOrDefault(x => x.IDCategoria == categoria.IDCategoria, null);
-            if (categoriaEnDb == null)
-            {
-                return NotFound(new { success = false, message = "Categoría no encontrada" });
-            }
+            var result = Update(categoria);
 
-            categoriaEnDb.Nombre = categoria.Nombre;
 
-            _unitOfWork.Categoria.Update(categoriaEnDb);
-            _unitOfWork.Save();
-
-            return Json(new { success = true, message = "Categoría actualizada correctamente" });
+            return Ok(result);
         }
 
+        // Works
+        [HttpPost]
+        public IActionResult Update([FromBody] Categoria _category)
+        {
+            if (ModelState.IsValid)
+            {
+                if (_category.IDCategoria == 0 || _category.IDCategoria == null)
+                    _unitOfWork.Categoria.Add(_category);
+                else
+                    _unitOfWork.Categoria.Update(_category);
+
+                _unitOfWork.Save();
+                TempData["success"] = "Category saved successfully";
+            }
+            else
+            {
+                TempData["error"] = "Error saving category";
+            }
+
+            return Json(new { success = true, data = _category });
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(int? id)
+        {
+            var CategoryToDelete = _unitOfWork.Categoria.Get(u => u.IDCategoria == id);
+
+            if (CategoryToDelete == null)
+            {
+                return Json(new { success = false, message = "Error while deleting category" });
+            }
+
+            _unitOfWork.Categoria.Remove(CategoryToDelete);
+            _unitOfWork.Save();
+            return Json(new { success = true, message = "Category deleted successfully" });
+        }
+
+
+        // Works
         public IActionResult GetAll()
         {
             var category = _unitOfWork.Categoria.GetAll();
