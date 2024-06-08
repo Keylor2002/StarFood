@@ -1,0 +1,50 @@
+﻿@model StarFood.Models.Proveedor
+
+@{
+    ViewData["Title"] = "Crear Proveedor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="mb-3">Crear Proveedor</h1>
+
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <!-- Columna centralizada -->
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row mb-3">
+                <div class="col-sm-6">
+                    <!-- Primera fila -->
+                    <div class="form-group">
+                        <label for="Empresa" class="col-form-label">Empresa:</label>
+                        <input asp-for="Empresa" class="form-control" />
+                        <span asp-validation-for="Empresa" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Contacto" class="col-form-label">Contacto:</label>
+                        <input asp-for="Contacto" class="form-control" />
+                        <span asp-validation-for="Contacto" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Nombre" class="col-form-label">Nombre:</label>
+                        <input asp-for="Nombre" class="form-control" />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row mb-3">
+                <div class="col-sm-12 text-center">
+                    <!-- Botones centrados -->
+                    <button type="submit" class="btn btn-primary">Crear</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

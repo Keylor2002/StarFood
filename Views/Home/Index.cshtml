@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Productos Index";
+    ViewData["Title"] = "Home Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="container mt-4">
@@ -97,10 +97,10 @@
         const preview = document.createElement('div');
         preview.classList.add('preview');
         preview.innerHTML = `
-                <h5>${name}</h5>
-                <p>Categoría: ${category}</p>
-                <p>Precio: ${price}</p>
-            `;
+            <h5>${name}</h5>
+            <p>Categoría: ${category}</p>
+            <p>Precio: ${price}</p>
+        `;
         row.appendChild(preview);
     }
 
@@ -127,16 +127,16 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
 
-        .table th,
-        .table td {
-            border-color: var(--color-accent);
-            color: var(--color-dark);
-        }
+    .table th,
+    .table td {
+        border-color: var(--color-accent);
+        color: var(--color-dark);
+    }
 
-        .table th {
-            background-color: var(--color-accent);
-            color: var(--color-light);
-        }
+    .table th {
+        background-color: var(--color-accent);
+        color: var(--color-light);
+    }
 
     .table-hover tbody tr:hover {
         background-color: var(--color-secondary);
@@ -164,15 +164,15 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
 
-        .preview h5 {
-            color: var(--color-accent);
-            margin-bottom: 5px;
-        }
+    .preview h5 {
+        color: var(--color-accent);
+        margin-bottom: 5px;
+    }
 
-        .preview p {
-            color: var(--color-dark);
-            margin-bottom: 5px;
-        }
+    .preview p {
+        color: var(--color-dark);
+        margin-bottom: 5px;
+    }
 
     input[type="text"] {
         width: 100%; /* Hacer que el input ocupe todo el ancho de la columna */
@@ -181,8 +181,8 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
-        input[type="text"]:focus {
-            border-color: #aaa;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
+    input[type="text"]:focus {
+        border-color: #aaa;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
 </style>

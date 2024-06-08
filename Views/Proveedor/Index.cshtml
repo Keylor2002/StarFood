@@ -1,0 +1,109 @@
+﻿@model IEnumerable<StarFood.Models.Proveedor>
+
+@{
+    ViewData["Title"] = "Proveedor Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="rounded-box">
+        <!-- SearchBox and AddButton -->
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-10">
+                <form class="d-flex" method="get" asp-action="Index">
+                    <input class="form-control me-2" type="search" placeholder="Buscar por nombre" aria-label="Buscar" name="searchString">
+                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
+        <!-- Buttons Row -->
+        <div class="row mb-3 text-center">
+            <div class="col-md-4">
+                <a class="btn btn-outline-success w-100" asp-action="Create">Crear</a>
+            </div>
+            <div class="col-md-4">
+                <a class="btn btn-outline-warning w-100" asp-action="Edit">Editar</a>
+            </div>
+            <div class="col-md-4">
+                <a class="btn btn-outline-danger w-100" asp-action="Delete">Borrar</a>
+            </div>
+        </div>
+        <hr />
+        <!-- Table -->
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Nombre)</th>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Empresa)</th>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Contacto)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Empresa)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Contacto)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    .rounded-box {
+        background-color: var(--color-dark);
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 0 auto; /* Center the container */
+    }
+
+    .table {
+        background-color: var(--color-light);
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+        .table th,
+        .table td {
+            border-color: var(--color-accent);
+            color: var(--color-dark);
+        }
+
+        .table th {
+            background-color: var(--color-accent);
+            color: var(--color-light);
+        }
+
+    .table-hover tbody tr:hover {
+        background-color: var(--color-secondary);
+        color: var(--color-dark);
+    }
+
+    .btn-primary {
+        background-color: var(--color-secondary);
+        width: 100%; /* Make the button take up the full width of the column */
+    }
+
+    .btn-secondary {
+        background-color: var(--color-light);
+        margin-left: 20px;
+    }
+
+    input[type="search"] {
+        width: 100%; /* Make the input take up the full width of the column */
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+        input[type="search"]:focus {
+            border-color: #aaa;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+</style>

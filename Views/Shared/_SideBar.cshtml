@@ -1,4 +1,5 @@
-﻿<!-- Sidebar -->
+﻿
+<!-- Sidebar -->
 <div class="sidebar" id="sidebar">
 
     <button class="sidebar-toggle" id="sidebar-toggle">
@@ -6,12 +7,15 @@
     </button>
     <h2 class="sidebar-title">StarFood</h2>
     <ul class="sidebar-nav">
-        <li><a href="#"><i class="bi bi-house-door"></i><span>Inicio</span></a></li>
-        <li><a href="#"><i class="bi bi-gear"></i><span>Opciones</span></a></li>
-        <li><a href="#"><i class="bi bi-question-circle"></i><span>Ayuda</span></a></li>
+        <li><a href="#" id="inicio-link"><i class="bi bi-house-door"></i><span>Inicio</span></a></li>
         <li><a href="#" id="productos-link"><i class="bi bi-basket"></i><span>Producto</span></a></li>
+        <li><a href="#" id="platillos-link"><i class="bi bi-plate"></i><span>Platillos</span></a></li>
+        <li><a href="#" id="proveedor-link"><i class="bi bi-truck"></i><span>Proveedores</span></a></li>
+        <li><a href="#" id="pedidos-link"><i class="bi bi-receipt"></i><span>Pedidos</span></a></li>
+        <li><a href="#" id="facturas-link"><i class="bi bi-file-earmark-text"></i><span>Facturas</span></a></li>
     </ul>
 </div>
+
 
 <script>
     // Función para minimizar el sidebar
@@ -56,12 +60,37 @@
         }
     });
 
-    // Agregar evento al enlace de productos para redirigir
+    // Agregar eventos de clic para redirigir a las vistas respectivas
+    document.getElementById('inicio-link').addEventListener('click', function (event) {
+        event.preventDefault();
+        window.location.href = '/Home/Index';
+    });
+
     document.getElementById('productos-link').addEventListener('click', function (event) {
-        event.preventDefault(); // Evitar el comportamiento predeterminado del enlace
+        event.preventDefault();
         window.location.href = '/Productos/Index';
     });
 
+    document.getElementById('platillos-link').addEventListener('click', function (event) {
+        event.preventDefault();
+        window.location.href = '/Platillos/Index';
+    });
+
+    document.getElementById('proveedor-link').addEventListener('click', function (event) {
+        event.preventDefault();
+        window.location.href = '/Proveedor/Index';
+    });
+
+
+    document.getElementById('pedidos-link').addEventListener('click', function (event) {
+        event.preventDefault();
+        window.location.href = '/Pedidos/Index';
+    });
+
+    document.getElementById('facturas-link').addEventListener('click', function (event) {
+        event.preventDefault();
+        window.location.href = '/Facturas/Index';
+    });
 </script>
 
 <style>

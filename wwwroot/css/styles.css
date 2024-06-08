@@ -71,3 +71,27 @@ button {
         background-color: var(--color-primary);
     }
 
+.logo-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* Espacio entre el logo y el título */
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px; /* Espacio entre el logo y la estrella */
+}
+
+.sidebar-title {
+    color: var(--color-light);
+    margin-left: 20px; /* Ajusta el margen izquierdo del título */
+    margin-bottom: 20px; /* Espacio entre el título y los elementos de la barra lateral */
+    transition: opacity 0.3s ease-in-out;
+}
+
+.imagen {
+    width: 100px; /* Ancho deseado */
+    height: auto; /* Altura automática para mantener la proporción */
+    margin-bottom: 20px; /* Espacio debajo de la imagen */
+}

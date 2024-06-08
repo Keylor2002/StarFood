@@ -4,64 +4,120 @@
     ViewData["Title"] = "Productos Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div style="margin-bottom: 10px; margin-left: 20px;">
-    <!-- Ajustar el margen izquierdo del contenedor principal -->
-    <h1 style="margin-bottom: 10px;">Productos</h1>
 
-    <div class="d-flex justify-content-between mb-3">
-        <div style="margin-right: 10px;">
-            <a class="btn btn-primary" asp-action="Create">Crear Nuevo</a>
-            <a class="btn btn-warning" asp-action="Edit">Editar Producto</a>
-            <a class="btn btn-danger" asp-action="Delete">Eliminar Producto</a>
+<div class="container mt-4">
+    <div class="rounded-box">
+        <!-- SearchBox and AddButton -->
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-10">
+                <form class="d-flex" method="get" asp-action="Index">
+                    <input class="form-control me-2" type="search" placeholder="Buscar por nombre" aria-label="Buscar" name="searchString">
+                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
+            </div>
         </div>
-        <div class="d-flex align-items-center">
-            <form class="d-flex" method="get" asp-action="Index" style="margin-right: 10px;">
-                <!-- Ajustar margen derecho del formulario -->
-                <input class="form-control me-2" type="search" placeholder="Buscar por nombre" aria-label="Buscar" name="searchString">
-                <button class="btn btn-outline-success" type="submit">Buscar</button>
-            </form>
+        <!-- Buttons Row -->
+        <div class="row mb-3 text-center">
+            <div class="col-md-4">
+                <a class="btn btn-outline-success w-100" asp-action="Create">Crear</a>
+            </div>
+            <div class="col-md-4">
+                <a class="btn btn-outline-warning w-100" asp-action="Edit">Editar</a>
+            </div>
+            <div class="col-md-4">
+                <a class="btn btn-outline-danger w-100" asp-action="Delete">Borrar</a>
+            </div>
         </div>
-    </div>
-
-    <div class="table-responsive">
-        <!-- Agregar un contenedor responsive para la tabla -->
-        <table class="table table-striped table-bordered" style="margin: 0 auto;">
-            <!-- Centrar la tabla y aplicar margen a los lados -->
-            <thead class="thead-dark">
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Nombre)</th>
-                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Categoria.Nombre)</th>
-                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().PrecioCosto)</th>
-                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().CantidadExistente)</th>
-                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().PrecioVenta)</th>
-                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().UnidadMedida)</th>
-                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().FechaCaducidad)</th>
-                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().FechaCompra)</th>
-                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Proveedor.Contacto)</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+        <hr />
+        <!-- Table -->
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
                     <tr>
-                        <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Categoria.Nombre)</td>
-                        <td>@Html.DisplayFor(modelItem => item.PrecioCosto)</td>
-                        <td>@Html.DisplayFor(modelItem => item.CantidadExistente)</td>
-                        <td>@Html.DisplayFor(modelItem => item.PrecioVenta)</td>
-                        <td>@Html.DisplayFor(modelItem => item.UnidadMedida)</td>
-                        <td>@Html.DisplayFor(modelItem => item.FechaCaducidad)</td>
-                        <td>@Html.DisplayFor(modelItem => item.FechaCompra)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Proveedor.Contacto)</td>
-                        <td>
-                            <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@item.IDProducto">Editar</a>
-                            <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.IDProducto">Detalles</a>
-                            <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.IDProducto">Eliminar</a>
-                        </td>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Nombre)</th>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Categoria.Nombre)</th>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().PrecioCosto)</th>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().CantidadExistente)</th>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().PrecioVenta)</th>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().UnidadMedida)</th>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().FechaCaducidad)</th>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().FechaCompra)</th>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Proveedor.Contacto)</th>
+                        <!-- Eliminar la columna de acciones -->
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Categoria.Nombre)</td>
+                            <td>@Html.DisplayFor(modelItem => item.PrecioCosto)</td>
+                            <td>@Html.DisplayFor(modelItem => item.CantidadExistente)</td>
+                            <td>@Html.DisplayFor(modelItem => item.PrecioVenta)</td>
+                            <td>@Html.DisplayFor(modelItem => item.UnidadMedida)</td>
+                            <td>@Html.DisplayFor(modelItem => item.FechaCaducidad)</td>
+                            <td>@Html.DisplayFor(modelItem => item.FechaCompra)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Proveedor.Contacto)</td>
+                            <!-- No incluir la columna de acciones -->
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
+<style>
+    .rounded-box {
+        background-color: var(--color-dark);
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 0 auto; /* Center the container */
+    }
+
+    .table {
+        background-color: var(--color-light);
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+        .table th,
+        .table td {
+            border-color: var(--color-accent);
+            color: var(--color-dark);
+        }
+
+        .table th {
+            background-color: var(--color-accent);
+            color: var(--color-light);
+        }
+
+    .table-hover tbody tr:hover {
+        background-color: var(--color-secondary);
+        color: var(--color-dark);
+    }
+
+    .btn-primary {
+        background-color: var(--color-secondary);
+        width: 100%; /* Make the button take up the full width of the column */
+    }
+
+    .btn-secondary {
+        background-color: var(--color-light);
+        margin-left: 20px;
+    }
+
+    input[type="search"] {
+        width: 100%; /* Make the input take up the full width of the column */
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+        input[type="search"]:focus {
+            border-color: #aaa;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+</style>
