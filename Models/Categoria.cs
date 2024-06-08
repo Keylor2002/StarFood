@@ -8,7 +8,7 @@ namespace StarFood.Models
         public int IDCategoria { get; set; }
 
         [Required]
-        [MaxLength(80)]
+        [StringLength(80)]
         public string Nombre { get; set; }
     }
 }

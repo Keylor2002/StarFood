@@ -45,6 +45,7 @@ namespace StarFood.Controllers.SupplierController
                 _unitOfWork.Save();
             }
             TempData["success"] = "Proveedor agregado correctamente";
+            //return Json(new { data = supplier, success = true });
             return RedirectToAction("Index");
         }
 
