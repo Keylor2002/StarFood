@@ -3,14 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using StarFood.Models;
 using StarFood.Repository.IRepository;
 
-namespace StarFood.Controllers.CategoryController
+namespace StarFood.Controllers.ProductController
 {
-    public class CategoryController : Controller
+    public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
         private IWebHostEnvironment _webHostEnvironment;
         
-        public CategoryController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
+        public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
             _webHostEnvironment = webHostEnvironment;
@@ -19,9 +19,8 @@ namespace StarFood.Controllers.CategoryController
 
         public IActionResult Index()
         {
-            IEnumerable<Categoria> categoryList = _unitOfWork.Categoria.GetAll();
-            return View(categoryList);
-            
+            IEnumerable<Producto> ProductList = _unitOfWork.Producto.GetAll();
+            return View(ProductList);
         }
 
         
@@ -32,17 +31,16 @@ namespace StarFood.Controllers.CategoryController
 
         // Works
         [HttpPost]
-        public IActionResult Create([FromBody] Categoria categoria)
+        public IActionResult Create([FromBody] Producto producto)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Categoria.Add(categoria);
+                _unitOfWork.Producto.Add(producto);
                 _unitOfWork.Save();
-                //return Json(new { success = true, message = "Categoria creada correctamente" });
+                return Json(new { success = true, message = "producto creada correctamente" });
             }
-            TempData["success"] = "Categoria creada correctamente";
+
             return RedirectToAction("Index");
-            //return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
         }
 
 
@@ -55,25 +53,24 @@ namespace StarFood.Controllers.CategoryController
                 return NotFound(new { success = false, message = "ID no proporcionado" });
             }
 
-            var categoria = _unitOfWork.Categoria.GetFirstOrDefault(x => x.IDCategoria == id, null);
-            if (categoria == null)
+            var producto = _unitOfWork.Producto.GetFirstOrDefault(x => x.IDProducto == id, null);
+            if (producto == null)
             {
-                return NotFound(new { success = false, message = "Categoría no encontrada" });
+                return NotFound(new { success = false, message = "Producto no encontrado" });
             }
 
             return RedirectToAction("Index");
         }
 
 
-        // Works
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public IActionResult Edit([FromBody] Categoria category)
+        public IActionResult Edit([FromBody] Producto producto)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Categoria.Update(category);
+                _unitOfWork.Producto.Update(producto);
                 _unitOfWork.Save();
                 //return Json(new { success = true, message = "Categoria actualizada correctamente" });
             }
@@ -81,6 +78,7 @@ namespace StarFood.Controllers.CategoryController
             return RedirectToAction("Index");
             //return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
         }
+
 
         //[HttpDelete]
         //public IActionResult Delete(int? id)
@@ -120,7 +118,7 @@ namespace StarFood.Controllers.CategoryController
         // Works
         public IActionResult GetAll()
         {
-            var category = _unitOfWork.Categoria.GetAll();
+            var category = _unitOfWork.Producto.GetAll();
             return Json(new { data = category, success = true });
         }
     }
