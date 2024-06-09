@@ -21,5 +21,10 @@ namespace StarFood.Models
         public decimal Precio { get; set; }
 
         public string Descripcion { get; set; }
+
+        public bool Suspendido { get; set; }
+
+        [Required]
+        public string ImagenUrl { get; set; }
     }
 }

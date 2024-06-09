@@ -8730,19 +8730,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\Keylor\\StarFood\\StarFood.csproj",
       "projectName": "StarFood",
       "projectPath": "C:\\Users\\Keylor\\StarFood\\StarFood.csproj",
       "packagesPath": "C:\\Users\\Keylor\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Keylor\\StarFood\\obj\\",
-=======
-      "projectUniqueName": "C:\\Users\\edmol\\source\\repos\\StarFood\\StarFood.csproj",
-      "projectName": "StarFood",
-      "projectPath": "C:\\Users\\edmol\\source\\repos\\StarFood\\StarFood.csproj",
-      "packagesPath": "C:\\Users\\edmol\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\edmol\\source\\repos\\StarFood\\obj\\",
->>>>>>> Product Controllet Creation
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Keylor\\AppData\\Roaming\\NuGet\\NuGet.Config",

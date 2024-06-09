@@ -82,21 +82,40 @@ namespace StarFood.Controllers.CategoryController
             //return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
         }
 
-        [HttpDelete]
-        public IActionResult Delete(int? id)
-        {
-            var CategoryToDelete = _unitOfWork.Categoria.Get(u => u.IDCategoria == id);
+        //[HttpDelete]
+        //public IActionResult Delete(int? id)
+        //{
+        //    var CategoryToDelete = _unitOfWork.Categoria.Get(u => u.IDCategoria == id);
 
-            if (CategoryToDelete == null)
-            {
-                return Json(new { success = false, message = "Error while deleting category" });
-            }
+        //    if (CategoryToDelete == null)
+        //    {
+        //        return Json(new { success = false, message = "Error while deleting category" });
+        //    }
 
-            _unitOfWork.Categoria.Remove(CategoryToDelete);
-            _unitOfWork.Save();
-            return Json(new { success = true, message = "Category deleted successfully" });
-        }
+        //    _unitOfWork.Categoria.Remove(CategoryToDelete);
+        //    _unitOfWork.Save();
+        //    return Json(new { success = true, message = "Category deleted successfully" });
+        //}
 
+        //public IActionResult Suspend(int? id)
+        //{
+
+        //    var category = _unitOfWork.Categoria.GetFirstOrDefault(x => x.IDCategoria == id, null);
+
+        //    if (category.Suspendido == false)
+        //    {
+        //        category.Suspendido = true;
+        //        TempData["success"] = "Categoria suspendida correctamente";
+        //    }
+        //    else
+        //    {
+        //        category.Suspendida = false;
+        //        TempData["success"] = "La categoria se activo correctamente";
+        //    }
+        //    _unitOfWork.Categoria.Update(category);
+        //    _unitOfWork.Save();
+        //    return RedirectToAction("Index");
+        //}
 
         // Works
         public IActionResult GetAll()

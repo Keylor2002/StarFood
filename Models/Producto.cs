@@ -35,5 +35,7 @@ namespace StarFood.Models
         [ForeignKey("Proveedor")]
         public int IDProveedor { get; set; }
         public Proveedor Proveedor { get; set; }
+
+        public bool Suspendido { get; set; }
     }
 }
