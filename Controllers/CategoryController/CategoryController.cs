@@ -64,41 +64,22 @@ namespace StarFood.Controllers.CategoryController
             return Json(new { success = true, data = categoria });
         }
 
-        [HttpPost]
-        public IActionResult EjecutarUpdate()
-        {
-            Categoria categoria = new Categoria
-            {
-                IDCategoria = 1,
-                Nombre = "Nueva categoría actualizada" 
-            };
-
-            var result = Update(categoria);
-
-
-            return Ok(result);
-        }
 
         // Works
+
         [HttpPost]
-        public IActionResult Update([FromBody] Categoria _category)
+        //[ValidateAntiForgeryToken]
+        public IActionResult Edit([FromBody] Categoria category)
         {
             if (ModelState.IsValid)
             {
-                if (_category.IDCategoria == 0 || _category.IDCategoria == null)
-                    _unitOfWork.Categoria.Add(_category);
-                else
-                    _unitOfWork.Categoria.Update(_category);
-
+                _unitOfWork.Categoria.Update(category);
                 _unitOfWork.Save();
-                TempData["success"] = "Category saved successfully";
+                //return Json(new { success = true, message = "Categoria actualizada correctamente" });
             }
-            else
-            {
-                TempData["error"] = "Error saving category";
-            }
-
-            return Json(new { success = true, data = _category });
+            TempData["success"] = "Categoria editada correctamente";
+            return RedirectToAction("Index");
+            //return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
         }
 
         [HttpDelete]
