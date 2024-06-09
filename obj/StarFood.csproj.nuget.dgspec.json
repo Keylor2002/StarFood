@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\Keylor\\StarFood\\StarFood.csproj": {}
   },
   "projects": {
@@ -12,6 +13,19 @@
         "projectPath": "C:\\Users\\Keylor\\StarFood\\StarFood.csproj",
         "packagesPath": "C:\\Users\\Keylor\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Keylor\\StarFood\\obj\\",
+=======
+    "C:\\Users\\edmol\\source\\repos\\StarFood\\StarFood.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\edmol\\source\\repos\\StarFood\\StarFood.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\edmol\\source\\repos\\StarFood\\StarFood.csproj",
+        "projectName": "StarFood",
+        "projectPath": "C:\\Users\\edmol\\source\\repos\\StarFood\\StarFood.csproj",
+        "packagesPath": "C:\\Users\\edmol\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\edmol\\source\\repos\\StarFood\\obj\\",
+>>>>>>> Product Controllet Creation
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Keylor\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "DaOEJrrErwFO+u/iLMDFl+3eUZFBkRTiYMXkWcZW+ixUEhAn1dCbWrs8W1b+HHsVmHNIOb7RfU1fQEGKllG/eQ==",
+  "dgSpecHash": "e4ArAf9LMOfwI5esTTlhDNJd4vx7N8Mn2YKqL7dD6nbgSOEODat+rpulAd9yGgIULaJvPH3AuQt/7F1r0sm1yg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\edmol\\source\\repos\\Keylor2002\\StarFood\\StarFood.csproj",
+  "projectFilePath": "C:\\Users\\edmol\\source\\repos\\StarFood\\StarFood.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\edmol\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\edmol\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
