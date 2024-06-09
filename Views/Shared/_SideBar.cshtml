@@ -8,6 +8,7 @@
     <h2 class="sidebar-title">StarFood</h2>
     <ul class="sidebar-nav">
         <li><a href="#" id="inicio-link"><i class="bi bi-house-door"></i><span>Inicio</span></a></li>
+        <li><a href="#" id="categorias-link"><i class="bi bi-list-task"></i><span>Categorías</span></a></li>
         <li><a href="#" id="productos-link"><i class="bi bi-basket"></i><span>Producto</span></a></li>
         <li><a href="#" id="platillos-link"><i class="bi bi-plate"></i><span>Platillos</span></a></li>
         <li><a href="#" id="proveedor-link"><i class="bi bi-truck"></i><span>Proveedores</span></a></li>
@@ -90,6 +91,11 @@
     document.getElementById('facturas-link').addEventListener('click', function (event) {
         event.preventDefault();
         window.location.href = '/Facturas/Index';
+    });
+
+    document.getElementById('categorias-link').addEventListener('click', function (event) {
+    event.preventDefault();
+    window.location.href = '/Categorias/Index';
     });
 </script>
 

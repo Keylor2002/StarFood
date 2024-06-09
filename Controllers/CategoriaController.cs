@@ -1,51 +1,152 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using StarFood.Business_Logic;
-using StarFood.Models;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using StarFood.Data;
+using StarFood.Models;
 
 namespace StarFood.Controllers
 {
     public class CategoriasController : Controller
     {
-        private readonly BusinessCategorias _businessCategorias;
+        private readonly StarfoodContext _context;
 
-        public CategoriasController(BusinessCategorias businessCategorias)
+        public CategoriasController(StarfoodContext context)
         {
-            _businessCategorias = businessCategorias;
+            _context = context;
         }
 
-        public ActionResult Index()
+        // GET: Categorias
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.Categorias.ToListAsync());
+        }
+
+        // GET: Categorias/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var categoria = await _context.Categorias
+                .FirstOrDefaultAsync(m => m.IDCategoria == id);
+            if (categoria == null)
+            {
+                return NotFound();
+            }
+
+            return View(categoria);
+        }
+
+        // GET: Categorias/Create
+        public IActionResult Create()
         {
             return View();
         }
 
-        [HttpGet]
-        public JsonResult CategoryList()
+        // POST: Categorias/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("IDCategoria,Nombre")] Categoria categoria)
         {
-            List<Categoria> categoryList = _businessCategorias.GetCategories();
-            return Json(new { data = categoryList });
+            if (ModelState.IsValid)
+            {
+                _context.Add(categoria);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(categoria);
         }
 
-        [HttpPost]
-        public JsonResult AddCategory(Categoria categoria)
+        // GET: Categorias/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
-            bool result = _businessCategorias.AddCategory(categoria);
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-            return Json(new { success = result });
+            var categoria = await _context.Categorias.FindAsync(id);
+            if (categoria == null)
+            {
+                return NotFound();
+            }
+            return View(categoria);
         }
 
+        // POST: Categorias/Edit/5
         [HttpPost]
-        public JsonResult UpdateCategory(Categoria categoria)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("IDCategoria,Nombre")] Categoria categoria)
         {
-            bool result = _businessCategorias.UpdateCategory(categoria);
-            return Json(new { success = result });
+            if (id != categoria.IDCategoria)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(categoria);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!CategoriaExists(categoria.IDCategoria))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(categoria);
         }
 
-        [HttpPost]
-        public JsonResult DeleteCategory(int id)
+        // GET: Categorias/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
-            bool result = _businessCategorias.DeleteCategory(id);
-            return Json(new { success = result });
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var categoria = await _context.Categorias
+                .FirstOrDefaultAsync(m => m.IDCategoria == id);
+            if (categoria == null)
+            {
+                return NotFound();
+            }
+
+            return View(categoria);
+        }
+
+        // POST: Categorias/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var categoria = await _context.Categorias.FindAsync(id);
+            if (categoria != null)
+            {
+                _context.Categorias.Remove(categoria);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool CategoriaExists(int id)
+        {
+            return _context.Categorias.Any(e => e.IDCategoria == id);
         }
     }
 }

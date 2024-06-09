@@ -43,7 +43,6 @@
                         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().FechaCaducidad)</th>
                         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().FechaCompra)</th>
                         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Proveedor.Contacto)</th>
-                        <!-- Eliminar la columna de acciones -->
                     </tr>
                 </thead>
                 <tbody>
@@ -59,7 +58,6 @@
                             <td>@Html.DisplayFor(modelItem => item.FechaCaducidad)</td>
                             <td>@Html.DisplayFor(modelItem => item.FechaCompra)</td>
                             <td>@Html.DisplayFor(modelItem => item.Proveedor.Contacto)</td>
-                            <!-- No incluir la columna de acciones -->
                         </tr>
                     }
                 </tbody>
@@ -67,57 +65,3 @@
         </div>
     </div>
 </div>
-
-<style>
-    .rounded-box {
-        background-color: var(--color-dark);
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        padding: 20px;
-        margin: 0 auto; /* Center the container */
-    }
-
-    .table {
-        background-color: var(--color-light);
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
-
-        .table th,
-        .table td {
-            border-color: var(--color-accent);
-            color: var(--color-dark);
-        }
-
-        .table th {
-            background-color: var(--color-accent);
-            color: var(--color-light);
-        }
-
-    .table-hover tbody tr:hover {
-        background-color: var(--color-secondary);
-        color: var(--color-dark);
-    }
-
-    .btn-primary {
-        background-color: var(--color-secondary);
-        width: 100%; /* Make the button take up the full width of the column */
-    }
-
-    .btn-secondary {
-        background-color: var(--color-light);
-        margin-left: 20px;
-    }
-
-    input[type="search"] {
-        width: 100%; /* Make the input take up the full width of the column */
-        padding: 10px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-        input[type="search"]:focus {
-            border-color: #aaa;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
-</style>

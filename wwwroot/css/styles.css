@@ -1,8 +1,8 @@
 ﻿:root {
-    --color-light: #ecfcf4;
-    --color-dark: #34224e;
-    --color-accent: #a1387e;
-    --color-secondary: #08c3ff;
+    --color-light: #D4AB7E; /* Nuevo color light */
+    --color-dark: #ADDB75; /* Nuevo color dark */
+    --color-accent: #FCE8B9; /* Nuevo color accent */
+    --color-secondary: #a3ccd1; /* Nuevo color secondary */
 }
 
 /* Estilos para los títulos */
@@ -52,7 +52,7 @@ a {
     }
 
 /* Estilos para el texto de botones */
-button {
+button, .btn-custom {
     font-size: 1.2rem;
     font-weight: bold;
     color: var(--color-secondary);
@@ -64,7 +64,8 @@ button {
 }
 
     button:hover,
-    button.see-more {
+    button.see-more,
+    .btn-custom:hover {
         background-color: var(--color-primary);
     }
 
@@ -92,3 +93,140 @@ button {
     height: auto; /* Altura automática para mantener la proporción */
     margin-bottom: 20px; /* Espacio debajo de la imagen */
 }
+
+/* Consultas de medios para hacer el diseño responsive */
+
+/* Estilos para pantallas medianas (tabletas) */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.2rem;
+    }
+
+    p, small, a {
+        font-size: 1rem;
+    }
+
+    .logo {
+        width: 30px;
+        height: 30px;
+    }
+
+    .imagen {
+        width: 80px;
+    }
+
+    .sidebar-title {
+        font-size: 1.5rem;
+        margin-left: 10px;
+    }
+}
+
+/* Estilos para pantallas pequeñas (móviles) */
+@media (max-width: 576px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    h3 {
+        font-size: 1rem;
+    }
+
+    p, small, a {
+        font-size: 0.9rem;
+    }
+
+    .logo {
+        width: 20px;
+        height: 20px;
+    }
+
+    .imagen {
+        width: 60px;
+    }
+
+    .sidebar-title {
+        font-size: 1.2rem;
+        margin-left: 5px;
+    }
+}
+
+/* Centrar los botones */
+.button-container {
+    display: flex;
+    justify-content: center; /* Centra los elementos horizontalmente */
+    gap: 10px; /* Espacio entre los botones */
+    margin-top: 20px; /* Espacio superior opcional */
+}
+
+.btn {
+    flex: 1; /* Hace que ambos botones ocupen el mismo espacio */
+    text-align: center; /* Centra el texto en los botones */
+    max-width: 200px; /* Tamaño máximo para los botones */
+}
+
+.rounded-box {
+    background-color: var(--color-dark);
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 0 auto; /* Center the container */
+}
+
+.table {
+    background-color: var(--color-light);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 900px;
+}
+
+    .table th,
+    .table td {
+        border-color: var(--color-accent);
+        color: var(--color-dark);
+    }
+
+    .table th {
+        background-color: var(--color-accent);
+        color: var(--color-light);
+    }
+
+.table-hover tbody tr:hover {
+    background-color: var(--color-secondary);
+    color: var(--color-dark);
+}
+
+.btn-primary {
+    background-color: var(--color-secondary);
+    width: 100%; /* Make the button take up the full width of the column */
+}
+
+.btn-secondary {
+    background-color: var(--color-light);
+    margin-left: 20px;
+}
+
+input[type="search"] {
+    width: 100%; /* Make the input take up the full width of the column */
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+    input[type="search"]:focus {
+        border-color: #aaa;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+

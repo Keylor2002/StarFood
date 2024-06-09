@@ -1,103 +1,61 @@
-﻿@{
-    ViewData["Title"] = "Categoría";
+﻿@model IEnumerable<StarFood.Models.Categoria>
+
+@{
+    ViewData["Title"] = "Categorías Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+<!-- Estilos personalizados -->
+<style>
+    .btn-custom {
+        background-color: #a3ccd1;
+        border-color: #a3ccd1;
+        color: white;
+    }
 
-<h2 class="my-4">Categorías</h2>
+        .btn-custom:hover {
+            background-color: #92b7bf;
+            border-color: #92b7bf;
+            color: white;
+        }
+</style>
 
-<div class="container">
-    <div class="card mb-4">
-        <div class="card-header">Añadir/Editar Categoría</div>
-        <div class="card-body">
-            <form id="categoryForm">
-                <input type="hidden" id="IDCategoria" name="IDCategoria" />
-                <div class="form-group">
-                    <label for="NombreCategoria">Nombre de la Categoría:</label>
-                    <input type="text" id="NombreCategoria" name="NombreCategoria" class="form-control" required />
-                </div>
-                <button type="submit" class="btn btn-primary">Guardar</button>
-                <button type="reset" class="btn btn-secondary">Cancelar</button>
-            </form>
+<div class="container mt-4">
+    <div class="rounded-box">
+        <!-- SearchBox and AddButton -->
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-10">
+                <form class="d-flex" method="get" asp-action="Index">
+                    <input class="form-control me-2" type="search" placeholder="Buscar por nombre" aria-label="Buscar" name="searchString">
+                    <button class="btn btn-custom" type="submit">Buscar</button>
+                </form>
+            </div>
+            <div class="col-md-2">
+                <a class="btn btn-custom w-100" asp-action="Create">Crear</a>
+            </div>
         </div>
-    </div>
-
-    <div class="card">
-        <div class="card-header">Lista de Categorías</div>
-        <div class="card-body">
-            <table class="table table-bordered table-striped">
-                <thead class="thead-dark">
+        <!-- Table -->
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
                     <tr>
-                        <th>Nombre de la Categoría</th>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Nombre)</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody id="categoryTableBody"></tbody>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                            <td>
+                                <a class="btn btn-custom btn-sm" asp-action="Edit" asp-route-id="@item.IDCategoria">Editar</a>
+                                <a class="btn btn-custom btn-sm" asp-action="Delete" asp-route-id="@item.IDCategoria">Borrar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
             </table>
         </div>
     </div>
 </div>
-
-@section Scripts {
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            loadCategories();
-
-            $('#categoryForm').on('submit', function (e) {
-                e.preventDefault();
-                var category = {
-                    IDCategoria: $('#IDCategoria').val(),
-                    NombreCategoria: $('#NombreCategoria').val()
-                };
-
-                var url = category.IDCategoria ? '@Url.Action("UpdateCategory", "Categorias")' : '@Url.Action("AddCategory", "Categorias")';
-
-                $.post(url, category, function (response) {
-                    if (response.success) {
-                        loadCategories();
-                        $('#categoryForm')[0].reset();
-                    } else {
-                        alert('Error al ' + (category.IDCategoria ? 'actualizar' : 'añadir') + ' la categoría.');
-                    }
-                });
-            });
-
-            $('body').on('click', '.edit-btn', function () {
-                var category = $(this).data('category');
-                $('#IDCategoria').val(category.iDCategoria);
-                $('#NombreCategoria').val(category.nombreCategoria);
-            });
-
-            $('body').on('click', '.delete-btn', function () {
-                if (confirm('¿Estás seguro de que quieres eliminar esta categoría?')) {
-                    var id = $(this).data('id');
-                    $.post('@Url.Action("DeleteCategory", "Categorias")', { id: id }, function (response) {
-                        if (response.success) {
-                            loadCategories();
-                        } else {
-                            alert('Error al eliminar la categoría.');
-                        }
-                    });
-                }
-            });
-
-            function loadCategories() {
-                $.get('@Url.Action("CategoryList", "Categorias")', function (response) {
-                    var rows = '';
-                    response.data.forEach(function (category) {
-                        rows += '<tr>';
-                        rows += '<td>' + category.nombreCategoria + '</td>';
-                        rows += '<td>';
-                        rows += '<button class="btn btn-sm btn-primary edit-btn mr-2" data-category=\'{"iDCategoria": "' + category.idCategoria + '", "nombreCategoria": "' + category.nombreCategoria + '"}\'>Editar</button>';
-                        rows += '<button class="btn btn-sm btn-danger delete-btn" data-id="' + category.idCategoria + '">Eliminar</button>';
-                        rows += '</td>';
-                        rows += '</tr>';
-                    });
-                    $('#categoryTableBody').html(rows);
-                });
-            }
-        });
-    </script>
-}
