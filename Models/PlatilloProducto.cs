@@ -17,5 +17,8 @@ namespace StarFood.Models
         public Producto Producto { get; set; }
 
         public int CantidadProducto { get; set; }
+
+        [NotMapped]
+        public ICollection<Producto> Products { get; set; } = new List<Producto>();
     }
 }

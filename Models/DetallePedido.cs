@@ -17,5 +17,8 @@ namespace StarFood.Models
         public Platillo Platillo { get; set; }
 
         public int Cantidad { get; set; }
+
+        [NotMapped]
+        public ICollection<Platillo> Platillos { get; set; } = new List<Platillo>();
     }
 }
