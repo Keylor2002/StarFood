@@ -17,10 +17,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\BillController\" />
-    <Folder Include="Controllers\OrderController\" />
     <Folder Include="Controllers\ProductOrderController\" />
     <Folder Include="Controllers\OrderDetailController\" />
-    <Folder Include="Controllers\PaymentMethodController\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 </Project>
