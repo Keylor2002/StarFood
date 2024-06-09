@@ -38,10 +38,11 @@ namespace StarFood.Controllers.CategoryController
             {
                 _unitOfWork.Categoria.Add(categoria);
                 _unitOfWork.Save();
-                return Json(new { success = true, message = "Categoria creada correctamente" });
+                //return Json(new { success = true, message = "Categoria creada correctamente" });
             }
-
-            return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
+            TempData["success"] = "Categoria creada correctamente";
+            return RedirectToAction("Index");
+            //return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
         }
 
 
@@ -80,7 +81,8 @@ namespace StarFood.Controllers.CategoryController
 
         // Works
         [HttpPost]
-        public IActionResult Update([FromBody] Categoria _category)
+        //[ValidateAntiForgeryToken]
+        public IActionResult Edit([FromBody] Categoria category)
         {
             if (ModelState.IsValid)
             {
@@ -90,29 +92,11 @@ namespace StarFood.Controllers.CategoryController
                     _unitOfWork.Categoria.Update(_category);
 
                 _unitOfWork.Save();
-                TempData["success"] = "Category saved successfully";
+                //return Json(new { success = true, message = "Categoria actualizada correctamente" });
             }
-            else
-            {
-                TempData["error"] = "Error saving category";
-            }
-
-            return Json(new { success = true, data = _category });
-        }
-
-        [HttpDelete]
-        public IActionResult Delete(int? id)
-        {
-            var CategoryToDelete = _unitOfWork.Categoria.Get(u => u.IDCategoria == id);
-
-            if (CategoryToDelete == null)
-            {
-                return Json(new { success = false, message = "Error while deleting category" });
-            }
-
-            _unitOfWork.Categoria.Remove(CategoryToDelete);
-            _unitOfWork.Save();
-            return Json(new { success = true, message = "Category deleted successfully" });
+            TempData["success"] = "Categoria editada correctamente";
+            return RedirectToAction("Index");
+            //return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
         }
 
 

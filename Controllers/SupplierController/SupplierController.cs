@@ -36,8 +36,8 @@ namespace StarFood.Controllers.SupplierController
 
         // POST: HomeController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(Proveedor supplier)
+        //[ValidateAntiForgeryToken]
+        public IActionResult Create([FromBody] Proveedor supplier)
         {
             if (ModelState.IsValid)
             {
@@ -67,8 +67,8 @@ namespace StarFood.Controllers.SupplierController
 
         // POST: HomeController/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(Proveedor supplier)
+        //[ValidateAntiForgeryToken]
+        public IActionResult Edit([FromBody] Proveedor supplier)
         {
             if (ModelState.IsValid)
             {
