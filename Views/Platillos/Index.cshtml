@@ -1,0 +1,59 @@
+﻿@model IEnumerable<StarFood.Models.Platillo>
+
+@{
+    ViewData["Title"] = "Platillos Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="rounded-box">
+        <!-- SearchBox and AddButton -->
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-10">
+                <form class="d-flex" method="get" asp-action="Index">
+                    <input class="form-control me-2" type="search" placeholder="Buscar por nombre" aria-label="Buscar" name="searchString">
+                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
+        <!-- Buttons Row -->
+        <div class="row mb-3 text-center">
+            <div class="col-md-4">
+                <a class="btn btn-outline-success w-100" asp-action="Create">Crear</a>
+            </div>
+            <div class="col-md-4">
+                <a class="btn btn-outline-warning w-100" asp-action="Edit">Editar</a>
+            </div>
+            <div class="col-md-4">
+                <a class="btn btn-outline-danger w-100" asp-action="Delete">Borrar</a>
+            </div>
+        </div>
+        <hr />
+        <!-- Table -->
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().IDPlatillo)</th>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Nombre)</th>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Categoria.Nombre)</th>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Precio)</th>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Descripcion)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.IDPlatillo)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Categoria.Nombre)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Precio)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

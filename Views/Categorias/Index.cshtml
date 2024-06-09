@@ -39,15 +39,16 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().IDCategoria)</th>
                         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Nombre)</th>
-                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                            <td>@Html.DisplayFor(modelItem => item.IDCategoria)</td>>
+                            <td>@Html.DisplayFor(modelItem => item.Nombre)</td>>
                             <td>
                                 <a class="btn btn-custom btn-sm" asp-action="Edit" asp-route-id="@item.IDCategoria">Editar</a>
                                 <a class="btn btn-custom btn-sm" asp-action="Delete" asp-route-id="@item.IDCategoria">Borrar</a>
