@@ -5,7 +5,44 @@
     --color-secondary: #a3ccd1; /* Nuevo color secondary */
 }
 
-/* Estilos para los títulos */
+button, .btn-custom {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white; /* Color de texto blanco */
+    background-color: var(--color-secondary); /* Color de fondo secondary */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    button:hover, .btn-custom:hover {
+        background-color: var(--color-light); /* Cambiar color de fondo en hover */
+        color: var(--color-secondary); /* Cambiar color de texto en hover */
+    }
+
+/* Estilos específicos para los botones del carrusel */
+.carousel-control-prev,
+.carousel-control-next {
+    filter: none; /* Elimina cualquier filtro de color aplicado */
+    background: transparent; /* Fondo transparente */
+    border: none; /* Sin borde */
+    outline: none; /* Sin contorno */
+}
+
+    .carousel-control-prev:hover,
+    .carousel-control-next:hover {
+        filter: none; /* Asegura que el hover no aplique ningún filtro de color */
+        background: transparent; /* Fondo transparente en hover */
+    }
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: transparent; /* Asegura que el icono del botón sea transparente */
+    background-image: none; /* Elimina cualquier imagen de fondo */
+}
+
+/* Resto del CSS */
 h1, h2, h3 {
     font-weight: bold;
 }
@@ -25,7 +62,6 @@ h3 {
     color: var(--color-accent);
 }
 
-/* Estilos para el texto principal */
 p, small {
     font-size: 1.2rem;
     font-weight: normal;
@@ -39,7 +75,6 @@ small {
     color: var(--color-secondary);
 }
 
-/* Estilos para el texto de enlaces */
 a {
     font-size: 1.2rem;
     font-weight: normal;
@@ -51,52 +86,31 @@ a {
         color: var(--color-dark);
     }
 
-/* Estilos para el texto de botones */
-button, .btn-custom {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: var(--color-secondary);
-    background-color: var(--color-light);
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-    button:hover,
-    button.see-more,
-    .btn-custom:hover {
-        background-color: var(--color-primary);
-    }
-
 .logo-container {
     display: flex;
     align-items: center;
-    margin-bottom: 20px; /* Espacio entre el logo y el título */
+    margin-bottom: 20px;
 }
 
 .logo {
     width: 40px;
     height: 40px;
-    margin-right: 10px; /* Espacio entre el logo y la estrella */
+    margin-right: 10px;
 }
 
 .sidebar-title {
     color: var(--color-light);
-    margin-left: 20px; /* Ajusta el margen izquierdo del título */
-    margin-bottom: 20px; /* Espacio entre el título y los elementos de la barra lateral */
+    margin-left: 20px;
+    margin-bottom: 20px;
     transition: opacity 0.3s ease-in-out;
 }
 
 .imagen {
-    width: 100px; /* Ancho deseado */
-    height: auto; /* Altura automática para mantener la proporción */
-    margin-bottom: 20px; /* Espacio debajo de la imagen */
+    width: 100px;
+    height: auto;
+    margin-bottom: 20px;
 }
 
-/* Consultas de medios para hacer el diseño responsive */
-
-/* Estilos para pantallas medianas (tabletas) */
 @media (max-width: 768px) {
     h1 {
         font-size: 2rem;
@@ -129,7 +143,6 @@ button, .btn-custom {
     }
 }
 
-/* Estilos para pantallas pequeñas (móviles) */
 @media (max-width: 576px) {
     h1 {
         font-size: 1.5rem;
@@ -162,18 +175,17 @@ button, .btn-custom {
     }
 }
 
-/* Centrar los botones */
 .button-container {
     display: flex;
-    justify-content: center; /* Centra los elementos horizontalmente */
-    gap: 10px; /* Espacio entre los botones */
-    margin-top: 20px; /* Espacio superior opcional */
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
 }
 
 .btn {
-    flex: 1; /* Hace que ambos botones ocupen el mismo espacio */
-    text-align: center; /* Centra el texto en los botones */
-    max-width: 200px; /* Tamaño máximo para los botones */
+    flex: 1;
+    text-align: center;
+    max-width: 200px;
 }
 
 .rounded-box {
@@ -181,7 +193,7 @@ button, .btn-custom {
     border: 1px solid #ccc;
     border-radius: 10px;
     padding: 20px;
-    margin: 0 auto; /* Center the container */
+    margin: 0 auto;
 }
 
 .table {
@@ -209,7 +221,7 @@ button, .btn-custom {
 
 .btn-primary {
     background-color: var(--color-secondary);
-    width: 100%; /* Make the button take up the full width of the column */
+    width: 100%;
 }
 
 .btn-secondary {
@@ -218,7 +230,7 @@ button, .btn-custom {
 }
 
 input[type="search"] {
-    width: 100%; /* Make the input take up the full width of the column */
+    width: 100%;
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -228,5 +240,3 @@ input[type="search"] {
         border-color: #aaa;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
-
-

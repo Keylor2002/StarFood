@@ -5,21 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!-- Estilos personalizados -->
-<style>
-    .btn-custom {
-        background-color: #a3ccd1;
-        border-color: #a3ccd1;
-        color: white;
-    }
-
-        .btn-custom:hover {
-            background-color: #92b7bf;
-            border-color: #92b7bf;
-            color: white;
-        }
-</style>
-
 <div class="container mt-4">
     <div class="rounded-box">
         <!-- SearchBox and AddButton -->
@@ -27,11 +12,11 @@
             <div class="col-md-10">
                 <form class="d-flex" method="get" asp-action="Index">
                     <input class="form-control me-2" type="search" placeholder="Buscar por nombre" aria-label="Buscar" name="searchString">
-                    <button class="btn btn-custom" type="submit">Buscar</button>
+                    <button class="btn btn-info" type="submit">Buscar</button>
                 </form>
             </div>
             <div class="col-md-2">
-                <a class="btn btn-custom w-100" asp-action="Create">Crear</a>
+                <a class="btn btn-info w-100" asp-action="Create">Crear</a>
             </div>
         </div>
         <!-- Table -->
@@ -39,19 +24,18 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().IDCategoria)</th>
                         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Nombre)</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@Html.DisplayFor(modelItem => item.IDCategoria)</td>>
-                            <td>@Html.DisplayFor(modelItem => item.Nombre)</td>>
+                            <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
                             <td>
-                                <a class="btn btn-custom btn-sm" asp-action="Edit" asp-route-id="@item.IDCategoria">Editar</a>
-                                <a class="btn btn-custom btn-sm" asp-action="Delete" asp-route-id="@item.IDCategoria">Borrar</a>
+                                <a class="btn btn-info btn-sm" asp-action="Edit" asp-route-id="@item.IDCategoria">Editar</a>
+                                <a class="btn btn-info btn-sm" asp-action="Delete" asp-route-id="@item.IDCategoria">Borrar</a>
                             </td>
                         </tr>
                     }
@@ -60,3 +44,9 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

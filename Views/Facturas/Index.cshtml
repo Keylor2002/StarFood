@@ -1,0 +1,138 @@
+﻿@model IEnumerable<StarFood.Models.Factura>
+
+@{
+    ViewData["Title"] = "Factura Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="rounded-box">
+        <!-- SearchBox and AddButton -->
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-12">
+                <form class="d-flex flex-column" method="get" asp-action="Index">
+                    <div class="row mb-2">
+                        <div class="col-md-4">
+                            <input class="form-control" type="search" placeholder="Buscar por ID de Factura" aria-label="Buscar" name="facturaId">
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" type="date" placeholder="Fecha desde" aria-label="Fecha desde" name="fechaDesde">
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" type="date" placeholder="Fecha hasta" aria-label="Fecha hasta" name="fechaHasta">
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-info w-100" type="submit">Buscar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr />
+        <!-- Table -->
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Pedido)</th>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().FechaVenta)</th>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().TotalVenta)</th>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().MetodoPago)</th>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().CantidadPago)</th>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().CantidadCambio)</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Pedido.IDPedido)</td>
+                            <td>@Html.DisplayFor(modelItem => item.FechaVenta)</td>
+                            <td>@Html.DisplayFor(modelItem => item.TotalVenta)</td>
+                            <td>@Html.DisplayFor(modelItem => item.MetodoPago.NombreMetodoPago)</td>
+                            <td>@Html.DisplayFor(modelItem => item.CantidadPago)</td>
+                            <td>@Html.DisplayFor(modelItem => item.CantidadCambio)</td>
+                            <td>
+                                <a class="btn btn-info w-100 mb-2" asp-action="Edit" asp-route-id="@item.IDFactura">Editar</a>
+                                <a class="btn btn-info w-100 mb-2" asp-action="Details" asp-route-id="@item.IDFactura">Detalles</a>
+                                <a class="btn btn-info w-100" asp-action="Delete" asp-route-id="@item.IDFactura">Eliminar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    .rounded-box {
+        background-color: var(--color-dark);
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 0 auto; /* Center the container */
+    }
+
+    .table {
+        background-color: var(--color-light);
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+        .table th,
+        .table td {
+            border-color: var(--color-accent);
+            color: var(--color-dark);
+        }
+
+        .table th {
+            background-color: var(--color-accent);
+            color: var(--color-light);
+        }
+
+    .table-hover tbody tr:hover {
+        background-color: var(--color-secondary);
+        color: var(--color-dark);
+    }
+
+    .btn-primary {
+        background-color: var(--color-secondary);
+        width: 100%; /* Make the button take up the full width of the column */
+    }
+
+    .btn-secondary {
+        background-color: var(--color-light);
+        margin-left: 20px;
+    }
+
+    input[type="search"] {
+        width: 100%; /* Make the input take up the full width of the column */
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+        input[type="search"]:focus {
+            border-color: #aaa;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+    .btn-info {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: white; /* Color de texto blanco */
+        background-color: var(--color-secondary); /* Color de fondo secondary */
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%; /* Make the button take up the full width */
+    }
+
+        .btn-info:hover {
+            background-color: var(--color-light); /* Cambiar color de fondo en hover */
+            color: var(--color-secondary); /* Cambiar color de texto en hover */
+        }
+</style>

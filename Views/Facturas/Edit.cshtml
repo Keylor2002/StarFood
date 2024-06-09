@@ -1,0 +1,60 @@
+﻿@model StarFood.Models.Factura
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Factura</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IDFactura" />
+            <div class="form-group">
+                <label asp-for="IDPedido" class="control-label"></label>
+                <select asp-for="IDPedido" class="form-control" asp-items="ViewBag.IDPedido"></select>
+                <span asp-validation-for="IDPedido" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaVenta" class="control-label"></label>
+                <input asp-for="FechaVenta" class="form-control" />
+                <span asp-validation-for="FechaVenta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalVenta" class="control-label"></label>
+                <input asp-for="TotalVenta" class="form-control" />
+                <span asp-validation-for="TotalVenta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IDMetodoPago" class="control-label"></label>
+                <select asp-for="IDMetodoPago" class="form-control" asp-items="ViewBag.IDMetodoPago"></select>
+                <span asp-validation-for="IDMetodoPago" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CantidadPago" class="control-label"></label>
+                <input asp-for="CantidadPago" class="form-control" />
+                <span asp-validation-for="CantidadPago" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CantidadCambio" class="control-label"></label>
+                <input asp-for="CantidadCambio" class="form-control" />
+                <span asp-validation-for="CantidadCambio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
