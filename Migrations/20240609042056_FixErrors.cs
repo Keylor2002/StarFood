@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace StarFood.Migrations
 {
     /// <inheritdoc />
-    public partial class UserFunctionallity : Migration
+    public partial class FixErrors : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -33,6 +33,7 @@ namespace StarFood.Migrations
                     Discriminator = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
                     IDUsuario = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: true),
                     NombreUsuario = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Suspendido = table.Column<bool>(type: "bit", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -59,7 +60,8 @@ namespace StarFood.Migrations
                 {
                     IDCategoria = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false)
+                    Nombre = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
+                    Suspendido = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -87,7 +89,8 @@ namespace StarFood.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Empresa = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Contacto = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
-                    Nombre = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false)
+                    Nombre = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    Suspendido = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -209,7 +212,8 @@ namespace StarFood.Migrations
                     IDUsuario = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UsuarioId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FechaPedido = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FechaEntrega = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    FechaEntrega = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Cancelado = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -231,7 +235,9 @@ namespace StarFood.Migrations
                     Nombre = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
                     CategoriaID = table.Column<int>(type: "int", nullable: false),
                     Precio = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Suspendido = table.Column<bool>(type: "bit", nullable: false),
+                    ImagenUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -258,7 +264,8 @@ namespace StarFood.Migrations
                     UnidadMedida = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     FechaCaducidad = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaCompra = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IDProveedor = table.Column<int>(type: "int", nullable: false)
+                    IDProveedor = table.Column<int>(type: "int", nullable: false),
+                    Suspendido = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -315,6 +322,7 @@ namespace StarFood.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IDPedido = table.Column<int>(type: "int", nullable: false),
                     IDPlatillo = table.Column<int>(type: "int", nullable: false),
+                    PlatilloIDPlatillo = table.Column<int>(type: "int", nullable: false),
                     Cantidad = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -327,11 +335,31 @@ namespace StarFood.Migrations
                         principalColumn: "IDPedido",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_DetallesPedido_Platillos_IDPlatillo",
-                        column: x => x.IDPlatillo,
+                        name: "FK_DetallesPedido_Platillos_PlatilloIDPlatillo",
+                        column: x => x.PlatilloIDPlatillo,
                         principalTable: "Platillos",
                         principalColumn: "IDPlatillo",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PlatillosProductos",
+                columns: table => new
+                {
+                    IDPlatilloProducto = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IDPlatillo = table.Column<int>(type: "int", nullable: false),
+                    CantidadProducto = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlatillosProductos", x => x.IDPlatilloProducto);
+                    table.ForeignKey(
+                        name: "FK_PlatillosProductos_Platillos_IDPlatillo",
+                        column: x => x.IDPlatillo,
+                        principalTable: "Platillos",
+                        principalColumn: "IDPlatillo",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -359,33 +387,6 @@ namespace StarFood.Migrations
                         column: x => x.IDProveedor,
                         principalTable: "Proveedores",
                         principalColumn: "IDProveedor",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PlatillosProductos",
-                columns: table => new
-                {
-                    IDPlatilloProducto = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IDPlatillo = table.Column<int>(type: "int", nullable: false),
-                    IDProducto = table.Column<int>(type: "int", nullable: false),
-                    CantidadProducto = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PlatillosProductos", x => x.IDPlatilloProducto);
-                    table.ForeignKey(
-                        name: "FK_PlatillosProductos_Platillos_IDPlatillo",
-                        column: x => x.IDPlatillo,
-                        principalTable: "Platillos",
-                        principalColumn: "IDPlatillo",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_PlatillosProductos_Productos_IDProducto",
-                        column: x => x.IDProducto,
-                        principalTable: "Productos",
-                        principalColumn: "IDProducto",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -434,9 +435,9 @@ namespace StarFood.Migrations
                 column: "IDPedido");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DetallesPedido_IDPlatillo",
+                name: "IX_DetallesPedido_PlatilloIDPlatillo",
                 table: "DetallesPedido",
-                column: "IDPlatillo");
+                column: "PlatilloIDPlatillo");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Facturas_IDMetodoPago",
@@ -472,11 +473,6 @@ namespace StarFood.Migrations
                 name: "IX_PlatillosProductos_IDPlatillo",
                 table: "PlatillosProductos",
                 column: "IDPlatillo");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PlatillosProductos_IDProducto",
-                table: "PlatillosProductos",
-                column: "IDProducto");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Productos_CategoriaID",
@@ -529,19 +525,19 @@ namespace StarFood.Migrations
                 name: "Pedidos");
 
             migrationBuilder.DropTable(
-                name: "Platillos");
+                name: "Productos");
 
             migrationBuilder.DropTable(
-                name: "Productos");
+                name: "Platillos");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Categorias");
+                name: "Proveedores");
 
             migrationBuilder.DropTable(
-                name: "Proveedores");
+                name: "Categorias");
         }
     }
 }

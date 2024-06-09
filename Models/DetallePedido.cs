@@ -12,13 +12,10 @@ namespace StarFood.Models
         public int IDPedido { get; set; }
         public Pedido Pedido { get; set; }
 
-        [ForeignKey("Platillo")]
         public int IDPlatillo { get; set; }
-        public Platillo Platillo { get; set; }
 
+        public Platillo Platillo { get; set; } 
         public int Cantidad { get; set; }
 
-        [NotMapped]
-        public ICollection<Platillo> Platillos { get; set; } = new List<Platillo>();
     }
 }
