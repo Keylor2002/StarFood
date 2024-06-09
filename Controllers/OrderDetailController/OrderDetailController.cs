@@ -19,8 +19,8 @@ namespace StarFood.Controllers.OrderDetailController
 
         public IActionResult Index()
         {
-           // IEnumerable<DetallePedido> OrderDetailList = _unitOfWork.DetallePedido.GetAll();
-            //return View(DishList);
+            IEnumerable<DetallePedido> orderDetailList = _unitOfWork.DetallePedido.GetAll();
+            return View(orderDetailList);
 
         }
 
@@ -32,13 +32,13 @@ namespace StarFood.Controllers.OrderDetailController
 
         // Works
         [HttpPost]
-        public IActionResult Create([FromBody] Platillo platillo)
+        public IActionResult Create([FromBody] DetallePedido orderDetail)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Platillo.Add(platillo);
+                _unitOfWork.DetallePedido.Add(orderDetail);
                 _unitOfWork.Save();
-                return Json(new { success = true, message = "platillo creado correctamente" });
+                return Json(new { success = true, message = "Detalle de orden creada correctamente" });
             }
 
             return RedirectToAction("Index");
@@ -54,10 +54,10 @@ namespace StarFood.Controllers.OrderDetailController
                 return NotFound(new { success = false, message = "ID no proporcionado" });
             }
 
-            var platillo = _unitOfWork.Platillo.GetFirstOrDefault(x => x.IDPlatillo == id, null);
-            if (platillo == null)
+            var orderDetail = _unitOfWork.DetallePedido.GetFirstOrDefault(x => x.IDDetallePedido == id, null);
+            if (orderDetail == null)
             {
-                return NotFound(new { success = false, message = "Platillo no encontrado" });
+                return NotFound(new { success = false, message = "Detalle de pedido no encontrado" });
             }
 
             return RedirectToAction("Index");
@@ -67,15 +67,15 @@ namespace StarFood.Controllers.OrderDetailController
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public IActionResult Edit([FromBody] Platillo platillo)
+        public IActionResult Edit([FromBody] DetallePedido orderDetail)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Platillo.Update(platillo);
+                _unitOfWork.DetallePedido.Update(orderDetail);
                 _unitOfWork.Save();
                 //return Json(new { success = true, message = "Categoria actualizada correctamente" });
             }
-            TempData["success"] = "Platillo editada correctamente";
+            TempData["success"] = "Detalle de orden editada correctamente";
             return RedirectToAction("Index");
             //return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
         }
@@ -120,8 +120,8 @@ namespace StarFood.Controllers.OrderDetailController
         // Works
         public IActionResult GetAll()
         {
-            var category = _unitOfWork.Producto.GetAll();
-            return Json(new { data = category, success = true });
+            var orderDetail = _unitOfWork.DetallePedido.GetAll();
+            return Json(new { data = orderDetail, success = true });
         }
     }
 }
