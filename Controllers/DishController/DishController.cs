@@ -36,6 +36,11 @@ namespace StarFood.Controllers.DishController
         {
             if (ModelState.IsValid)
             {
+                var categoria = _unitOfWork.Platillo.GetFirstOrDefault(x => x.CategoriaID == platillo.Categoria.IDCategoria, null);
+                if (categoria != null)
+                {
+                    platillo.Categoria = new Categoria { IDCategoria = platillo.CategoriaID, Nombre = platillo.Categoria.Nombre};
+                }
                 _unitOfWork.Platillo.Add(platillo);
                 _unitOfWork.Save();
                 return Json(new { success = true, message = "platillo creado correctamente" });
@@ -120,8 +125,24 @@ namespace StarFood.Controllers.DishController
         // Works
         public IActionResult GetAll()
         {
-            var category = _unitOfWork.Producto.GetAll();
-            return Json(new { data = category, success = true });
+            var DishList = _unitOfWork.Platillo.GetAll(includeProperties: "Categoria");
+
+            var formattedList = DishList.Select(platillo => new
+            {
+                IDPlatillo = platillo.IDPlatillo,
+                Nombre = platillo.Nombre,
+                Precio = platillo.Precio,
+                Descripcion = platillo.Descripcion,
+                Suspendido = platillo.Suspendido,
+                ImagenUrl = platillo.ImagenUrl,
+                Categoria = new
+                {
+                    IdCategoria = platillo.Categoria.IDCategoria,
+                    NombreCategoria = platillo.Categoria.Nombre
+                }
+            });
+
+            return Json(new { data = formattedList });
         }
     }
 }
