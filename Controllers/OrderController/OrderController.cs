@@ -20,7 +20,6 @@ namespace StarFood.Controllers.OrderController
         {
             IEnumerable<Pedido> orderList = _unitOfWork.Pedido.GetAll();
             return View(orderList);
-            return View();
         }
 
 
