@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace StarFood.Models
 {
@@ -14,6 +15,8 @@ namespace StarFood.Models
 
         [ForeignKey("Categoria")]
         public int CategoriaID { get; set; }
+
+        [ValidateNever]
         public Categoria Categoria { get; set; }
 
         [Required]

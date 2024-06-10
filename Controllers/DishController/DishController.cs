@@ -36,17 +36,21 @@ namespace StarFood.Controllers.DishController
         {
             if (ModelState.IsValid)
             {
-                var categoria = _unitOfWork.Platillo.GetFirstOrDefault(x => x.CategoriaID == platillo.Categoria.IDCategoria, null);
-                if (categoria != null)
+
+                var categoriaExistente = _unitOfWork.Categoria.GetFirstOrDefault(c => c.IDCategoria == platillo.CategoriaID, null);
+                if (categoriaExistente == null)
                 {
-                    platillo.Categoria = new Categoria { IDCategoria = platillo.CategoriaID, Nombre = platillo.Categoria.Nombre};
+                    return BadRequest("Categoría no encontrada.");
                 }
+
+
                 _unitOfWork.Platillo.Add(platillo);
                 _unitOfWork.Save();
-                return Json(new { success = true, message = "platillo creado correctamente" });
+
+                return Json(new { success = true, message = "Platillo creado correctamente" });
             }
 
-            return RedirectToAction("Index");
+            return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
         }
 
 
