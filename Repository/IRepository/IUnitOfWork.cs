@@ -12,6 +12,7 @@
         IRepositorioMetodoPago MetodoPago { get; }
         IRepositorioFactura Factura { get; }
         IRepositorioCategoria Categoria { get; }
+        IRepositorioDetallePedido DetallePedido { get; }
 
         void Save();
     }

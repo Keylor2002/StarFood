@@ -10,5 +10,7 @@ namespace StarFood.Models
         [Required]
         [MaxLength(80)]
         public string Nombre { get; set; }
+
+        public bool Suspendido { get; set; }
     }
 }

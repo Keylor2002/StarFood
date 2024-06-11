@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-
 using StarFood.Repository.IRepository;
 using StarFood.Utility;
 
-namespace StarFood.Controllers.User_Controller
+namespace StarFood.Controllers.UserController
 {
     [Authorize(Roles = Roles.Admin_Role + "," + Roles.Employee_Role)]
     public class ControladorUsuario : Controller
@@ -60,7 +59,7 @@ namespace StarFood.Controllers.User_Controller
             {
                 _db.Usuario.Update(obj);
                 _db.Save();
-                TempData["success"] = "User Updated successfully";
+                TempData["success"] = "Usuario actualizado correctametne";
             }
             return RedirectToAction("Index");
         }
@@ -73,7 +72,7 @@ namespace StarFood.Controllers.User_Controller
             {
                 _db.Usuario.Update(obj);
                 _db.Save();
-                TempData["success"] = "User Updated successfully";
+                TempData["success"] = "Usuario actualizado correctamente";
             }
             return RedirectToAction("Index");
         }
@@ -88,7 +87,7 @@ namespace StarFood.Controllers.User_Controller
                 _userManager.SetLockoutEndDateAsync(_db.Usuario.GetFirstOrDefault(x => x.Id == id, null), DateTimeOffset.MaxValue);
             }
             _db.Save();
-            return Json(new { success = true, message = "Banned Successfully" });
+            return Json(new { success = true, message = "Baneado correctamente" });
         }
 
         //POST
@@ -101,7 +100,7 @@ namespace StarFood.Controllers.User_Controller
                 _userManager.SetLockoutEndDateAsync(_db.Usuario.GetFirstOrDefault(x => x.Id == id, null), null);
             }
             _db.Save();
-            return Json(new { success = true, message = "Unbanned Successfully" });
+            return Json(new { success = true, message = "Desbaneado correctamente" });
         }
 
         [HttpGet]
@@ -111,17 +110,17 @@ namespace StarFood.Controllers.User_Controller
             return Json(new { data = users, success = true });
         }
 
-        [HttpGet]
-        public IActionResult GetAllMedical()
-        {
-            IList<IdentityUser> users = _userManager.GetUsersInRoleAsync(Roles.Employee_Role).Result;
-            List<Models.Usuario> usersList = new List<Models.Usuario>();
-            foreach (var user in users)
-            {
-                usersList.Add(_db.Usuario.GetFirstOrDefault(x => x.Id == user.Id, null));
-            }
-            return Json(new { data = usersList, success = true });
-        }
+        //[HttpGet]
+        //public IActionResult GetAllMedical()
+        //{
+        //    IList<IdentityUser> users = _userManager.GetUsersInRoleAsync(Roles.Employee_Role).Result;
+        //    List<Models.Usuario> usersList = new List<Models.Usuario>();
+        //    foreach (var user in users)
+        //    {
+        //        usersList.Add(_db.Usuario.GetFirstOrDefault(x => x.Id == user.Id, null));
+        //    }
+        //    return Json(new { data = usersList, success = true });
+        //}
 
     
     }

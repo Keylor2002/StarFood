@@ -12,10 +12,9 @@ namespace StarFood.Models
         public int IDPlatillo { get; set; }
         public Platillo Platillo { get; set; }
 
-        [ForeignKey("Producto")]
-        public int IDProducto { get; set; }
-        public Producto Producto { get; set; }
-
         public int CantidadProducto { get; set; }
+
+        [NotMapped]
+        public ICollection<Producto> Producto { get; set; } 
     }
 }
