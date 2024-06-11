@@ -1,8 +1,8 @@
 ﻿:root {
-    --color-light: #D4AB7E; /* Nuevo color light */
-    --color-dark: #ADDB75; /* Nuevo color dark */
-    --color-accent: #FCE8B9; /* Nuevo color accent */
-    --color-secondary: #a3ccd1; /* Nuevo color secondary */
+    --color-light: #FDFFE2; /* Nuevo color light TABLA Y TITULO*/
+    --color-dark: #5A72A0; /* Nuevo color dark */
+    --color-accent: #83B4FF; /* Nuevo color accent */
+    --color-secondary: #1A2130; /* Nuevo color secondary */
 }
 
 button, .btn-custom {
