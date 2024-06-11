@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace StarFood.Models
 {
@@ -12,6 +13,7 @@ namespace StarFood.Models
         public DateTime FechaPedido { get; set; }
 
         [ForeignKey("Producto")]
+        
         public int IDProducto { get; set; }
 
         [Required]
@@ -20,7 +22,10 @@ namespace StarFood.Models
         [ForeignKey("Proveedor")]
         public int IDProveedor { get; set; }
 
+        [ValidateNever]
         public Producto Producto { get; set; }
+
+        [ValidateNever]
         public Proveedor Proveedor { get; set; }
     }
 }

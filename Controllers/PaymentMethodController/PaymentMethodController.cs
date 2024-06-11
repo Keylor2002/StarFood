@@ -44,9 +44,11 @@ namespace StarFood.Controllers.PaymentMethodController
             {
                 _unitOfWork.MetodoPago.Add(paymentMethod);
                 _unitOfWork.Save();
+                //return Json(new { success = true, message = "Metodo de pago creado correctamente" });
             }
             TempData["success"] = "Metodo de pago agregado correctamente";
             return RedirectToAction("Index");
+            //return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
         }
 
         // GET: HomeController/Edit/5
