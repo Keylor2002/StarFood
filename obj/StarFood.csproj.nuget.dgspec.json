@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Keylor\\StarFood\\StarFood.csproj": {}
+    "C:\\Users\\joshu\\OneDrive - Informática Empresarial Occidente\\DOCUMENTS\\IVYear_Semester1\\IF7100-INGENIERÍA DE SOFTWARE\\PROYECTO\\StarFood\\StarFood.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Keylor\\StarFood\\StarFood.csproj": {
+    "C:\\Users\\joshu\\OneDrive - Informática Empresarial Occidente\\DOCUMENTS\\IVYear_Semester1\\IF7100-INGENIERÍA DE SOFTWARE\\PROYECTO\\StarFood\\StarFood.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Keylor\\StarFood\\StarFood.csproj",
+        "projectUniqueName": "C:\\Users\\joshu\\OneDrive - Informática Empresarial Occidente\\DOCUMENTS\\IVYear_Semester1\\IF7100-INGENIERÍA DE SOFTWARE\\PROYECTO\\StarFood\\StarFood.csproj",
         "projectName": "StarFood",
-        "projectPath": "C:\\Users\\Keylor\\StarFood\\StarFood.csproj",
-        "packagesPath": "C:\\Users\\Keylor\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Keylor\\StarFood\\obj\\",
+        "projectPath": "C:\\Users\\joshu\\OneDrive - Informática Empresarial Occidente\\DOCUMENTS\\IVYear_Semester1\\IF7100-INGENIERÍA DE SOFTWARE\\PROYECTO\\StarFood\\StarFood.csproj",
+        "packagesPath": "C:\\Users\\joshu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\joshu\\OneDrive - Informática Empresarial Occidente\\DOCUMENTS\\IVYear_Semester1\\IF7100-INGENIERÍA DE SOFTWARE\\PROYECTO\\StarFood\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Keylor\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\joshu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
