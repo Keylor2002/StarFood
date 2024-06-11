@@ -36,11 +36,11 @@ namespace StarFood.Controllers.OrderController
             {
                 _unitOfWork.Pedido.Add(order);
                 _unitOfWork.Save();
-                //return Json(new { success = true, message = "Categoria creada correctamente" });
+                return Json(new { success = true, message = "Categoria creada correctamente" });
             }
             TempData["success"] = "Nuevo pedido realizado";
-            return RedirectToAction("Index");
-            //return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
+            //return RedirectToAction("Index");
+            return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
         }
 
 
@@ -118,8 +118,40 @@ namespace StarFood.Controllers.OrderController
         // Works
         public IActionResult GetAll()
         {
-            var order = _unitOfWork.Pedido.GetAll();
-            return Json(new { data = order, success = true });
+            var orderList = _unitOfWork.Pedido.GetAll(includeProperties: "DetallePedido,Usuario");
+
+            var formattedList = orderList.Select(pedido => new
+            {
+                IDPedido = pedido.IDPedido,
+                IDUsuario = pedido.IDUsuario,
+                FechaPedido = pedido.FechaPedido,
+                FechaEntrega = pedido.FechaEntrega,
+                Cancelado = pedido.Cancelado,
+
+                Usuario = new
+                {
+                    IDUsuario = pedido.Usuario.IDUsuario,
+                    UserName = pedido.Usuario.UserName
+                },
+
+                DetallePedido = pedido.DetallePedido.Select(detalle => new
+                {
+                    IDDetallePedido = detalle.IDDetallePedido,
+                    IDPedido = detalle.IDPedido,
+                    IDPlatillo = detalle.IDPlatillo,
+                    Platillo = detalle.Platillo == null ? null : new
+                    {
+                        detalle.Platillo.IDPlatillo,
+                        detalle.Platillo.Nombre // Asumiendo que la entidad Platillo tiene una propiedad Nombre
+                    },
+                    Cantidad = detalle.Cantidad
+                }).ToList()
+            }).ToList();
+
+            return Ok(new { data = formattedList });
         }
     }
 }
+    
+
+
