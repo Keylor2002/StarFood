@@ -1,9 +1,10 @@
 ﻿
 <!-- Sidebar -->
+
 <div class="sidebar" id="sidebar">
 
     <button class="sidebar-toggle" id="sidebar-toggle">
-        <i class="bi bi-star-fill" id="home_icon"></i>
+        <i class="bi bi-star-half" id="home_icon"></i>
     </button>
     <h2 class="sidebar-title">StarFood</h2>
     <ul class="sidebar-nav">
@@ -19,19 +20,28 @@
 
 
 <script>
+    const sidebarToggleBtn = document.querySelector('.sidebar-toggle');
+    const mainContent = document.querySelector('.main-content');
+    const sidebar = document.querySelector('.sidebar');
+
+    sidebarToggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('sidebar-closed');
+        mainContent.classList.toggle('sidebar-closed');
+    });
+
+
     // Función para minimizar el sidebar
     function minimizeSidebar() {
         const sidebar = document.getElementById('sidebar');
         const sidebarToggle = document.getElementById('sidebar-toggle');
         const sidebarTitle = document.querySelector('.sidebar-title');
         const sidebarNav = document.querySelectorAll('.sidebar-nav li a');
-
         sidebar.classList.add('minimized');
-        sidebarToggle.innerHTML = '<i class="bi bi-star-half"></i>';
+        sidebarToggle.innerHTML = '<i class="bi bi-star-fill"></i>';
         sidebarTitle.style.display = 'none';
         sidebarNav.forEach(link => {
             link.querySelector('span').style.display = 'none';
-            link.querySelector('i').style.marginLeft = '10px';
+            link.querySelector('i').style.marginLeft = '5px';
         });
     }
 
@@ -41,9 +51,8 @@
         const sidebarToggle = document.getElementById('sidebar-toggle');
         const sidebarTitle = document.querySelector('.sidebar-title');
         const sidebarNav = document.querySelectorAll('.sidebar-nav li a');
-
         sidebar.classList.remove('minimized');
-        sidebarToggle.innerHTML = '<i class="bi bi-star-fill"></i>';
+        sidebarToggle.innerHTML = '<i class="bi bi-star-half"></i>';
         sidebarTitle.style.display = 'block';
         sidebarNav.forEach(link => {
             link.querySelector('span').style.display = 'inline';
@@ -103,6 +112,7 @@
         window.location.href = '/Facturas/Index';
     });
 
+
 </script>
 
 <style>
@@ -112,7 +122,7 @@
         left: 0;
         width: 250px;
         height: 100vh;
-        background-color: var(--color-accent);
+        background-color: var(--color-dark);
         color: var(--color-light);
         padding: 20px;
         transition: width 0.3s ease-in-out;
@@ -130,7 +140,7 @@
         align-self: flex-end;
         width: 50px;
         height: 50px;
-        background-color: var(--color-accent);
+        background-color: var(--color-dark);
         color: var(--color-light);
         border: none;
         padding: 0px;
