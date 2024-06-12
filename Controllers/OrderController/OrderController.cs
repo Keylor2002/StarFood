@@ -36,11 +36,11 @@ namespace StarFood.Controllers.OrderController
             {
                 _unitOfWork.Pedido.Add(order);
                 _unitOfWork.Save();
-                return Json(new { success = true, message = "Categoria creada correctamente" });
+                //return Json(new { success = true, message = "Pedido creado correctamente" });
             }
             TempData["success"] = "Nuevo pedido realizado";
-            //return RedirectToAction("Index");
-            return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
+            return RedirectToAction("Index");
+            //return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
         }
 
 
@@ -123,11 +123,11 @@ namespace StarFood.Controllers.OrderController
             var formattedList = orderList.Select(pedido => new
             {
                 IDPedido = pedido.IDPedido,
-                Id = pedido.Id,
                 FechaPedido = pedido.FechaPedido,
                 FechaEntrega = pedido.FechaEntrega,
                 Cancelado = pedido.Cancelado,
-
+                EnProceso = pedido.EnProceso,
+                Entregado = pedido.Entregado,
                 Usuario = new
                 {
                     Id = pedido.Usuario.Id,
