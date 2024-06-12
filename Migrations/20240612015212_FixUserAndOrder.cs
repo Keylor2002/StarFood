@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace StarFood.Migrations
 {
     /// <inheritdoc />
-    public partial class FixErrors : Migration
+    public partial class FixUserAndOrder : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,7 +31,7 @@ namespace StarFood.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
-                    IDUsuario = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: true),
+                    Cedula = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: true),
                     NombreUsuario = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Suspendido = table.Column<bool>(type: "bit", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -209,18 +209,19 @@ namespace StarFood.Migrations
                 {
                     IDPedido = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IDUsuario = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UsuarioId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FechaPedido = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaEntrega = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Cancelado = table.Column<bool>(type: "bit", nullable: false)
+                    Cancelado = table.Column<bool>(type: "bit", nullable: false),
+                    EnProceso = table.Column<bool>(type: "bit", nullable: false),
+                    Entregado = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pedidos", x => x.IDPedido);
                     table.ForeignKey(
-                        name: "FK_Pedidos_AspNetUsers_UsuarioId",
-                        column: x => x.UsuarioId,
+                        name: "FK_Pedidos_AspNetUsers_Id",
+                        column: x => x.Id,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -322,7 +323,6 @@ namespace StarFood.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IDPedido = table.Column<int>(type: "int", nullable: false),
                     IDPlatillo = table.Column<int>(type: "int", nullable: false),
-                    PlatilloIDPlatillo = table.Column<int>(type: "int", nullable: false),
                     Cantidad = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -335,8 +335,8 @@ namespace StarFood.Migrations
                         principalColumn: "IDPedido",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_DetallesPedido_Platillos_PlatilloIDPlatillo",
-                        column: x => x.PlatilloIDPlatillo,
+                        name: "FK_DetallesPedido_Platillos_IDPlatillo",
+                        column: x => x.IDPlatillo,
                         principalTable: "Platillos",
                         principalColumn: "IDPlatillo",
                         onDelete: ReferentialAction.Cascade);
@@ -435,9 +435,9 @@ namespace StarFood.Migrations
                 column: "IDPedido");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DetallesPedido_PlatilloIDPlatillo",
+                name: "IX_DetallesPedido_IDPlatillo",
                 table: "DetallesPedido",
-                column: "PlatilloIDPlatillo");
+                column: "IDPlatillo");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Facturas_IDMetodoPago",
@@ -450,9 +450,9 @@ namespace StarFood.Migrations
                 column: "IDPedido");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pedidos_UsuarioId",
+                name: "IX_Pedidos_Id",
                 table: "Pedidos",
-                column: "UsuarioId");
+                column: "Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PedidosDeProducto_IDProducto",

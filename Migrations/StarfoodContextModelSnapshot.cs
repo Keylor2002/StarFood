@@ -267,14 +267,11 @@ namespace StarFood.Migrations
                     b.Property<int>("IDPlatillo")
                         .HasColumnType("int");
 
-                    b.Property<int>("PlatilloIDPlatillo")
-                        .HasColumnType("int");
-
                     b.HasKey("IDDetallePedido");
 
                     b.HasIndex("IDPedido");
 
-                    b.HasIndex("PlatilloIDPlatillo");
+                    b.HasIndex("IDPlatillo");
 
                     b.ToTable("DetallesPedido");
                 });
@@ -343,23 +340,25 @@ namespace StarFood.Migrations
                     b.Property<bool>("Cancelado")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("EnProceso")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Entregado")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("FechaEntrega")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("FechaPedido")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("IDUsuario")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UsuarioId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("IDPedido");
 
-                    b.HasIndex("UsuarioId");
+                    b.HasIndex("Id");
 
                     b.ToTable("Pedidos");
                 });
@@ -537,10 +536,10 @@ namespace StarFood.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<string>("IDUsuario")
+                    b.Property<string>("Cedula")
                         .IsRequired()
-                        .HasMaxLength(9)
-                        .HasColumnType("nvarchar(9)");
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
 
                     b.Property<string>("NombreUsuario")
                         .IsRequired()
@@ -607,14 +606,14 @@ namespace StarFood.Migrations
             modelBuilder.Entity("StarFood.Models.DetallePedido", b =>
                 {
                     b.HasOne("StarFood.Models.Pedido", "Pedido")
-                        .WithMany()
+                        .WithMany("DetallePedido")
                         .HasForeignKey("IDPedido")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("StarFood.Models.Platillo", "Platillo")
                         .WithMany()
-                        .HasForeignKey("PlatilloIDPlatillo")
+                        .HasForeignKey("IDPlatillo")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -646,7 +645,7 @@ namespace StarFood.Migrations
                 {
                     b.HasOne("StarFood.Models.Usuario", "Usuario")
                         .WithMany()
-                        .HasForeignKey("UsuarioId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -711,6 +710,11 @@ namespace StarFood.Migrations
                     b.Navigation("Categoria");
 
                     b.Navigation("Proveedor");
+                });
+
+            modelBuilder.Entity("StarFood.Models.Pedido", b =>
+                {
+                    b.Navigation("DetallePedido");
                 });
 #pragma warning restore 612, 618
         }

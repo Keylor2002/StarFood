@@ -9,7 +9,9 @@ namespace StarFood.Models
         [Key]
         public int IDPedido { get; set; }
 
-        public string IDUsuario { get; set; }
+        //LLave foranea sobre Id del usuario
+        [ForeignKey("Usuario")]
+        public string Id { get; set; } //Identificador de usuario por identityUser
         
         [ValidateNever]
         public Usuario Usuario { get; set; }
@@ -20,5 +22,7 @@ namespace StarFood.Models
         [ValidateNever]
         public ICollection<DetallePedido> DetallePedido { get; set; } 
         public bool Cancelado { get; set; }
+        public bool EnProceso { get; set; }
+        public bool Entregado {  get; set; }
     }
 }

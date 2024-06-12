@@ -123,14 +123,14 @@ namespace StarFood.Controllers.OrderController
             var formattedList = orderList.Select(pedido => new
             {
                 IDPedido = pedido.IDPedido,
-                IDUsuario = pedido.IDUsuario,
+                Id = pedido.Id,
                 FechaPedido = pedido.FechaPedido,
                 FechaEntrega = pedido.FechaEntrega,
                 Cancelado = pedido.Cancelado,
 
                 Usuario = new
                 {
-                    IDUsuario = pedido.Usuario.IDUsuario,
+                    Id = pedido.Usuario.Id,
                     UserName = pedido.Usuario.UserName
                 },
 

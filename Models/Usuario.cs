@@ -6,8 +6,8 @@ namespace StarFood.Models
     public class Usuario : IdentityUser
     {
         [Required]
-        [StringLength(9)]
-        public string IDUsuario { get; set; }
+        [StringLength(12)]
+        public string Cedula { get; set; } //Numero de cedula
 
         [Required]
         [MaxLength(50)]

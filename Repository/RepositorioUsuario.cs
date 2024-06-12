@@ -17,11 +17,11 @@ namespace StarFood.Repository
 
         public void Update(Usuario obj)
         {
-            var objFromDB = _db.Usuarios.FirstOrDefault(u => u.IDUsuario == obj.IDUsuario);
+            var objFromDB = _db.Usuarios.FirstOrDefault(u => u.Id == obj.Id);
             if (objFromDB != null)
             {
                 objFromDB.NombreUsuario = obj.NombreUsuario;
-                objFromDB.IDUsuario = obj.IDUsuario;
+                objFromDB.Cedula = obj.Cedula;
                 objFromDB.Email = obj.Email;
             }
         }

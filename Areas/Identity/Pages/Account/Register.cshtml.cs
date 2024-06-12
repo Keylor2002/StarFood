@@ -108,7 +108,7 @@ namespace StarFood.Areas.Identity.Pages.Account
             [Required]
             [StringLength(9)]
             [Display(Name = "Numero de Cedula")]
-            public string IDUsuario { get; set; }
+            public string Cedula { get; set; }
 
             [Required]
             [Display(Name = "Nombre de usuario")]
@@ -155,7 +155,7 @@ namespace StarFood.Areas.Identity.Pages.Account
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 user.NombreUsuario = Input.NombreUsuario;
-                user.IDUsuario = Input.IDUsuario;
+                user.Cedula = Input.Cedula;
 
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
