@@ -118,7 +118,7 @@ namespace StarFood.Controllers.OrderController
         // Works
         public IActionResult GetAll()
         {
-            var orderList = _unitOfWork.Pedido.GetAll(includeProperties: "DetallePedido,Usuario");
+            var orderList = _unitOfWork.Pedido.GetAll(includeProperties: "DetallePedido.Platillo,Usuario");
 
             var formattedList = orderList.Select(pedido => new
             {
@@ -139,10 +139,10 @@ namespace StarFood.Controllers.OrderController
                     IDDetallePedido = detalle.IDDetallePedido,
                     IDPedido = detalle.IDPedido,
                     IDPlatillo = detalle.IDPlatillo,
-                    Platillo = detalle.Platillo == null ? null : new
+                    Platillo = new
                     {
-                        detalle.Platillo.IDPlatillo,
-                        detalle.Platillo.Nombre // Asumiendo que la entidad Platillo tiene una propiedad Nombre
+                        IDPlatillo = detalle.Platillo.IDPlatillo,
+                        Nombre = detalle.Platillo.Nombre // Asumiendo que la entidad Platillo tiene una propiedad Nombre
                     },
                     Cantidad = detalle.Cantidad
                 }).ToList()

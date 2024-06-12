@@ -32,6 +32,10 @@ builder.Services.AddDbContext<StarfoodContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")
         ));
 
+//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<StarfoodContext>();
+
+//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<StarfoodContext>();
+
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<StarfoodContext>();

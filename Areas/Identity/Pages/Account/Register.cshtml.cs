@@ -154,7 +154,7 @@ namespace StarFood.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                user.NombreUsuario = Input.NombreUsuario;
+                user.UserName = Input.NombreUsuario;
                 user.Cedula = Input.Cedula;
 
 
