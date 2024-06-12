@@ -80,3 +80,108 @@ body {
 .card-body a.nav-link {
     color: black;
 }
+
+/* Estilos para el navbar */
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus {
+    color: rgba(255, 255, 255, 1);
+}
+
+/* Estilos para el sidebar */
+.sidebar {
+    position: fixed;
+    top: 56px; /* Ajustar según la altura del navbar */
+    left: 0;
+    width: 250px;
+    height: calc(100vh - 56px); /* Ajustar según la altura del navbar */
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    padding: 20px;
+    transition: width 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.sidebar.minimized {
+    width: 110px;
+    align-items: center;
+}
+
+.sidebar-toggle {
+    align-self: flex-end;
+    width: 50px;
+    height: 50px;
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    border: none;
+    padding: 0px;
+    font-size: 30px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.sidebar-toggle:hover {
+    background-color: var(--color-dark);
+}
+
+.sidebar-title {
+    color: var(--color-light);
+    margin-left: 30px;
+    margin-bottom: 20px;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.sidebar-nav {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.sidebar-nav li {
+    width: 100%;
+}
+
+.sidebar-nav li a {
+    display: flex;
+    align-items: center;
+    padding: 10px 30px;
+    color: var(--color-light);
+    text-decoration: none;
+    position: relative;
+}
+
+.sidebar-nav li a i {
+    margin-right: 10px;
+    transition: margin 0.3s ease-in-out;
+}
+
+.sidebar-nav li a span {
+    transition: opacity 0.3s ease-in-out;
+}
+
+.sidebar-nav li.minimized a i {
+    margin-left: 10px;
+}
+
+.sidebar-nav li.minimized a span {
+    display: none;
+}
+
+.sidebar-nav li a:hover {
+    background-color: var(--color-dark);
+}
+
+.main-content {
+    margin-left: 250px; /* Ajustar según el ancho del sidebar */
+    padding: 20px;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+.sidebar-closed .main-content {
+    margin-left: 110px; /* Ajustar según el ancho minimizado del sidebar */
+}

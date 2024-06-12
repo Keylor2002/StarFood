@@ -35,7 +35,7 @@ namespace StarFood.Repository
             query = query.Where(filter);
             return query.FirstOrDefault();
         }
-
+         
         public IEnumerable<T> GetAll(string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;

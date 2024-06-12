@@ -1,0 +1,166 @@
+﻿@model IEnumerable<StarFood.Models.Categoria>
+
+@{
+    ViewData["Title"] = "Categorías Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container mt-4">
+    <div class="rounded-box">
+        <!-- SearchBox and AddButton -->
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-10">
+                <form class="d-flex" method="get" asp-action="Index">
+                    <input class="form-control me-2" type="search" placeholder="Buscar por nombre" aria-label="Buscar" name="searchString">
+                    <button class="btn btn-info" type="submit">Buscar</button>
+                </form>
+            </div>
+            <div class="col-md-2">
+                <a class="btn btn-info w-100" asp-action="Create">Crear</a>
+            </div>
+        </div>
+        <!-- Table -->
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Nombre)</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                            <td>
+                                <a class="btn btn-info btn-sm" asp-action="Edit" asp-route-id="@item.IDCategoria">Editar</a>
+                                <a class="btn btn-info btn-sm" asp-action="Delete" asp-route-id="@item.IDCategoria">Borrar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script>
+        jQuery.ajax({
+            url: '@Url.Action("GetAll", "Category")',
+            type: "GET",
+            data: null,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                console.log(data)
+                $.each(data.data, function (index, value) {
+                    $("<option>").attr({ "value": value.CategoriaID }).text(value.Nombre).appendTo("#categoryDisplay")
+                })
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        })
+    </script>
+
+    <script>
+    jQuery.ajax({
+        url: '@Url.Action("BrandList", "Inventario")',
+        type: "GET",
+        data: null,
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            console.log(data)
+            $.each(data.data, function (index, value) {
+                $("<option>").attr({ "value": value.marcaID }).text(value.Nombre).appendTo("#brandDisplay")
+            })
+        },
+        error: function (error) {
+            console.log(error)
+        }
+    })
+    </script>
+
+    <script>
+        var tableData;
+        tableData = $("#tableProductos").DataTable({
+            responsive: true,
+            ordering: false,
+            "ajax": {
+                url:'@Url.Action("ProductList", "Inventario")',
+                type: "GET",
+                dataType: "json",
+            },
+            "columns": [
+                { "data": "ProductoID" },
+                { "data": "Nombre" },
+                { "data": "Precio" },
+                { "data": "Stock" },
+                {
+                    "defaultContent": '<button type="button" class="btn btn-primary btn-sm btn-edit"><i class="fas fa-pen"></i></button>' +
+                        '<button type="button" class="btn btn-danger btn-sm ms-2 btn-delete"><i class="fas fa-trash"></i></button>'
+                }
+            ],
+            "lenguaje": {
+                "url": "//cdn.datatables.net/plug-ins/2.0.1/i18n/es-ES.json"
+            }
+        });
+
+        function openModal(json) {
+            $("#txtBarCode").val("");
+            $("#txtNombre").val("");
+            $("#txtPrecio").val("");
+            $("#brandDisplay").val($("#brandDisplay option:first")).val;
+            $("#categoryDisplay").val($("#categoryDisplay option:first")).val;
+            $("#txtStock").val("");
+
+            if (json != null) {
+                $("#txtBarCode").val(json.ProductoID);
+                $("#txtNombre").val(json.Nombre);
+                $("#txtPrecio").val(json.Precio);
+                $("#brandDisplay").val($("#brandDisplay")).val;
+                $("#categoryDisplay").val($("#categoryDisplay option:first")).val;
+                $("#txtStock").val("");
+            }
+            $("#FormModal").modal("show");
+        }
+
+        function SaveProduct() {
+            var product = {
+                ProductoID: $("#txtBarCode").val(),
+                Nombre: $("#txtNombre").val(),
+                Precio: $("#txtPrecio").val(),
+                MarcaID: $("#bandDisplay").val($("#brandDisplay option:first")).val,
+                CategoriaID: $("#categoryDisplay").val($("#categoryDisplay option:first")).val,
+                Stock: $("#txtStock").val()
+            }
+
+            if (product.ProductoID != null) {
+                tableData.row.add(product).draw(false);
+            } else {
+                alert("El BarCode no puede ser nulo");
+            }
+            $("#FormModal").modal("hide");
+
+        }
+
+        $("#tableProductos tbody").on("click", '.btn-edit', function () {
+            var selectedRow = $(this).closest("tr");
+
+            var data = tableData.row(selectedRow).data();
+            openModal(data)
+        })
+
+
+    </script>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
+
