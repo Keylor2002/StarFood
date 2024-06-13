@@ -39,8 +39,8 @@ builder.Services.AddDbContext<StarfoodContext>(options =>
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<StarfoodContext>();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<StarfoodContext>();
+//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<StarfoodContext>();
 builder.Services.AddScoped<BusinessCategorias>();
 builder.Services.AddTransient<DataCategory>(provider => new DataCategory(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddTransient<BusinessCategorias>();
