@@ -1,9 +1,10 @@
 ﻿@model IEnumerable<StarFood.Models.Categoria>
 
 @{
-    ViewData["Title"] = "Categorías Index";
+    ViewData["Title"] = "Category Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div class="container mt-4">
     <div class="rounded-box">
         <!-- SearchBox and AddButton -->
@@ -23,18 +24,20 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().IDCategoria)</th>
                         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Nombre)</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="categoryTableBody">
                     @foreach (var item in Model)
                     {
                         <tr>
+                            <td>@Html.DisplayFor(modelItem => item.IDCategoria)</td>
                             <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
                             <td>
-                                <a class="btn btn-info btn-sm" asp-action="Edit" asp-route-id="@item.IDCategoria">Editar</a>
-                                <a class="btn btn-info btn-sm" asp-action="Delete" asp-route-id="@item.IDCategoria">Borrar</a>
+                                <button class="btn btn-info btn-sm edit-btn" data-id="@item.IDCategoria">Editar</button>
+                                <button class="btn btn-danger btn-sm delete-btn" data-id="@item.IDCategoria">Borrar</button>
                             </td>
                         </tr>
                     }
@@ -45,122 +48,116 @@
 </div>
 
 @section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui/1.12.1/jquery-ui.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet" />
 
     <script>
-        jQuery.ajax({
-            url: '@Url.Action("GetAll", "Category")',
-            type: "GET",
-            data: null,
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                console.log(data)
-                $.each(data.data, function (index, value) {
-                    $("<option>").attr({ "value": value.CategoriaID }).text(value.Nombre).appendTo("#categoryDisplay")
-                })
-            },
-            error: function (error) {
-                console.log(error)
-            }
-        })
-    </script>
+        $(document).ready(function () {
+            loadCategories();
 
-    <script>
-    jQuery.ajax({
-        url: '@Url.Action("BrandList", "Inventario")',
-        type: "GET",
-        data: null,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: function (data) {
-            console.log(data)
-            $.each(data.data, function (index, value) {
-                $("<option>").attr({ "value": value.marcaID }).text(value.Nombre).appendTo("#brandDisplay")
-            })
-        },
-        error: function (error) {
-            console.log(error)
-        }
-    })
-    </script>
+            $('#categoryForm').on('submit', function (e) {
+                e.preventDefault();
+                var categoria = {
+                    IDCategoria: $('#IDCategoria').val(),
+                    Nombre: $('#Nombre').val()
+                };
 
-    <script>
-        var tableData;
-        tableData = $("#tableProductos").DataTable({
-            responsive: true,
-            ordering: false,
-            "ajax": {
-                url:'@Url.Action("ProductList", "Inventario")',
-                type: "GET",
-                dataType: "json",
-            },
-            "columns": [
-                { "data": "ProductoID" },
-                { "data": "Nombre" },
-                { "data": "Precio" },
-                { "data": "Stock" },
-                {
-                    "defaultContent": '<button type="button" class="btn btn-primary btn-sm btn-edit"><i class="fas fa-pen"></i></button>' +
-                        '<button type="button" class="btn btn-danger btn-sm ms-2 btn-delete"><i class="fas fa-trash"></i></button>'
+                if (categoria.IDCategoria) {
+                    $.ajax({
+                        url: '@Url.Action("Edit", "Category")',
+                        type: 'POST',
+                        data: JSON.stringify(categoria),
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (response) {
+                            if (response.success) {
+                                loadCategories();
+                                $('#categoryForm')[0].reset();
+                            } else {
+                                alert('Error al actualizar la categoría.');
+                            }
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        url: '@Url.Action("Create", "Category")',
+                        type: 'POST',
+                        data: JSON.stringify(categoria),
+                        contentType: 'application/json',
+                        success: function (response) {
+                            if (response.success) {
+                                loadCategories();
+                                $('#categoryForm')[0].reset();
+                            } else {
+                                alert('Error al añadir la categoría.');
+                            }
+                        }
+                    });
                 }
-            ],
-            "lenguaje": {
-                "url": "//cdn.datatables.net/plug-ins/2.0.1/i18n/es-ES.json"
+            });
+
+            $('body').on('click', '.edit-btn', function () {
+                var id = $(this).data('id');
+                $.get('@Url.Action("Edit", "Category")/' + id, function (data) {
+                    $('#IDCategoria').val(data.idCategoria);
+                    $('#Nombre').val(data.nombre);
+                    openCategoryForm();
+                });
+            });
+
+            $('body').on('click', '.delete-btn', function () {
+                if (confirm('¿Estás seguro de que quieres eliminar esta categoría?')) {
+                    var id = $(this).data('id');
+                    $.ajax({
+                        url: '@Url.Action("Delete", "Category")/' + id,
+                        type: 'DELETE',
+                        success: function (response) {
+                            if (response.success) {
+                                loadCategories();
+                            } else {
+                                alert('Error al eliminar la categoría.');
+                            }
+                        }
+                    });
+                }
+            });
+
+            function loadCategories() {
+                $.get('@Url.Action("GetAll", "Category")', function (response) {
+                    var rows = '';
+                    response.data.forEach(function (category) {
+                        rows += '<tr>';
+                        rows += '<td>' + category.idCategoria + '</td>';
+                        rows += '<td>' + category.nombre + '</td>';
+                        rows += '<td>';
+                        rows += '<button class="btn btn-info btn-sm edit-btn" data-id="' + category.idCategoria + '">Editar</button> ';
+                        rows += '<button class="btn btn-danger btn-sm delete-btn" data-id="' + category.idCategoria + '">Eliminar</button>';
+                        rows += '</td>';
+                        rows += '</tr>';
+                    });
+                    $('#categoryTableBody').html(rows);
+                });
+            }
+
+            function openCategoryForm() {
+                $('#categoryFormContainer').dialog({
+                    modal: true,
+                    width: 400,
+                    title: "Añadir/Editar Categoría"
+                });
             }
         });
-
-        function openModal(json) {
-            $("#txtBarCode").val("");
-            $("#txtNombre").val("");
-            $("#txtPrecio").val("");
-            $("#brandDisplay").val($("#brandDisplay option:first")).val;
-            $("#categoryDisplay").val($("#categoryDisplay option:first")).val;
-            $("#txtStock").val("");
-
-            if (json != null) {
-                $("#txtBarCode").val(json.ProductoID);
-                $("#txtNombre").val(json.Nombre);
-                $("#txtPrecio").val(json.Precio);
-                $("#brandDisplay").val($("#brandDisplay")).val;
-                $("#categoryDisplay").val($("#categoryDisplay option:first")).val;
-                $("#txtStock").val("");
-            }
-            $("#FormModal").modal("show");
-        }
-
-        function SaveProduct() {
-            var product = {
-                ProductoID: $("#txtBarCode").val(),
-                Nombre: $("#txtNombre").val(),
-                Precio: $("#txtPrecio").val(),
-                MarcaID: $("#bandDisplay").val($("#brandDisplay option:first")).val,
-                CategoriaID: $("#categoryDisplay").val($("#categoryDisplay option:first")).val,
-                Stock: $("#txtStock").val()
-            }
-
-            if (product.ProductoID != null) {
-                tableData.row.add(product).draw(false);
-            } else {
-                alert("El BarCode no puede ser nulo");
-            }
-            $("#FormModal").modal("hide");
-
-        }
-
-        $("#tableProductos tbody").on("click", '.btn-edit', function () {
-            var selectedRow = $(this).closest("tr");
-
-            var data = tableData.row(selectedRow).data();
-            openModal(data)
-        })
-
-
     </script>
-
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
 }
 
-
-
+<div id="categoryFormContainer" style="display:none;">
+    <form id="categoryForm">
+        <input type="hidden" id="IDCategoria" name="IDCategoria" />
+        <div class="form-group">
+            <label for="NombreCategoria">Nombre de la Categoría:</label>
+            <input type="text" id="NombreCategoria" name="NombreCategoria" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="reset" class="btn btn-secondary">Cancelar</button>
+    </form>
+</div>

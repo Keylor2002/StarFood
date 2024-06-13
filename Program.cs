@@ -11,6 +11,9 @@ using System.Configuration;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,8 +39,8 @@ builder.Services.AddDbContext<StarfoodContext>(options =>
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<StarfoodContext>();
 
-//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-//    .AddEntityFrameworkStores<StarfoodContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<StarfoodContext>();
 builder.Services.AddScoped<BusinessCategorias>();
 builder.Services.AddTransient<DataCategory>(provider => new DataCategory(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddTransient<BusinessCategorias>();
@@ -45,7 +48,7 @@ builder.Services.AddTransient<BusinessCategorias>();
 builder.Services.AddControllersWithViews()
         .AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-        );
+        );      
 
 builder.Services.AddControllers().AddJsonOptions(x =>
     x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);

@@ -37,4 +37,34 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#createCategoryForm").on("submit", function (event) {
+                event.preventDefault(); // Prevenir el envío del formulario por defecto
+
+                var categoria = {
+                    Nombre: $("#Nombre").val()
+                };
+
+                $.ajax({
+                    url: '@Url.Action("Create", "Category")',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(categoria),
+                    success: function (response) {
+                        if (response.success) {
+                            window.location.href = '@Url.Action("Index", "Category")'; // Redirigir a la página de índice si es exitoso
+                        } else {
+                            // Mostrar errores si hay alguno
+                            alert("Error al crear la categoría.");
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>
 }
