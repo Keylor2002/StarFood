@@ -32,29 +32,56 @@ namespace StarFood.Controllers.BillController
         {
             if (ModelState.IsValid)
             {
-                if (bill.Pedido.DetallePedido != null)
+                
+                decimal totalventa = 0;
+                if (bill.Pedido != null && bill.Pedido.DetallePedido != null)
                 {
-                    for (int j = 0; j < bill.Pedido.DetallePedido.Count(); j++)
+                    foreach (var detalle in bill.Pedido.DetallePedido)
                     {
-                        var aux = bill.Pedido.DetallePedido.ElementAt(j);
-                        bill.TotalVenta += aux.Platillo.Precio * aux.Cantidad;
+                       totalventa += (detalle.Platillo.Precio * detalle.Cantidad);
                     }
                 }
-                bill.CantidadCambio = (bill.TotalVenta - bill.CantidadPago);
+                bill.TotalVenta = totalventa;
+                bill.CantidadCambio = bill.CantidadPago - bill.TotalVenta;
                 bill.FechaVenta = DateTime.Now;
 
                 _unitOfWork.Factura.Add(bill);
                 _unitOfWork.Save();
-                //return Json(new { success = true, message = "Categoria creada correctamente" });
+                TempData["success"] = "Factura pagada";
+                return Json(new { success = true, message = totalventa });
             }
-            TempData["success"] = "Factura pagada";
-            return RedirectToAction("Index");
-            //return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
+
+            // En caso de que el ModelState no sea válido
+            TempData["error"] = "Error en los datos de la factura";
+            return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
         }
         public IActionResult GetAll()
         {
-            var bill = _unitOfWork.Factura.GetAll();
-            return Json(new { data = bill, success = true });
+            var BillList = _unitOfWork.Factura.GetAll(includeProperties: "Pedido,Pedido.DetallePedido,Pedido.DetallePedido.Platillo");
+
+            var formattedList = BillList.Select(factura => new
+            {
+                IDFactura = factura.IDFactura,
+                IDPedido = factura.IDPedido,
+                factura.CantidadCambio,
+                factura.CantidadPago,
+                factura.TotalVenta,
+                factura.FechaVenta,
+                Pedido = new
+                {
+                    factura.Pedido.IDPedido,
+                    DetallePedido = factura.Pedido.DetallePedido.Select(detalle => new
+                    {
+                        detalle.Cantidad,
+                        Platillo = new
+                        {
+                            detalle.Platillo.Precio
+                        }
+                    }).ToList()
+                }
+            }).ToList();
+
+            return Json(new { data = formattedList });
         }
     }
 }
