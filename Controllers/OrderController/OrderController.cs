@@ -148,7 +148,9 @@ namespace StarFood.Controllers.OrderController
                 }).ToList()
             }).ToList();
 
-            return Ok(new { data = formattedList });
+            //return Ok(new { data = formattedList });
+            //var bill = _unitOfWork.Factura.GetAll();
+            return Json(new { data = formattedList, success = true });
         }
     }
 }
