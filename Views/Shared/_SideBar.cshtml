@@ -1,67 +1,64 @@
 ﻿
 <!-- Sidebar -->
-<section class="sidebar" id="sidebar">
 
-	<!--Star Button-->
-	<button class="sidebar-toggle" id="sidebar-toggle">
-		<i class="bi bi-star-half" id="home_icon"></i>
-	</button>
+<div class="sidebar" id="sidebar">
 
-
-	<h2 class="sidebar-title">StarFood</h2>
-	<ul class="sidebar-nav">
-		<li><a href="#" id="inicio-link"><i class="bi bi-house-door"></i><span>Inicio</span></a></li>
-		<li><a href="#" id="categorias-link"><i class="bi bi-list-task"></i><span>Categorías</span></a></li>
-		<li><a href="#" id="productos-link"><i class="bi bi-basket"></i><span>Producto</span></a></li>
-		<li><a href="#" id="platillos-link"><i class="bi bi-plate"></i><span>Platillos</span></a></li>
-		<li><a href="#" id="proveedor-link"><i class="bi bi-truck"></i><span>Proveedores</span></a></li>
-		<li><a href="#" id="pedidos-link"><i class="bi bi-receipt"></i><span>Pedidos</span></a></li>
-		<li><a href="#" id="facturas-link"><i class="bi bi-file-earmark-text"></i><span>Facturas</span></a></li>
-		<li><a href="#" id="inventario-link"><i class="bi bi-file-earmark-text"></i><span>Inventario</span></a></li>
-	</ul>
-</section>
+    <button class="sidebar-toggle" id="sidebar-toggle">
+        <i class="bi bi-star-half" id="home_icon"></i>
+    </button>
+    <h2 class="sidebar-title">StarFood</h2>
+    <ul class="sidebar-nav">
+        <li><a href="#" id="inicio-link"><i class="bi bi-house-door"></i><span>Inicio</span></a></li>
+        <li><a href="#" id="categorias-link"><i class="bi bi-list-task"></i><span>Categorías</span></a></li>
+        <li><a href="#" id="productos-link"><i class="bi bi-basket"></i><span>Producto</span></a></li>
+        <li><a href="#" id="platillos-link"><i class="bi bi-plate"></i><span>Platillos</span></a></li>
+        <li><a href="#" id="proveedor-link"><i class="bi bi-truck"></i><span>Proveedores</span></a></li>
+        <li><a href="#" id="pedidos-link"><i class="bi bi-receipt"></i><span>Pedidos</span></a></li>
+        <li><a href="#" id="facturas-link"><i class="bi bi-file-earmark-text"></i><span>Facturas</span></a></li>
+    </ul>
+</div>
 
 
 <script>
-	const sidebarToggleBtn = document.querySelector('.sidebar-toggle');
-	const mainContent = document.querySelector('.main-content');
-	const sidebar = document.querySelector('.sidebar');
+    const sidebarToggleBtn = document.querySelector('.sidebar-toggle');
+    const mainContent = document.querySelector('.main-content');
+    const sidebar = document.querySelector('.sidebar');
 
-	sidebarToggleBtn.addEventListener('click', () => {
-		sidebar.classList.toggle('sidebar-closed');
-		mainContent.classList.toggle('sidebar-closed');
-	});
+    sidebarToggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('sidebar-closed');
+        mainContent.classList.toggle('sidebar-closed');
+    });
 
 
-	// Función para minimizar el sidebar
-	function minimizeSidebar() {
-		const sidebar = document.getElementById('sidebar');
-		const sidebarToggle = document.getElementById('sidebar-toggle');
-		const sidebarTitle = document.querySelector('.sidebar-title');
-		const sidebarNav = document.querySelectorAll('.sidebar-nav li a');
-		sidebar.classList.add('minimized');
-		sidebarToggle.innerHTML = '<i class="bi bi-star-fill"></i>';
-		sidebarTitle.style.display = 'none';
-		sidebarNav.forEach(link => {
-			link.querySelector('span').style.display = 'none';
-			link.querySelector('i').style.marginLeft = '5px';
-		});
-	}
+    // Función para minimizar el sidebar
+    function minimizeSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebarTitle = document.querySelector('.sidebar-title');
+        const sidebarNav = document.querySelectorAll('.sidebar-nav li a');
+        sidebar.classList.add('minimized');
+        sidebarToggle.innerHTML = '<i class="bi bi-star-fill"></i>';
+        sidebarTitle.style.display = 'none';
+        sidebarNav.forEach(link => {
+            link.querySelector('span').style.display = 'none';
+            link.querySelector('i').style.marginLeft = '5px';
+        });
+    }
 
-	// Función para maximizar el sidebar
-	function maximizeSidebar() {
-		const sidebar = document.getElementById('sidebar');
-		const sidebarToggle = document.getElementById('sidebar-toggle');
-		const sidebarTitle = document.querySelector('.sidebar-title');
-		const sidebarNav = document.querySelectorAll('.sidebar-nav li a');
-		sidebar.classList.remove('minimized');
-		sidebarToggle.innerHTML = '<i class="bi bi-star-half"></i>';
-		sidebarTitle.style.display = 'block';
-		sidebarNav.forEach(link => {
-			link.querySelector('span').style.display = 'inline';
-			link.querySelector('i').style.marginLeft = '0';
-		});
-	}
+    // Función para maximizar el sidebar
+    function maximizeSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebarTitle = document.querySelector('.sidebar-title');
+        const sidebarNav = document.querySelectorAll('.sidebar-nav li a');
+        sidebar.classList.remove('minimized');
+        sidebarToggle.innerHTML = '<i class="bi bi-star-half"></i>';
+        sidebarTitle.style.display = 'block';
+        sidebarNav.forEach(link => {
+            link.querySelector('span').style.display = 'inline';
+            link.querySelector('i').style.marginLeft = '0';
+        });
+    }
 
 	// Agregar evento al botón de toggle
 	document.getElementById('sidebar-toggle').addEventListener('click', function () {
@@ -124,38 +121,38 @@
 </script>
 
 <style>
-	.sidebar {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 250px;
-		height: 100vh;
-		background-color: var(--color-dark);
-		color: var(--color-light);
-		padding: 20px;
-		transition: width 0.3s ease-in-out;
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-	}
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100vh;
+        background-color: var(--color-dark);
+        color: var(--color-light);
+        padding: 20px;
+        transition: width 0.3s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-		.sidebar.minimized {
-			width: 110px;
-			align-items: center;
-		}
+        .sidebar.minimized {
+            width:110px;
+            align-items: center;
+        }
 
-	.sidebar-toggle {
-		align-self: flex-end;
-		width: 50px;
-		height: 50px;
-		background-color: var(--color-dark);
-		color: var(--color-light);
-		border: none;
-		padding: 0px;
-		font-size: 30px;
-		cursor: pointer;
-		margin-bottom: 20px;
-	}
+    .sidebar-toggle {
+        align-self: flex-end;
+        width: 50px;
+        height: 50px;
+        background-color: var(--color-dark);
+        color: var(--color-light);
+        border: none;
+        padding: 0px;
+        font-size: 30px;
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
 
 		.sidebar-toggle:hover {
 			background-color: var(--color-dark);
