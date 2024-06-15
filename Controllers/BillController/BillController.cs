@@ -32,24 +32,28 @@ namespace StarFood.Controllers.BillController
         {
             if (ModelState.IsValid)
             {
-                if (bill.Pedido.DetallePedido != null)
+                Pedido pedido = _unitOfWork.Pedido.GetFirstOrDefault(x => x.IDPedido == bill.IDPedido, null);
+                //decimal totalventa = 0;
+                if (pedido != null && pedido.DetallePedido != null)
                 {
-                    for (int j = 0; j < bill.Pedido.DetallePedido.Count(); j++)
+                    foreach (var detalle in pedido.DetallePedido)
                     {
-                        var aux = bill.Pedido.DetallePedido.ElementAt(j);
-                        bill.TotalVenta += aux.Platillo.Precio * aux.Cantidad;
+                       bill.TotalVenta += (detalle.Platillo.Precio * detalle.Cantidad);
                     }
                 }
-                bill.CantidadCambio = (bill.TotalVenta - bill.CantidadPago);
+                //bill.TotalVenta = totalventa;
+                bill.CantidadCambio = bill.CantidadPago - bill.TotalVenta;
                 bill.FechaVenta = DateTime.Now;
 
                 _unitOfWork.Factura.Add(bill);
                 _unitOfWork.Save();
-                //return Json(new { success = true, message = "Categoria creada correctamente" });
+                TempData["success"] = "Factura pagada";
+                return Json(new { success = true, message = "Add correctly" });
             }
-            TempData["success"] = "Factura pagada";
-            return RedirectToAction("Index");
-            //return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
+
+            // En caso de que el ModelState no sea válido
+            TempData["error"] = "Error en los datos de la factura";
+            return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
         }
         public IActionResult GetAll()
         {
