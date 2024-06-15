@@ -20,6 +20,8 @@ namespace StarFood.Models
 
         [ForeignKey("MetodoPago")]
         public int IDMetodoPago { get; set; }
+
+        [ValidateNever]
         public MetodoPago MetodoPago { get; set; }
 
         [Required]

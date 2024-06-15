@@ -2,43 +2,44 @@
 	<link rel="stylesheet" href="style.css" />
 </header>
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
+<!-- Sidebar -->
 <section class="sidebar" id="sidebar">
-	<div class="sidebar-header">
-		<img src="/Imagenes/LOGO.png" class="sidebar-image">
-		<button class="sidebar-button-star" id="sidebar-button-star">
-			<i class="bi bi-star-half" id="home_icon"></i>
-		</button>
-		
-		<h2 class="sidebar-title">StarFood</h2>
-		<ul class="sidebar-nav">
-			<li><a href="#" id="inicio-link"><i class="bi bi-house-door"></i><span>Inicio</span></a></li>
-			<li><a href="#" id="categorias-link"><i class="bi bi-list-task"></i><span>Categorías</span></a></li>
-			<li><a href="#" id="productos-link"><i class="bi bi-basket"></i><span>Producto</span></a></li>
-			<li><a href="#" id="platillos-link"><i family="material-symbols-outlined"></i><span>Platillos</span></a></li>
-			<li><a href="#" id="proveedor-link"><i class="bi bi-truck"></i><span>Proveedores</span></a></li>
-			<li><a href="#" id="pedidos-link"><i class="bi bi-receipt"></i><span>Pedidos</span></a></li>
-			<li><a href="#" id="facturas-link"><i class="bi bi-file-earmark-text"></i><span>Facturas</span></a></li>
-			<li><a href="#" id="inventario-link"><i class="bi bi-file-earmark-text"></i><span>Inventario</span></a></li>
-		</ul>
+
+	<!--Star Button-->
+	<button class="sidebar-toggle" id="sidebar-toggle">
+		<i class="bi bi-star-half" id="home_icon"></i>
+	</button>
+
+
+	<h2 class="sidebar-title">StarFood</h2>
+	<ul class="sidebar-nav">
+		<li><a href="#" id="inicio-link"><i class="bi bi-house-door"></i><span>Inicio</span></a></li>
+		<li><a href="#" id="categorias-link"><i class="bi bi-list-task"></i><span>Categorías</span></a></li>
+		<li><a href="#" id="productos-link"><i class="bi bi-basket"></i><span>Producto</span></a></li>
+		<li><a href="#" id="platillos-link"><i class="bi bi-plate"></i><span>Platillos</span></a></li>
+		<li><a href="#" id="proveedor-link"><i class="bi bi-truck"></i><span>Proveedores</span></a></li>
+		<li><a href="#" id="pedidos-link"><i class="bi bi-receipt"></i><span>Pedidos</span></a></li>
+		<li><a href="#" id="facturas-link"><i class="bi bi-file-earmark-text"></i><span>Facturas</span></a></li>
+		<li><a href="#" id="inventario-link"><i class="bi bi-file-earmark-text"></i><span>Inventario</span></a></li>
+	</ul>
 </section>
 
 
 <script>
-	const sidebarToggleBtn = document.querySelector('.sidebar-button-star');
+	const sidebarToggleBtn = document.querySelector('.sidebar-toggle');
 	const mainContent = document.querySelector('.main-content');
 	const sidebar = document.querySelector('.sidebar');
 
-	sidebarToggleBtn.addEventListener('click', () => {
-		sidebar.classList.toggle('sidebar-closed');
-		mainContent.classList.toggle('sidebar-closed');
-	});
+    sidebarToggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('sidebar-closed');
+        mainContent.classList.toggle('sidebar-closed');
+    });
+
 
 	// Función para minimizar el sidebar
 	function minimizeSidebar() {
 		const sidebar = document.getElementById('sidebar');
-		const sidebarToggle = document.getElementById('sidebar-button-star');
+		const sidebarToggle = document.getElementById('sidebar-toggle');
 		const sidebarTitle = document.querySelector('.sidebar-title');
 		const sidebarNav = document.querySelectorAll('.sidebar-nav li a');
 		sidebar.classList.add('minimized');
@@ -53,7 +54,7 @@
 	// Función para maximizar el sidebar
 	function maximizeSidebar() {
 		const sidebar = document.getElementById('sidebar');
-		const sidebarToggle = document.getElementById('sidebar-button-star');
+		const sidebarToggle = document.getElementById('sidebar-toggle');
 		const sidebarTitle = document.querySelector('.sidebar-title');
 		const sidebarNav = document.querySelectorAll('.sidebar-nav li a');
 		sidebar.classList.remove('minimized');
@@ -126,7 +127,109 @@
 </script>
 
 <style>
-	.material-symbols-outlined {
-		font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24
+	.sidebar {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 250px;
+		height: 100vh;
+		background-color: var(--color-dark);
+		color: var(--color-light);
+		padding: 20px;
+		transition: width 0.3s ease-in-out;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+		.sidebar.minimized {
+			width: 110px;
+			align-items: center;
+		}
+
+	.sidebar-toggle {
+		align-self: flex-end;
+		width: 50px;
+		height: 50px;
+		background-color: var(--color-dark);
+		color: var(--color-light);
+		border: none;
+		padding: 0px;
+		font-size: 30px;
+		cursor: pointer;
+		margin-bottom: 20px;
+	}
+
+		.sidebar-toggle:hover {
+			background-color: var(--color-dark);
+		}
+
+	.sidebar-title {
+		color: var(--color-light);
+		margin-left: 30px;
+		margin-bottom: 20px;
+		transition: opacity 0.3s ease-in-out;
+	}
+
+	.sidebar-nav {
+		list-style: none;
+		padding: 0;
+		width: 100%;
+	}
+
+		.sidebar-nav li {
+			width: 100%;
+		}
+
+			.sidebar-nav li a {
+				display: flex;
+				align-items: center; /* Alinear iconos y texto verticalmente */
+				padding: 10px 30px;
+				color: var(--color-light);
+				text-decoration: none;
+				position: relative;
+			}
+
+				.sidebar-nav li a i {
+					margin-right: 10px; /* Margen derecho entre el icono y el texto */
+					transition: margin 0.3s ease-in-out; /* Agregar transición para el margen */
+				}
+
+				.sidebar-nav li a span {
+					transition: opacity 0.3s ease-in-out;
+				}
+
+			.sidebar-nav li.minimized a i {
+				margin-left: 10px; /* Ajustar la posición del icono cuando el sidebar está minimizado */
+			}
+
+			.sidebar-nav li.minimized a span {
+				display: none;
+			}
+
+			.sidebar-nav li a:hover {
+				background-color: var(--color-dark);
+			}
+
+	h1 {
+		margin-top: -35px; /* Márgen superior */
+		margin-right: 0px; /* Márgen derecho */
+		margin-bottom: 20px; /* Márgen inferior */
+		margin-left: 50px; /* Márgen izquierdo */
+	}
+
+	h2 {
+		margin-top: 25px; /* Márgen superior */
+		margin-right: 0px; /* Márgen derecho */
+		margin-bottom: 20px; /* Márgen inferior */
+		margin-left: 50px; /* Márgen izquierdo */
+		color: black;
+	}
+
+	h1-carrusel {
+		margin-top: -35px; /* Márgen superior */
+		margin-right: 0px; /* Márgen derecho */
+		margin-bottom: 20px; /* Márgen inferior */
+		margin-left: 50px; /* Márgen izquierdo */
 	}
 </style>
