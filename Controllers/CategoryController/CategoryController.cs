@@ -32,16 +32,19 @@ namespace StarFood.Controllers.CategoryController
 
         // Works
         [HttpPost]
-        public IActionResult Create([FromBody] Categoria categoria)
+        //[ValidateAntiForgeryToken]
+        public IActionResult Create(Categoria categoria)
         {
             if (ModelState.IsValid)
             {
+                categoria.Suspendido = false;
                 _unitOfWork.Categoria.Add(categoria);
                 _unitOfWork.Save();
-                return Json(new { success = true, message = "Categoria creada correctamente" });
+                //return Json(new { success = true, message = "Categoria creada correctamente" });
             }
             TempData["success"] = "Categoria creada correctamente";
-            return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
+            return RedirectToAction("Index");
+            //return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
         }
 
 
@@ -68,16 +71,17 @@ namespace StarFood.Controllers.CategoryController
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit([FromBody] Categoria category)
+        public IActionResult Edit(Categoria category)
         {
             if (ModelState.IsValid)
             {
                 _unitOfWork.Categoria.Update(category);
                 _unitOfWork.Save();
-                return Json(new { success = true, message = "Categoria actualizada correctamente" });
+                //return Json(new { success = true, message = "Categoria actualizada correctamente" });
             }
             TempData["success"] = "Categoria editada correctamente";
-            return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
+            return RedirectToAction("Index");
+            //return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
         }
 
         //[HttpDelete]

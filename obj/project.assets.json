@@ -9051,19 +9051,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Usuario\\.nuget\\packages\\": {}
+    "C:\\Users\\Keylor\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\U\\2024\\I Ciclo 2024\\Ingeniería del Software SR - IF7100\\Proyecto\\Github\\StarFood\\StarFood.csproj",
+      "projectUniqueName": "C:\\Users\\Keylor\\StarFood\\StarFood.csproj",
       "projectName": "StarFood",
-      "projectPath": "C:\\Users\\Usuario\\Desktop\\U\\2024\\I Ciclo 2024\\Ingeniería del Software SR - IF7100\\Proyecto\\Github\\StarFood\\StarFood.csproj",
-      "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Usuario\\Desktop\\U\\2024\\I Ciclo 2024\\Ingeniería del Software SR - IF7100\\Proyecto\\Github\\StarFood\\obj\\",
+      "projectPath": "C:\\Users\\Keylor\\StarFood\\StarFood.csproj",
+      "packagesPath": "C:\\Users\\Keylor\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Keylor\\StarFood\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Keylor\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9155,16 +9155,8 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.301/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problema al leer el archivo de caché C:\\Users\\Keylor\\StarFood\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }

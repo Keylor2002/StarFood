@@ -1,6 +1,21 @@
 ﻿@model StarFood.Models.Categoria
 
-@{
+<form method="post">
+    <h2 class="text-primary p-1">Crear nueva categoria</h2>
+    <div class="border p-2 mt-3">
+        <div class="row pb-1"></div>
+
+        <div class="mb-3">
+            <label asp-for="Nombre"></label>
+            <input asp-for="Nombre" class="form-control">
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Crear</button>
+        <a asp-controller="Category" asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+    </div>
+</form>
+@* @{
     ViewData["Title"] = "Crear Categoría";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -67,4 +82,4 @@
             });
         });
     </script>
-}
+} *@
