@@ -41,100 +41,36 @@ button, .btn-custom {
         color: var(--color-secondary); /* Cambiar color de texto en hover */
     }
 
-/*Estilo Sidebar*/
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 250px;
-    height: 100vh;
-    background-color: var(--color-dark);
-    color: var(--color-light);
-    padding: 20px;
-    transition: width 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+
+h1 {
+    margin-top: -35px; /* Márgen superior */
+    margin-right: 0px; /* Márgen derecho */
+    margin-bottom: 20px; /* Márgen inferior */
+    margin-left: 50px; /* Márgen izquierdo */
 }
 
-    .sidebar.minimized {
-        width: 110px;
-        align-items: center;
-    }
-
-.sidebar-button-star {
-    align-self: flex-end;
-    width: 50px;
-    height: 50px;
-    background-color: var(--color-dark);
-    color: var(--color-light);
-    border: none;
-    padding: 0px;
-    font-size: 30px;
-    cursor: pointer;
-    margin-bottom: 20px;
-    float: right;
+h2 {
+    margin-top: 25px; /* Márgen superior */
+    margin-right: 0px; /* Márgen derecho */
+    margin-bottom: 20px; /* Márgen inferior */
+    margin-left: 50px; /* Márgen izquierdo */
+    color: black;
 }
 
-    .sidebar-button-star:hover {
-        box-shadow: 0 0.1rem 0.4rem rgba(0,0,0, 0.3);
-    }
-
-.sidebar-title {
-    color: var(--color-light);
-    margin-left: 30px;
-    margin-bottom: 20px;
-    transition: opacity 0.3s ease-in-out;
-    top: 1rem;
-}
-
-.sidebar-nav {
-    list-style: none;
-    padding: 0;
-    width: 100%;
-}
-
-    .sidebar-nav li {
-        width: 100%;
-    }
-
-        .sidebar-nav li a {
-            display: flex;
-            align-items: center; /* Alinear iconos y texto verticalmente */
-            padding: 10px 30px;
-            color: var(--color-light);
-            text-decoration: none;
-            position: relative;
-        }
-
-            .sidebar-nav li a i {
-                margin-right: 10px; /* Margen derecho entre el icono y el texto */
-                transition: margin 0.3s ease-in-out; /* Agregar transición para el margen */
-            }
-
-            .sidebar-nav li a span {
-                transition: opacity 0.3s ease-in-out;
-            }
-
-        .sidebar-nav li.minimized a i {
-            margin-left: 10px; /* Ajustar la posición del icono cuando el sidebar está minimizado */
-        }
-
-        .sidebar-nav li.minimized a span {
-            display: none;
-        }
-
-        .sidebar-nav li a:hover {
-            background-color: #aaa;
-            cursor: pointer;
-        }
-
-/*Diseño de Carrusel*/
 h1-carrusel {
     margin-top: -35px; /* Márgen superior */
     margin-right: 0px; /* Márgen derecho */
     margin-bottom: 20px; /* Márgen inferior */
     margin-left: 50px; /* Márgen izquierdo */
+}
+
+/* Estilos específicos para los botones del carrusel */
+.carousel-control-prev,
+.carousel-control-next {
+    filter: none; /* Elimina cualquier filtro de color aplicado */
+    background: transparent; /* Fondo transparente */
+    border: none; /* Sin borde */
+    outline: none; /* Sin contorno */
 }
 
 #carouselExampleAutoplaying {
