@@ -18,7 +18,12 @@ namespace StarFood.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+		public IActionResult Index1()
+		{
+			return View();
+		}
+
+		public IActionResult Privacy()
         {
             return View();
         }

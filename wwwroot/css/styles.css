@@ -39,6 +39,29 @@ button, .btn-custom {
         color: var(--color-secondary); /* Cambiar color de texto en hover */
     }
 
+
+h1 {
+    margin-top: -35px; /* Márgen superior */
+    margin-right: 0px; /* Márgen derecho */
+    margin-bottom: 20px; /* Márgen inferior */
+    margin-left: 50px; /* Márgen izquierdo */
+}
+
+h2 {
+    margin-top: 25px; /* Márgen superior */
+    margin-right: 0px; /* Márgen derecho */
+    margin-bottom: 20px; /* Márgen inferior */
+    margin-left: 50px; /* Márgen izquierdo */
+    color: black;
+}
+
+h1-carrusel {
+    margin-top: -35px; /* Márgen superior */
+    margin-right: 0px; /* Márgen derecho */
+    margin-bottom: 20px; /* Márgen inferior */
+    margin-left: 50px; /* Márgen izquierdo */
+}
+
 /* Estilos específicos para los botones del carrusel */
 .carousel-control-prev,
 .carousel-control-next {

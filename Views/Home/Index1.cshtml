@@ -1,4 +1,4 @@
-﻿﻿@{
+﻿﻿﻿@{
     ViewData["Title"] = "Home Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -18,7 +18,7 @@
     <!-- Contenido de la página, incluyendo el carrusel -->
     <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
-            
+
             <div class="carousel-item active">
                 <img src="\Imagenes\comida.jpg" class="d-block w-100 carousel-img" alt="...">
                 <div class="carousel-caption">
@@ -33,7 +33,7 @@
                 </div>
             </div>
 
-            
+
             <div class="carousel-item">
                 <img src="\Imagenes\ensalada.jpg" class="d-block w-100 carousel-img" alt="...">
                 <div class="carousel-caption">
@@ -57,7 +57,7 @@
 
     <section class="container">
         <div class="row row-cols-1 row-cols-md-3 g-4">
-          
+
             <div class="col">
                 <a href="/otra-vista">
                     <div class="card">
@@ -148,10 +148,10 @@
         const preview = document.createElement('div');
         preview.classList.add('preview');
         preview.innerHTML = `
-            <h5>${name}</h5>
-            <p>Categoría: ${category}</p>
-            <p>Precio: ${price}</p>
-        `;
+                <h5>${name}</h5>
+                <p>Categoría: ${category}</p>
+                <p>Precio: ${price}</p>
+            `;
         row.appendChild(preview);
     }
 
