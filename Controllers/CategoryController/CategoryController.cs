@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using StarFood.Models;
 using StarFood.Repository.IRepository;
+using Microsoft.AspNetCore.Mvc;
+using StarFood.Utility;
 
 namespace StarFood.Controllers.CategoryController
 {
@@ -32,7 +34,7 @@ namespace StarFood.Controllers.CategoryController
 
         // Works
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Categoria categoria)
         {
             if (ModelState.IsValid)
@@ -49,21 +51,22 @@ namespace StarFood.Controllers.CategoryController
 
 
         // Works
-        [HttpGet]
+        //[HttpGet]
+        //[ValidateAntiForgeryToken]
         public IActionResult Edit(int? id)
         {
             if (id == 0)
             {
-                return NotFound(new { success = false, message = "ID no proporcionado" });
+                return NotFound();
             }
 
             var categoria = _unitOfWork.Categoria.GetFirstOrDefault(x => x.IDCategoria == id, null);
             if (categoria == null)
             {
-                return NotFound(new { success = false, message = "Categoría no encontrada" });
+                return NotFound();
             }
 
-            return RedirectToAction("Index");
+            return View(categoria);
         }
 
 

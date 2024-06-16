@@ -67,8 +67,8 @@ namespace StarFood.Controllers.SupplierController
 
         // POST: HomeController/Edit/5
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public IActionResult Edit([FromBody] Proveedor supplier)
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Proveedor supplier)
         {
             if (ModelState.IsValid)
             {
