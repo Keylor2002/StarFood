@@ -50,7 +50,7 @@ namespace StarFood.Controllers.CategoryController
 
         // Works
         [HttpGet]
-        public IActionResult Edit(int id)
+        public IActionResult Edit(int? id)
         {
             if (id == 0)
             {

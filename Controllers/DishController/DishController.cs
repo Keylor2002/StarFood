@@ -32,7 +32,8 @@ namespace StarFood.Controllers.DishController
 
         // Works
         [HttpPost]
-        public IActionResult Create([FromBody] Platillo platillo)
+        //[ValidateAntiForgeryToken]
+        public IActionResult Create(Platillo platillo)
         {
             if (ModelState.IsValid)
             {

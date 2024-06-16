@@ -31,7 +31,8 @@ namespace StarFood.Controllers.ProductController
 
         // Works
         [HttpPost]
-        public IActionResult Create([FromBody] Producto producto)
+        //[ValidateAntiForgeryToken]
+        public IActionResult Create(Producto producto)
         {
             if (ModelState.IsValid)
             {

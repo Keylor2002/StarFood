@@ -38,7 +38,7 @@ namespace StarFood.Controllers.PaymentMethodController
         // POST: HomeController/Create
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public IActionResult Create([FromBody] MetodoPago paymentMethod)
+        public IActionResult Create(MetodoPago paymentMethod)
         {
             if (ModelState.IsValid)
             {

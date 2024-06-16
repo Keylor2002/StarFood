@@ -30,7 +30,8 @@ namespace StarFood.Controllers.OrderController
 
         // Works
         [HttpPost]
-        public IActionResult Create([FromBody] Pedido order)
+        //[ValidateAntiForgeryToken]
+        public IActionResult Create(Pedido order)
         {
             if (ModelState.IsValid)
             {

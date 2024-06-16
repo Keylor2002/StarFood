@@ -37,7 +37,7 @@ namespace StarFood.Controllers.SupplierController
         // POST: HomeController/Create
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public IActionResult Create([FromBody] Proveedor supplier)
+        public IActionResult Create(Proveedor supplier)
         {
             if (ModelState.IsValid)
             {
