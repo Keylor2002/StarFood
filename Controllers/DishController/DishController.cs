@@ -32,7 +32,7 @@ namespace StarFood.Controllers.DishController
 
         // Works
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Platillo platillo)
         {
             if (ModelState.IsValid)
@@ -48,16 +48,17 @@ namespace StarFood.Controllers.DishController
                 _unitOfWork.Platillo.Add(platillo);
                 _unitOfWork.Save();
 
-                return Json(new { success = true, message = "Platillo creado correctamente" });
+                //return Json(new { success = true, message = "Platillo creado correctamente" });
             }
-
-            return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
+            TempData["success"] = "Platillo creado correctamente";
+            return RedirectToAction("Index");
+            //return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
         }
 
 
         // Works
-        [HttpGet]
-        public IActionResult Edit(int id)
+        //[HttpGet]
+        public IActionResult Edit(int? id)
         {
             if (id == 0)
             {
@@ -76,8 +77,8 @@ namespace StarFood.Controllers.DishController
 
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public IActionResult Edit([FromBody] Platillo platillo)
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Platillo platillo)
         {
             if (ModelState.IsValid)
             {
@@ -130,24 +131,25 @@ namespace StarFood.Controllers.DishController
         // Works
         public IActionResult GetAll()
         {
-            var DishList = _unitOfWork.Platillo.GetAll(includeProperties: "Categoria");
+            //var DishList = _unitOfWork.Platillo.GetAll(includeProperties: "Categoria");
 
-            var formattedList = DishList.Select(platillo => new
-            {
-                IDPlatillo = platillo.IDPlatillo,
-                Nombre = platillo.Nombre,
-                Precio = platillo.Precio,
-                Descripcion = platillo.Descripcion,
-                Suspendido = platillo.Suspendido,
-                ImagenUrl = platillo.ImagenUrl,
-                Categoria = new
-                {
-                    IdCategoria = platillo.Categoria.IDCategoria,
-                    NombreCategoria = platillo.Categoria.Nombre
-                }
-            });
-
-            return Json(new { data = formattedList });
+            //var formattedList = DishList.Select(platillo => new
+            //{
+            //    IDPlatillo = platillo.IDPlatillo,
+            //    Nombre = platillo.Nombre,
+            //    Precio = platillo.Precio,
+            //    Descripcion = platillo.Descripcion,
+            //    Suspendido = platillo.Suspendido,
+            //    ImagenUrl = platillo.ImagenUrl,
+            //    Categoria = new
+            //    {
+            //        IdCategoria = platillo.Categoria.IDCategoria,
+            //        NombreCategoria = platillo.Categoria.Nombre
+            //    }
+            //});
+            var dish = _unitOfWork.Categoria.GetAll();
+            return Json(new { data = dish, success = true });
+            //return Json(new { data = formattedList });
         }
     }
 }
