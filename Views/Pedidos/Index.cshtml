@@ -1,48 +1,96 @@
 ﻿@model IEnumerable<StarFood.Models.Pedido>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Pedidos Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<div class="container mt-4">
+    <div class="rounded-box">
+        <!-- SearchBox and AddButton -->
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-10">
+                <form class="d-flex" method="get" asp-action="Index">
+                    <input class="form-control me-2" type="search" placeholder="Buscar por usuario" aria-label="Buscar" name="searchString">
+                    <button class="btn btn-info" type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
+        <!-- Buttons Row -->
+        <div class="row mb-3 text-center">
+            <div class="col-md-4">
+                <a class="btn btn-info w-100" asp-action="Create">Crear</a>
+            </div>
+        </div>
+        <hr />
+        <!-- Table -->
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().IDUsuario)</th>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().FechaPedido)</th>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().FechaEntrega)</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.IDUsuario)</td>
+                            <td>@Html.DisplayFor(modelItem => item.FechaPedido)</td>
+                            <td>@Html.DisplayFor(modelItem => item.FechaEntrega)</td>
+                            <td>
+                                <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.IDPedido">Editar</a>
+                                <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.IDPedido">Detalles</a>
+                                <a class="btn btn-secondary" asp-action="Delete" asp-route-id="@item.IDPedido">Eliminar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IDUsuario)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaPedido)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaEntrega)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IDUsuario)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaPedido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaEntrega)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IDPedido">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IDPedido">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IDPedido">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<style>
+    .btn-secondary {
+        background-color: var(--color-accent);
+        color: var(--color-light);
+    }
+
+        .btn-secondary:hover {
+            background-color: var(--color-light);
+            color: var(--color-accent);
+        }
+
+    .rounded-box {
+        background-color: var(--color-dark);
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: var(--color-secondary);
+        color: var(--color-light);
+    }
+
+    .table {
+        background-color: var(--color-light);
+        border-radius: 10px;
+    }
+
+        .table th {
+            background-color: var(--color-accent);
+            color: var(--color-light);
+        }
+
+        .table td {
+            color: var(--color-dark);
+        }
+
+    h1 {
+        color: var(--color-dark);
+    }
+</style>
