@@ -6,6 +6,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @await Html.PartialAsync("_NavBar")
+
+<div>
+    <hr />
+    <h1>Categorias</h1>
+</div>
+
 <div class="container mt-4" id="div-container">
     <div class="rounded-box">
         <!-- SearchBox and AddButton -->
@@ -27,7 +33,7 @@
                     <tr>
                         <th>Código</th>
                         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Nombre)</th>
-                        <th>Acciones</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,7 +44,7 @@
                             <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
                             <td>
                                 <div class="dropdown">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button class="btn btn-primary" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="bi bi-three-dots"></i>
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">

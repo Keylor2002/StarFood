@@ -9,7 +9,7 @@
     <h2 class="sidebar-title">StarFood</h2>
     <ul class="sidebar-nav">
         <li><a href="#" id="inicio-link"><i class="bi bi-house-door"></i><span>Inicio</span></a></li>
-        <li><a href="#" id="categoria-link"><i class="bi bi-list-task"></i><span>Inventario</span></a></li>
+        <li><a href="#" id="categoria-link"><i class="bi bi-briefcase"></i><span>Inventario</span></a></li>
         <li><a href="#" id="proveedor-link"><i class="bi bi-truck"></i><span>Proveedores</span></a></li>
         <li><a href="#" id="pedidos-link"><i class="bi bi-receipt"></i><span>Pedidos</span></a></li>
         <li><a href="#" id="facturas-link"><i class="bi bi-file-earmark-text"></i><span>Facturas</span></a></li>
@@ -79,7 +79,6 @@
         window.location.href = '/Supplier/Index';
     });
 
-
     document.getElementById('pedidos-link').addEventListener('click', function (event) {
         event.preventDefault();
         window.location.href = '/Order/Index';
@@ -94,10 +93,6 @@
         event.preventDefault();
         window.location.href = '/Category/Index';
     });
-
-    document.getElementById('facturas-link').addEventListener('click', function (event) {
-        event.preventDefault();
-        window.location.href = '/Bill/Index';
     });
 
 
@@ -189,10 +184,11 @@
             }
 
     h1 {
-        margin-top: -35px; /* Márgen superior */
+        margin-top: 20px; /* Márgen superior */
         margin-right: 0px; /* Márgen derecho */
         margin-bottom: 20px; /* Márgen inferior */
         margin-left: 50px; /* Márgen izquierdo */
+        color: var(--color-dark);
     }
 
     h2 {
