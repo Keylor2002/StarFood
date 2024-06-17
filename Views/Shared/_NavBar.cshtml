@@ -3,21 +3,16 @@
 <div>
 <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" id="navbar-stock">
     <div class="container-fluid">
-        <a class="navbar-brand" asp-area="" asp-controller="Category" asp-action="Index">Inventario</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
         <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
             <ul class="navbar-nav flex-grow-1">
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="#" id="categorias-link"><i class="bi bi-list-task"></i><span>Categorías</span></a>
+                        <a class="nav-link text-dark" href="#" id="categorias-link"><i class="bi bi-list-task"></i><span> Categorías  <i class="bi bi-caret-right-fill"></i></span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="#" id="productos-link"><i class="bi bi-basket"></i><span>Producto</span></a>
+                        <a class="nav-link text-dark" href="#" id="productos-link"><i class="bi bi-basket"></i><span> Producto  <i class="bi bi-caret-right-fill"></i></span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="#" id="platillos-link"><i class="bi bi-egg-fried"></i><span>Platillos</span></a>
+                        <a class="nav-link text-dark" href="#" id="platillos-link"><i class="bi bi-egg-fried"></i><span> Platillos  <i class="bi bi-caret-right-fill"></i></span></a>
                 </li>
                 @if (User.IsInRole(Roles.Admin_Role))
                 {
