@@ -9,7 +9,8 @@ namespace StarFood.Repository.IRepository
 
             T GetFirstOrDefault(Expression<Func<T, bool>> filter, Expression<Func<T, bool>>? filter2, string? includeProperties = null);
 
-            void Add(T entity);
+            T Get(Expression<Func<T, bool>> filter, string? includeProperties = null);
+        void Add(T entity);
 
             void Remove(T entity);
 

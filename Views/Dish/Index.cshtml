@@ -1,4 +1,4 @@
-﻿@model IEnumerable<StarFood.Models.Platillo>
+﻿@model IEnumerable<Platillo>
 
 @{
     ViewData["Title"] = "Platillos Index";
@@ -21,11 +21,11 @@
             <div class="col-md-4">
                 <a class="btn btn-outline-success w-100" asp-action="Create">Crear</a>
             </div>
-            <div class="col-md-4">
+            @* <div class="col-md-4">
                 <a class="btn btn-outline-warning w-100" asp-action="Edit">Editar</a>
             </div>
             <div class="col-md-4">
-                <a class="btn btn-outline-danger w-100" asp-action="Delete">Borrar</a>
+                <a class="btn btn-outline-danger w-100" asp-action="Delete">Borrar</a> *@
             </div>
         </div>
         <hr />
@@ -39,6 +39,7 @@
                         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Categoria.Nombre)</th>
                         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Precio)</th>
                         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Descripcion)</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,7 +50,11 @@
                             <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
                             <td>@Html.DisplayFor(modelItem => item.Categoria.Nombre)</td>
                             <td>@Html.DisplayFor(modelItem => item.Precio)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Descripcion)</td
+                            <td>
+                                <a class="btn btn-info btn-sm" asp-action="Edit" asp-route-id="@item.IDPlatillo">Editar</a>
+                                <a class="btn btn-info btn-sm" asp-action="Delete" asp-route-id="@item.IDPlatillo">Borrar</a>
+                            </td>
                         </tr>
                     }
                 </tbody>

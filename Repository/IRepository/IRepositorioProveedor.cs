@@ -6,6 +6,6 @@ namespace StarFood.Repository.IRepository
     {
         void Update(Proveedor proveedor);
 
-        Proveedor GetLast();
+        //Proveedor GetLast();
     }
 }

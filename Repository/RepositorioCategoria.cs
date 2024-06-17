@@ -18,10 +18,5 @@ namespace StarFood.Repository
         {
             _db.Categorias.Update(categoria);
         }
-
-        public Categoria GetLast()
-        {
-            return _db.Categorias.OrderByDescending(p => p.IDCategoria).FirstOrDefault();
-        }
     }
 }

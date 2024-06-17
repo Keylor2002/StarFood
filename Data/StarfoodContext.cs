@@ -83,12 +83,6 @@ namespace StarFood.Data
                 .WithMany()
                 .HasForeignKey(pp => pp.IDPlatillo)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<PlatilloProducto>()
-                .HasOne(pp => pp.Producto)
-                .WithMany()
-                .HasForeignKey(pp => pp.IDProducto)
-                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -102,7 +102,7 @@ namespace StarFood.Areas.Identity.Pages.Account
             /// </summary>
             [DataType(DataType.Password)]
             [Display(Name = "Confirmar contraseña")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password", ErrorMessage = "La contraseña y la contraseña de verificación no coinciden")]
             public string ConfirmPassword { get; set; }
 
             [Required]

@@ -18,6 +18,7 @@ namespace StarFood.Repository
         public IRepositorioPedido Pedido { get; private set; }
         public IRepositorioMetodoPago MetodoPago { get; private set; }
         public IRepositorioFactura Factura { get; private set; }
+        public IRepositorioDetallePedido DetallePedido { get; private set; }
 
         public UnitOfWork(StarfoodContext db)
         {
@@ -32,6 +33,7 @@ namespace StarFood.Repository
             Proveedor = new RepositorioProveedor(_db);
             Factura = new RepositorioFactura(_db);
             MetodoPago = new RepositorioMetodoPago(_db);
+            DetallePedido = new RepositorioDetallePedido(_db);
         }
 
         public void Save()

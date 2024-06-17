@@ -18,10 +18,10 @@ namespace StarFood.Repository
             _db.Proveedores.Update(proveedor);
         }
 
-        public Proveedor GetLast() 
-        { 
-            return _db.Proveedores.OrderByDescending(p => p.IDProveedor).FirstOrDefault();
-        }
+        //public Proveedor GetLast() 
+        //{ 
+        //    return _db.Proveedores.OrderByDescending(p => p.IDProveedor).FirstOrDefault();
+        //}
 
     }
 }
