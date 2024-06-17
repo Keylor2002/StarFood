@@ -132,8 +132,13 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false) *@
+
     <div class="main-content">
         <main role="main" class="pb-3">
+            @Html.Partial("_NavBar")
+            <div class="content">
+                @RenderBody()
+            </div>
             @RenderBody()
         </main>
     </div>

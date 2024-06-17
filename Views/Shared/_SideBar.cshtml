@@ -9,9 +9,7 @@
     <h2 class="sidebar-title">StarFood</h2>
     <ul class="sidebar-nav">
         <li><a href="#" id="inicio-link"><i class="bi bi-house-door"></i><span>Inicio</span></a></li>
-        <li><a href="#" id="categorias-link"><i class="bi bi-list-task"></i><span>Categorías</span></a></li>
-        <li><a href="#" id="productos-link"><i class="bi bi-basket"></i><span>Producto</span></a></li>
-        <li><a href="#" id="platillos-link"><i class="bi bi-plate"></i><span>Platillos</span></a></li>
+        <li><a href="#" id="categoria-link"><i class="bi bi-list-task"></i><span>Inventario</span></a></li>
         <li><a href="#" id="proveedor-link"><i class="bi bi-truck"></i><span>Proveedores</span></a></li>
         <li><a href="#" id="pedidos-link"><i class="bi bi-receipt"></i><span>Pedidos</span></a></li>
         <li><a href="#" id="facturas-link"><i class="bi bi-file-earmark-text"></i><span>Facturas</span></a></li>
@@ -76,16 +74,6 @@
         window.location.href = '/Home/Index';
     });
 
-    document.getElementById('productos-link').addEventListener('click', function (event) {
-        event.preventDefault();
-        window.location.href = '/Product/Index';
-    });
-
-    document.getElementById('platillos-link').addEventListener('click', function (event) {
-        event.preventDefault();
-        window.location.href = '/Dish/Index';
-    });
-
     document.getElementById('proveedor-link').addEventListener('click', function (event) {
         event.preventDefault();
         window.location.href = '/Supplier/Index';
@@ -102,7 +90,7 @@
         window.location.href = '/Bill/Index';
     });
 
-    document.getElementById('categorias-link').addEventListener('click', function (event) {
+    document.getElementById('categoria-link').addEventListener('click', function (event) {
         event.preventDefault();
         window.location.href = '/Category/Index';
     });

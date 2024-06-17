@@ -1,40 +1,54 @@
-﻿@model IEnumerable<Platillo>
+﻿@using StarFood.Utility
+@model IEnumerable<Platillo>
 
 @{
-    ViewData["Title"] = "Platillos Index";
+    ViewData["Title"] = "Platillo Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-4">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Bundle (incluye Bootstrap JS) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- jQuery (asegúrate de incluirlo antes de los scripts de validación) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- jQuery Validate y jQuery Validate Unobtrusive -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+
+
+<div class="container mt-4" id="div-container">
     <div class="rounded-box">
         <!-- SearchBox and AddButton -->
         <div class="row mb-3 align-items-center">
             <div class="col-md-10">
                 <form class="d-flex" method="get" asp-action="Index">
                     <input class="form-control me-2" type="search" placeholder="Buscar por nombre" aria-label="Buscar" name="searchString">
-                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                    <button class="btn btn-info" type="submit">Buscar</button>
                 </form>
             </div>
-        </div>
-        <!-- Buttons Row -->
-        <div class="row mb-3 text-center">
-            <div class="col-md-4">
-                <a class="btn btn-outline-success w-100" asp-action="Create">Crear</a>
-            </div>
-            @* <div class="col-md-4">
-                <a class="btn btn-outline-warning w-100" asp-action="Edit">Editar</a>
-            </div>
-            <div class="col-md-4">
-                <a class="btn btn-outline-danger w-100" asp-action="Delete">Borrar</a> *@
+            <div class="col-md-2">
+                <a class="btn btn-info w-100" asp-action="Create">Crear</a>
             </div>
         </div>
-        <hr />
         <!-- Table -->
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().IDPlatillo)</th>
+                        <th>Código</th>
                         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Nombre)</th>
                         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Categoria.Nombre)</th>
                         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Precio)</th>
@@ -52,8 +66,16 @@
                             <td>@Html.DisplayFor(modelItem => item.Precio)</td>
                             <td>@Html.DisplayFor(modelItem => item.Descripcion)</td
                             <td>
-                                <a class="btn btn-info btn-sm" asp-action="Edit" asp-route-id="@item.IDPlatillo">Editar</a>
-                                <a class="btn btn-info btn-sm" asp-action="Delete" asp-route-id="@item.IDPlatillo">Borrar</a>
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-three-dots"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <li><a class="dropdown-item" asp-action="Edit" asp-route-id="@item.IDPlatillo">Editar</a></li>
+                                        <li><a class="dropdown-item" href="#">Habilitar</a></li>
+                                        <li><a class="dropdown-item" href="#">Deshabilitar</a></li>
+                                    </ul>
+                                </div>
                             </td>
                         </tr>
                     }
@@ -62,3 +84,30 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.dropdown-menu a.dropdown-item').click(function () {
+                var option = $(this).text().trim();
+                var categoryId = $(this).closest('tr').find('td:first').text().trim(); // Obtener el ID de la categoría
+
+                if (option === 'Editar') {
+                    // Redirigir a la página de edición (reemplazar con la URL correcta)
+                    window.location.href = '@Url.Action("Edit", "Category", new { id = "__categoryId__" })'.replace('__categoryId__', categoryId);
+                } else if (option === 'Habilitar') {
+                    // Lógica para habilitar la categoría (puedes hacer una solicitud AJAX aquí)
+                    console.log('Habilitar categoría con ID: ' + categoryId);
+                } else if (option === 'Deshabilitar') {
+                    // Lógica para deshabilitar la categoría (puedes hacer una solicitud AJAX aquí)
+                    console.log('Deshabilitar categoría con ID: ' + categoryId);
+                }
+            });
+        });
+    </script>
+
+    @* Incluir los scripts de validación si es necesario *@
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
