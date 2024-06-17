@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Categoria>
+﻿@using StarFood.Utility
+@model IEnumerable<Categoria>
 
 @{
 	ViewData["Title"] = "Categorías Index";
@@ -32,61 +33,55 @@
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
 
-<body>
-	<header id="title">
-		<h1 id="title">Categorías</h1>
-	</header>
-
-	<div class="inline">
-		<form class="filterSearch" method="get" asp-action="Index">
-			<input class="form-control me-2" type="search" placeholder="Buscar por nombre" aria-label="Buscar" name="searchString">
-			<button class="btn btn-info" type="submit">Buscar</button>
-		</form>
-	</div>
-	<br />
-	<div class="inline">
-		<a class="btn btn-info w-100" asp-action="Create">Crear</a>
-		<a class="btn btn-info w-100" asp-action="Edit">Editar</a>
-		<a class="btn btn-info w-100" asp-action="Delete">Eliminar</a>
-	</div>
-
-	<!-- Table -->
-	<div class="table-responsive">
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th>Código</th>
-					<th>@Html.DisplayNameFor(model => model.FirstOrDefault().Nombre)</th>
-					<th>Acciones</th>
-				</tr>
-			</thead>
-			<tbody>
-				@foreach (var item in Model)
-				{
-					<tr>
-						<td>@Html.DisplayFor(modelItem => item.IDCategoria)</td>
-						<td>@Html.DisplayFor(modelItem => item.Nombre)</td>
-						<td>
-							<div class="dropdown">
-								<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-									<i class="bi bi-three-dots"></i>
-								</button>
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-									<li><a class="dropdown-item" asp-action="Edit" asp-route-id="@item.IDCategoria">Editar</a></li>
-									<li><a class="dropdown-item" href="#">Habilitar</a></li>
-									<li><a class="dropdown-item" href="#">Deshabilitar</a></li>
-								</ul>
-							</div>
-						</td>
-					</tr>
-				}
-			</tbody>
-		</table>
-	</div>
-	</div>
-	</div>
-</body>
-
+<div class="container mt-4" id="div-container">
+    <div class="rounded-box">
+        <!-- SearchBox and AddButton -->
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-10">
+                <form class="d-flex" method="get" asp-action="Index">
+                    <input class="form-control me-2" type="search" placeholder="Buscar por nombre" aria-label="Buscar" name="searchString">
+                    <button class="btn btn-info" type="submit">Buscar</button>
+                </form>
+            </div>
+            <div class="col-md-2">
+                <a class="btn btn-info w-100" asp-action="Create">Crear</a>
+            </div>
+        </div>
+        <!-- Table -->
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Nombre)</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.IDCategoria)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-three-dots"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <li><a class="dropdown-item" asp-action="Edit" asp-route-id="@item.IDCategoria">Editar</a></li>
+                                        <li><a class="dropdown-item" href="#">Habilitar</a></li>
+                                        <li><a class="dropdown-item" href="#">Deshabilitar</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 @section Scripts {
 	<script>
