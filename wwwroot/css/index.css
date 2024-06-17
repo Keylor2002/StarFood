@@ -1,0 +1,101 @@
+﻿:root {
+    --color-light: #FDFFE2;
+    --color-dark: #5A72A0;
+    --color-accent: #83B4FF;
+    --color-secondary: #1A2130;
+}
+
+body {
+    background-color: var(--color-light);
+}
+
+button, .btn-custom {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    background-color: var(--color-secondary);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    button:hover, .btn-custom:hover {
+        background-color: var(--color-light);
+        color: var(--color-secondary);
+    }
+
+.rounded-box {
+    background-color: var(--color-dark);
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 1600px;
+}
+
+.table {
+    background-color: var(--color-light);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+}
+
+    .table th, .table td {
+        border-color: var(--color-accent);
+        color: var(--color-dark);
+    }
+
+    .table th {
+        background-color: var(--color-accent);
+        color: var(--color-light);
+    }
+
+.table-hover tbody tr:hover {
+    background-color: var(--color-secondary);
+    color: var(--color-dark);
+}
+
+.btn-primary {
+    background-color: var(--color-secondary);
+    width: 100%;
+}
+
+.btn-secondary {
+    background-color: var(--color-light);
+    margin-left: 20px;
+}
+
+input[type="search"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+    input[type="search"]:focus {
+        border-color: #aaa;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+.dropdownMenuButton.btn {
+    background-color: var(--color-dark);
+    color: var(--color-dark);
+}
+.btn-primary.dropdown-toggle {
+    background-color: var(--color-seco);
+    color: var(--color-dark);
+    width: 25%;
+    border: 0;
+}
+
+.dropdown-menu {
+    background-color: var(--color-dark);
+}
+
+.dropdown-item {
+    color: var(--color-dark);
+}
+
+    .dropdown-item:hover {
+        background-color: var(--color-dark);
+        color: var(--color-light);
+    }
