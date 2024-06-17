@@ -85,10 +85,6 @@
             "bootstrap": {
               "target": "Package",
               "version": "[5.3.3, )"
-            },
-            "popper.js": {
-              "target": "Package",
-              "version": "[1.16.1, )"
             }
           },
           "imports": [
