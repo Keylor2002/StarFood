@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using StarFood.Models;
 using StarFood.Repository.IRepository;
-using Microsoft.AspNetCore.Mvc;
-using StarFood.Utility;
 
 namespace StarFood.Controllers.CategoryController
 {
@@ -86,6 +83,36 @@ namespace StarFood.Controllers.CategoryController
             return RedirectToAction("Index");
             //return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
         }
+
+        public IActionResult ToggleSuspend(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var category = _unitOfWork.Categoria.GetFirstOrDefault(x => x.IDCategoria == id, null);
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            category.Suspendido = !category.Suspendido;
+            _unitOfWork.Categoria.Update(category);
+            _unitOfWork.Save();
+
+            if (category.Suspendido)
+            {
+                TempData["success"] = "Categoria suspendida correctamente";
+            }
+            else
+            {
+                TempData["success"] = "Categoria activada correctamente";
+            }
+
+            return RedirectToAction("Index");
+        }
+
 
         //[HttpDelete]
         //public IActionResult Delete(int? id)

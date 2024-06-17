@@ -5,7 +5,6 @@
     --color-secondary: #1A2130; /* Nuevo color secondary */
 }
 
-
 .main-content {
     background-color: var(--color-light);
     height: 100%;
@@ -20,108 +19,6 @@
         margin-left: 110px;
     }
 
-
-body {
-    background-color: var(--color-light)
-}
-
-button, .btn-custom {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: white; /* Color de texto blanco */
-    background-color: var(--color-secondary); /* Color de fondo secondary */
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-    button:hover, .btn-custom:hover {
-        background-color: var(--color-light); /* Cambiar color de fondo en hover */
-        color: var(--color-secondary); /* Cambiar color de texto en hover */
-    }
-
-
-h1 {
-    margin-top: -35px; /* Márgen superior */
-    margin-right: 0px; /* Márgen derecho */
-    margin-bottom: 20px; /* Márgen inferior */
-    margin-left: 50px; /* Márgen izquierdo */
-}
-
-h2 {
-    margin-top: 25px; /* Márgen superior */
-    margin-right: 0px; /* Márgen derecho */
-    margin-bottom: 20px; /* Márgen inferior */
-    margin-left: 50px; /* Márgen izquierdo */
-    color: black;
-}
-
-h1-carrusel {
-    margin-top: -35px; /* Márgen superior */
-    margin-right: 0px; /* Márgen derecho */
-    margin-bottom: 20px; /* Márgen inferior */
-    margin-left: 50px; /* Márgen izquierdo */
-}
-
-/* Estilos específicos para los botones del carrusel */
-.carousel-control-prev,
-.carousel-control-next {
-    filter: none; /* Elimina cualquier filtro de color aplicado */
-    background: transparent; /* Fondo transparente */
-    border: none; /* Sin borde */
-    outline: none; /* Sin contorno */
-}
-
-#carouselExampleAutoplaying {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-.carousel-img {
-    height: 300px;
-    object-fit: cover; /* Ajusta la imagen para que cubra el área sin distorsión */
-}
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente para los íconos de control */
-    border-radius: 50%; /* Redondear los íconos */
-}
-
-.carousel-indicators [data-bs-target] {
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente para los indicadores */
-}
-
-.header-container {
-    display: flex; /* Usa flexbox */
-    justify-content: space-between; /* Distribuye los elementos al principio y al final */
-    align-items: center; /* Centra verticalmente los elementos */
-}
-
-.carousel-caption {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
-    padding: 20px;
-    color: white; /* Color del texto */
-    text-align: center; /* Alinear el texto al centro */
-    transform: translateY(-50%);
-}
-
-    .carousel-caption h1 {
-        margin: 0; /* Eliminar márgenes */
-        font-size: 45px; /* Tamaño de fuente */
-        color: white;
-        text-align: center;
-    }
-/*---------------------------------------------------------------------------------------------*/
-
-
-/* Resto del CSS */
 h1, h2, h3 {
     font-weight: bold;
 }
@@ -267,20 +164,19 @@ a {
     max-width: 200px;
 }
 
-.rounded-box {
-    background-color: var(--color-dark);
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 20px;
-    margin: 0 auto;
+.carousel-control-prev,
+.carousel-control-next {
+    filter: none; /* Elimina cualquier filtro de color aplicado */
+    background: transparent; /* Fondo transparente */
+    border: none; /* Sin borde */
+    outline: none; /* Sin contorno */
 }
 
 .table {
     background-color: var(--color-light);
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    width: 60%;
-    position: center
+    width: 900px;
 }
 
     .table th,
@@ -302,227 +198,48 @@ a {
 .btn-primary {
     background-color: var(--color-secondary);
     width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
-.btn-secondary {
-    background-color: var(--color-light);
-    margin-left: 20px;
+.carousel-img {
+    height: 300px;
+    object-fit: cover; /* Ajusta la imagen para que cubra el área sin distorsión */
 }
 
-input[type="search"] {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente para los íconos de control */
+    border-radius: 50%; /* Redondear los íconos */
 }
 
-    input[type="search"]:focus {
-        border-color: #aaa;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
-        }
-
-h1 {
-    margin-top: -35px; /* Márgen superior */
-    margin-right: 0px; /* Márgen derecho */
-    margin-bottom: 20px; /* Márgen inferior */
-    margin-left: 50px; /* Márgen izquierdo */
+.carousel-indicators [data-bs-target] {
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente para los indicadores */
 }
 
-h2 {
-    margin-top: 25px; /* Márgen superior */
-    margin-right: 0px; /* Márgen derecho */
-    margin-bottom: 20px; /* Márgen inferior */
-    margin-left: 50px; /* Márgen izquierdo */
-    color: black;
+.header-container {
+    display: flex; /* Usa flexbox */
+    justify-content: space-between; /* Distribuye los elementos al principio y al final */
+    align-items: center; /* Centra verticalmente los elementos */
 }
 
-
-.whatsapp-button {
-    /* Estilos para el botón de WhatsApp */
-    font-size: 24px;
-    color: green; /* Color de WhatsApp */
-    /* Agrega más estilos según sea necesario */
-    margin-top: -35px; /* Márgen superior */
-    margin-right: 50px; /* Márgen derecho */
-    margin-bottom: 0px; /* Márgen inferior */
-    margin-left: 50px; /* Márgen izquierdo */
-}
-
-.rounded-box {
-    background-color: var(--color-dark);
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 20px;
-    margin: 0 auto; /* Centrar el contenedor */
-}
-
-/* Estilos para la tabla */
-.table {
-    background-color: var(--color-light);
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-    .table th,
-    .table td {
-        border-color: var(--color-accent);
-        color: var(--color-dark);
-    }
-
-    .table th {
-        background-color: var(--color-accent);
-        color: var(--color-light);
-    }
-
-.table-hover tbody tr:hover {
-    background-color: var(--color-secondary);
-    color: var(--color-dark);
-}
-
-.btn-primary {
-    background-color: var(--color-secondary);
-    width: 100%; /* Hacer que el botón ocupe todo el ancho de la columna */
-}
-
-.btn-secondary {
-    background-color: var(--color-light);
-    margin-left: 20px;
-}
-
-/* Estilos para el preview */
-.preview {
+.carousel-caption {
     position: absolute;
-    background-color: var(--color-light);
-    border: 1px solid var(--color-dark);
-    border-radius: 5px;
-    padding: 10px;
-    z-index: 1;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-    .preview h5 {
-        color: var(--color-accent);
-        margin-bottom: 5px;
-    }
-
-    .preview p {
-        color: var(--color-dark);
-        margin-bottom: 5px;
-    }
-
-input[type="text"] {
-    width: 100%; /* Hacer que el input ocupe todo el ancho de la columna */
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-    input[type="text"]:focus {
-        border-color: #aaa;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
-
-
-
-h1 {
-    margin-top: -35px; /* Márgen superior */
-    margin-right: 0px; /* Márgen derecho */
-    margin-bottom: 20px; /* Márgen inferior */
-    margin-left: 50px; /* Márgen izquierdo */
-}
-
-h2 {
-    margin-top: 25px; /* Márgen superior */
-    margin-right: 0px; /* Márgen derecho */
-    margin-bottom: 20px; /* Márgen inferior */
-    margin-left: 50px; /* Márgen izquierdo */
-    color: black;
-}
-
-.whatsapp-button {
-    /* Estilos para el botón de WhatsApp */
-    font-size: 24px;
-    color: green; /* Color de WhatsApp */
-    /* Agrega más estilos según sea necesario */
-    margin-top: -35px; /* Márgen superior */
-    margin-right: 50px; /* Márgen derecho */
-    margin-bottom: 0px; /* Márgen inferior */
-    margin-left: 50px; /* Márgen izquierdo */
-}
-
-.rounded-box {
-    background-color: var(--color-dark);
-    border: 1px solid #ccc;
-    border-radius: 10px;
+    top: 50%;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
     padding: 20px;
-    margin: 0 auto; /* Centrar el contenedor */
+    color: white; /* Color del texto */
+    text-align: center; /* Alinear el texto al centro */
+    transform: translateY(-50%);
 }
 
-/* Estilos para la tabla */
-.table {
-    background-color: var(--color-light);
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-    .table th,
-    .table td {
-        border-color: var(--color-accent);
-        color: var(--color-dark);
-    }
-
-    .table th {
-        background-color: var(--color-accent);
-        color: var(--color-light);
-    }
-
-.table-hover tbody tr:hover {
-    background-color: var(--color-secondary);
-    color: var(--color-dark);
-}
-
-.btn-primary {
-    background-color: var(--color-secondary);
-    width: 100%; /* Hacer que el botón ocupe todo el ancho de la columna */
-}
-
-.btn-secondary {
-    background-color: var(--color-light);
-    margin-left: 20px;
-}
-
-/* Estilos para el preview */
-.preview {
-    position: absolute;
-    background-color: var(--color-light);
-    border: 1px solid var(--color-dark);
-    border-radius: 5px;
-    padding: 10px;
-    z-index: 1;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-    .preview h5 {
-        color: var(--color-accent);
-        margin-bottom: 5px;
-    }
-
-    .preview p {
-        color: var(--color-dark);
-        margin-bottom: 5px;
-    }
-
-input[type="text"] {
-    width: 100%; /* Hacer que el input ocupe todo el ancho de la columna */
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-    input[type="text"]:focus {
-        border-color: #aaa;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    .carousel-caption h1 {
+        margin: 0; /* Eliminar márgenes */
+        font-size: 45px; /* Tamaño de fuente */
+        color: white;
+        text-align: center;
     }
 
 .sidebar-image {
