@@ -56,7 +56,7 @@ button, .btn-custom, .btn-primary, .btn-secondary {
 
 .main-content {
     background-color: var(--color-light);
-    max-height: 1500px;
+    height: 100%;
     margin-top: 0;
     padding-top: 0;
     max-width: 100%;
@@ -115,8 +115,7 @@ a {
     background-color: var(--color-dark);
     border: 1px solid #ccc;
     border-radius: 10px;
-    width: 1200px;
-    padding: 20px;
+    width: 1600px;
 }
 
 .logo-container {
