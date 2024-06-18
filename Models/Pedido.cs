@@ -17,6 +17,7 @@ namespace StarFood.Models
         public DateTime FechaPedido { get; set; }
         public DateTime FechaEntrega { get; set; }
 
+        [ValidateNever]
         public ICollection<DetallePedido> DetallePedido { get; set; } 
         public bool Cancelado { get; set; }
     }
