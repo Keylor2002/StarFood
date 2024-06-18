@@ -115,7 +115,8 @@ a {
     background-color: var(--color-dark);
     border: 1px solid #ccc;
     border-radius: 10px;
-    width: 1600px;
+    width: 1200px;
+    padding: 20px;
 }
 
 .logo-container {
