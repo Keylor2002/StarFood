@@ -21,7 +21,8 @@
                     </div>
                     <div class="form-group">
                         <label for="CategoriaID" class="col-form-label">Categoría:</label>
-                        <select asp-for="CategoriaID" class="form-control" asp-items="ViewBag.CategoriaID"></select>
+                        <select asp-for="CategoriaID" class="form-control" asp-items="@(new SelectList(ViewBag.Categorias, "Value", "Text"))"></select>
+                        <span asp-validation-for="CategoriaID" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label for="PrecioCosto" class="col-form-label">Precio de Costo:</label>
@@ -38,7 +39,7 @@
                     <!-- Segunda fila -->
                     <div class="form-group">
                         <label for="UnidadMedida" class="col-form-label">Unidad de Medida:</label>
-                        <input asp-for="UnidadMedida" class="form-control" />
+                        <select asp-for="UnidadMedida" class="form-control" asp-items="@(new SelectList(ViewBag.UnidadesMedida, "Value", "Text"))"></select>
                         <span asp-validation-for="UnidadMedida" class="text-danger"></span>
                     </div>
                     <div class="form-group">
@@ -53,7 +54,8 @@
                     </div>
                     <div class="form-group">
                         <label for="IDProveedor" class="col-form-label">ID del Proveedor:</label>
-                        <select asp-for="IDProveedor" class="form-control" asp-items="ViewBag.IDProveedor"></select>
+                        <select asp-for="IDProveedor" class="form-control" asp-items="@(new SelectList(ViewBag.Proveedores, "Value", "Text"))"></select>
+                        <span asp-validation-for="IDProveedor" class="text-danger"></span>
                     </div>
                 </div>
             </div>
