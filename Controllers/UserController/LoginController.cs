@@ -5,12 +5,12 @@ using StarFood.Repository.IRepository;
 
 namespace StarFood.Controllers.User_Controller
 {
-    public class ControladorLogin : Controller
+    public class LoginController : Controller
     {
         private IUnitOfWork _db;
         private UserManager<IdentityUser> _userManager;
 
-        public ControladorLogin(IUnitOfWork unitOfWork, UserManager<IdentityUser> userManager)
+        public LoginController(IUnitOfWork unitOfWork, UserManager<IdentityUser> userManager)
         {
             _db = unitOfWork;
             _userManager = userManager;
