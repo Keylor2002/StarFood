@@ -13,7 +13,7 @@ namespace StarFood.Models
         public int IDPedido { get; set; }
 
         [ValidateNever]
-        public Pedido Pedido { get; set; }
+        public Orden Pedido { get; set; }
 
         public DateTime FechaVenta { get; set; }
 

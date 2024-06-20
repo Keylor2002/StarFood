@@ -4,7 +4,7 @@ using StarFood.Repository.IRepository;
 
 namespace StarFood.Repository
 {
-    public class RepositorioPedido : Repositorio<Pedido>, IRepositorioPedido
+    public class RepositorioPedido : Repositorio<Orden>, IRepositorioPedido
     {
         private StarfoodContext _db;
 
@@ -13,12 +13,12 @@ namespace StarFood.Repository
             _db = db;
         }
 
-        public void Update(Pedido pedido)
+        public void Update(Orden pedido)
         {
             _db.Pedidos.Update(pedido);
         }
 
-        public Pedido GetLast()
+        public Orden GetLast()
         {
             return _db.Pedidos.OrderByDescending(p => p.IDPedido).FirstOrDefault();
         }

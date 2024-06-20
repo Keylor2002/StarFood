@@ -32,7 +32,7 @@ namespace StarFood.Controllers.BillController
         {
             if (ModelState.IsValid)
             {
-                Pedido pedido = _unitOfWork.Pedido.GetFirstOrDefault(x => x.IDPedido == bill.IDPedido, null);
+                Orden pedido = _unitOfWork.Pedido.GetFirstOrDefault(x => x.IDPedido == bill.IDPedido, null);
                 //decimal totalventa = 0;
                 if (pedido != null && pedido.DetallePedido != null)
                 {

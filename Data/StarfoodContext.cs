@@ -18,8 +18,8 @@ namespace StarFood.Data
         public DbSet<PedidoDeProducto> PedidosDeProducto { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Platillo> Platillos { get; set; }
-        public DbSet<Pedido> Pedidos { get; set; }
-        public DbSet<DetallePedido> DetallesPedido { get; set; }
+        public DbSet<Orden> Pedidos { get; set; }
+        public DbSet<Detalleorden> DetallesPedido { get; set; }
         public DbSet<MetodoPago> MetodosPago { get; set; }
         public DbSet<Factura> Facturas { get; set; }
         public DbSet<PlatilloProducto> PlatillosProductos { get; set; }

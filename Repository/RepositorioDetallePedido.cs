@@ -4,7 +4,7 @@ using StarFood.Repository.IRepository;
 
 namespace StarFood.Repository
 {
-    public class RepositorioDetallePedido : Repositorio<DetallePedido>, IRepositorioDetallePedido
+    public class RepositorioDetallePedido : Repositorio<Detalleorden>, IRepositorioDetallePedido
     {
         private StarfoodContext _db;
 
@@ -13,7 +13,7 @@ namespace StarFood.Repository
             _db = db;
         }
 
-        public void Update(DetallePedido detallePedido)
+        public void Update(Detalleorden detallePedido)
         {
             _db.DetallesPedido.Update(detallePedido);
         }

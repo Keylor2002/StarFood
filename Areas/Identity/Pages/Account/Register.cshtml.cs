@@ -91,7 +91,7 @@ namespace StarFood.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            //[StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Contraseña")]
             public string Password { get; set; }
@@ -127,7 +127,11 @@ namespace StarFood.Areas.Identity.Pages.Account
             if (!_roleManager.RoleExistsAsync(Roles.Admin_Role).GetAwaiter().GetResult())
             {
                 _roleManager.CreateAsync(new IdentityRole(Roles.Admin_Role)).GetAwaiter().GetResult();
-                _roleManager.CreateAsync(new IdentityRole(Roles.Employee_Role)).GetAwaiter().GetResult();
+                _roleManager.CreateAsync(new IdentityRole(Roles.Waiter_Role)).GetAwaiter().GetResult();
+                _roleManager.CreateAsync(new IdentityRole(Roles.Wairtress_Role)).GetAwaiter().GetResult();
+                _roleManager.CreateAsync(new IdentityRole(Roles.Chef_Role)).GetAwaiter().GetResult();
+                _roleManager.CreateAsync(new IdentityRole(Roles.Chef2_Role)).GetAwaiter().GetResult();
+                _roleManager.CreateAsync(new IdentityRole(Roles.Dependent_Role)).GetAwaiter().GetResult();
             }
 
 
@@ -193,12 +197,32 @@ namespace StarFood.Areas.Identity.Pages.Account
                     {
                         if (User.IsInRole(Roles.Admin_Role))
                         {
-                            TempData["success"] = "User created successfully";
+                            TempData["success"] = "Usuario admin creado correctamente";
                             return Redirect("/User/User/Index");
                         }
-                        else if (User.IsInRole(Roles.Employee_Role))
+                        else if (User.IsInRole(Roles.Dependent_Role))
                         {
-                            TempData["success"] = "User created successfully";
+                            TempData["success"] = "Usuario dependiente creado correctamente";
+                            return Redirect("/User/User/Index");
+                        }
+                        else if (User.IsInRole(Roles.Waiter_Role))
+                        {
+                            TempData["success"] = "Usuario mesero creado correctamente";
+                            return Redirect("/User/User/Index");
+                        }
+                        else if (User.IsInRole(Roles.Wairtress_Role))
+                        {
+                            TempData["success"] = "Usuario mesera creado correctamente";
+                            return Redirect("/User/User/Index");
+                        }
+                        else if (User.IsInRole(Roles.Chef_Role))
+                        {
+                            TempData["success"] = "Usuario cocinero creado correctamente";
+                            return Redirect("/User/User/Index");
+                        }
+                        else if (User.IsInRole(Roles.Chef2_Role))
+                        {
+                            TempData["success"] = "Usuario cocinera creado correctamente";
                             return Redirect("/User/User/Index");
                         }
                         else

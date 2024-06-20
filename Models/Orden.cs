@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace StarFood.Models
 {
-    public class Pedido
+    public class Orden
     {
         [Key]
         public int IDPedido { get; set; }
@@ -17,7 +17,7 @@ namespace StarFood.Models
         public DateTime FechaPedido { get; set; }
         public DateTime FechaEntrega { get; set; }
 
-        public ICollection<DetallePedido> DetallePedido { get; set; } 
+        public ICollection<Detalleorden> DetallePedido { get; set; } 
         public bool Cancelado { get; set; }
     }
 }

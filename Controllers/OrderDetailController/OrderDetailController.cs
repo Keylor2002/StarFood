@@ -19,7 +19,7 @@ namespace StarFood.Controllers.OrderDetailController
 
         public IActionResult Index()
         {
-            IEnumerable<DetallePedido> orderDetailList = _unitOfWork.DetallePedido.GetAll();
+            IEnumerable<Detalleorden> orderDetailList = _unitOfWork.DetallePedido.GetAll();
             return View(orderDetailList);
 
         }
@@ -33,7 +33,7 @@ namespace StarFood.Controllers.OrderDetailController
         // Works
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public IActionResult Create(DetallePedido orderDetail)
+        public IActionResult Create(Detalleorden orderDetail)
         {
             if (ModelState.IsValid)
             {
@@ -68,7 +68,7 @@ namespace StarFood.Controllers.OrderDetailController
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public IActionResult Edit([FromBody] DetallePedido orderDetail)
+        public IActionResult Edit([FromBody] Detalleorden orderDetail)
         {
             if (ModelState.IsValid)
             {

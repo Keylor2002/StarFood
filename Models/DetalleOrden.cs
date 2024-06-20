@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace StarFood.Models
 {
-    public class DetallePedido
+    public class Detalleorden
     {
         [Key]
         public int IDDetallePedido { get; set; }
@@ -13,7 +13,7 @@ namespace StarFood.Models
         public int IDPedido { get; set; }
 
         [ValidateNever]
-        public Pedido Pedido { get; set; }
+        public Orden Pedido { get; set; }
         
         [ForeignKey("Platillo")]
         public int IDPlatillo { get; set; }
