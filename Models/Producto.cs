@@ -22,6 +22,7 @@ namespace StarFood.Models
         [Column(TypeName = "decimal(10, 2)")]
         public decimal PrecioCosto { get; set; }
 
+        [ValidateNever]
         public int CantidadExistente { get; set; }
 
         [Required]
