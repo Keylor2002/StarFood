@@ -7,16 +7,16 @@ namespace StarFood.Models
         [Key]
         public int IDProveedor { get; set; }
 
-        [Required]
-        [MaxLength(50)]
+        [Required(ErrorMessage = "El nombre de la empresa es obligatorio.")]
+        [MaxLength(50, ErrorMessage = "La longitud máxima para el nombre de la empresa es de 50 caracteres.")]
         public string Empresa { get; set; }
 
-        [Required]
-        [MaxLength(80)]
+        [Required(ErrorMessage = "El contacto es obligatorio.")]
+        [MaxLength(80, ErrorMessage = "La longitud máxima para el contacto es de 80 caracteres.")]
         public string Contacto { get; set; }
 
-        [Required]
-        [MaxLength(60)]
+        [Required(ErrorMessage = "El nombre es obligatorio.")]
+        [MaxLength(60, ErrorMessage = "La longitud máxima para el nombre es de 60 caracteres.")]
         public string Nombre { get; set; }
 
         public bool Suspendido { get; set; }
