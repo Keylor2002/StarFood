@@ -6,7 +6,7 @@ using StarFood.Utility;
 
 namespace StarFood.Controllers.UserController
 {
-    [Authorize(Roles = Roles.Admin_Role + "," + Roles.Employee_Role)]
+    [Authorize(Roles = Roles.Admin_Role)]
     public class ControladorUsuario : Controller
     {
         private IUnitOfWork _db;
@@ -21,15 +21,15 @@ namespace StarFood.Controllers.UserController
         public IActionResult Index()
         {
             var users = _db.Usuario.GetAll();
-            if (User.IsInRole(Roles.Admin_Role))
-            {
-                IList<IdentityUser> usersAux = _userManager.GetUsersInRoleAsync(Roles.Employee_Role).Result;
-                List<Models.Usuario> usersList = new List<Models.Usuario>();
-                foreach (var user in usersAux)
-                {
-                    usersList.Add(_db.Usuario.GetFirstOrDefault(x => x.Id == user.Id, null));
-                }
-            }
+            //if (User.IsInRole(Roles.Admin_Role))
+            //{
+            //    IList<IdentityUser> usersAux = _userManager.GetUsersInRoleAsync(Roles.).Result;
+            //    List<Models.Usuario> usersList = new List<Models.Usuario>();
+            //    foreach (var user in usersAux)
+            //    {
+            //        usersList.Add(_db.Usuario.GetFirstOrDefault(x => x.Id == user.Id, null));
+            //    }
+            //}
             return View(users);
         }
 

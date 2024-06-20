@@ -15,6 +15,15 @@
                 <input asp-for="Input.Email" class="form-control" placeholder="Email" required="required" />
                 <input asp-for="Input.Password" class="form-control" placeholder="Contraseña" required="required" />
                 <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="Confirmar Contraseña" required="required" />
+                @if (User.IsInRole(Roles.Admin_Role))
+                {
+                    <div class="form-floating py-2">
+                        <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-select">
+                            <option enabled selected>Seleccione un rol</option>
+                        </select/>
+                    </div>
+                }
+                
                 <div class="button-group">
                     <button type="submit" class="btn btn-primary btn-large">Registrar</button>
                 </div>

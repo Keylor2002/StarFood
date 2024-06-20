@@ -49,12 +49,6 @@ namespace StarFood.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Producto>()
-                .HasOne(p => p.Proveedor)
-                .WithMany()
-                .HasForeignKey(p => p.IDProveedor)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Producto>()
                 .HasOne(p => p.Categoria)
                 .WithMany()
                 .HasForeignKey(p => p.CategoriaID)

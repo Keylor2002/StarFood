@@ -102,26 +102,27 @@ namespace StarFood.Controllers
             {
                 IDProducto = producto.IDProducto,
                 Nombre = producto.Nombre,
-                PrecioCosto = producto.PrecioCosto,
+                //PrecioCosto = producto.PrecioCosto,
                 CantidadExistente = producto.CantidadExistente,
                 PrecioVenta = producto.PrecioVenta,
                 UnidadMedida = producto.UnidadMedida,
-                FechaCaducidad = producto.FechaCaducidad,
-                FechaCompra = producto.FechaCompra,
+                //FechaCaducidad = producto.FechaCaducidad,
+                //FechaCompra = producto.FechaCompra,
                 Suspendido = producto.Suspendido,
                 Categoria = new
                 {
                     IdCategoria = producto.Categoria.IDCategoria,
                     NombreCategoria = producto.Categoria.Nombre
-                },
-
-                Proveedor = new
-                {
-                    IDProveedor = producto.Proveedor.IDProveedor,
-                    Empresa = producto.Proveedor.Empresa,
-                    Contacto = producto.Proveedor.Contacto,
-                    Nombre = producto.Proveedor.Nombre,
                 }
+            //    ,
+
+            //    //Proveedor = new
+            //    //{
+            //    //    IDProveedor = producto.Proveedor.IDProveedor,
+            //    //    Empresa = producto.Proveedor.Empresa,
+            //    //    Contacto = producto.Proveedor.Contacto,
+            //    //    Nombre = producto.Proveedor.Nombre,
+            //    //}
             });
 
             return Json(new { data = formattedList });

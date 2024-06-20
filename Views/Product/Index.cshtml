@@ -36,13 +36,13 @@
                     <tr>
                         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Nombre)</th>
                         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Categoria.Nombre)</th>
-                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().PrecioCosto)</th>
+                        @* <th>@Html.DisplayNameFor(model => model.FirstOrDefault().PrecioCosto)</th> *@
                         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().CantidadExistente)</th>
                         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().PrecioVenta)</th>
                         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().UnidadMedida)</th>
-                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().FechaCaducidad)</th>
+                        @* <th>@Html.DisplayNameFor(model => model.FirstOrDefault().FechaCaducidad)</th>
                         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().FechaCompra)</th>
-                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Proveedor.Contacto)</th>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Proveedor.Contacto)</th> *@
                     </tr>
                 </thead>
                 <tbody>
@@ -51,13 +51,13 @@
                         <tr>
                             <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
                             <td>@Html.DisplayFor(modelItem => item.Categoria.Nombre)</td>
-                            <td>@Html.DisplayFor(modelItem => item.PrecioCosto)</td>
+                            @* <td>@Html.DisplayFor(modelItem => item.PrecioCosto)</td> *@
                             <td>@Html.DisplayFor(modelItem => item.CantidadExistente)</td>
                             <td>@Html.DisplayFor(modelItem => item.PrecioVenta)</td>
                             <td>@Html.DisplayFor(modelItem => item.UnidadMedida)</td>
-                            <td>@Html.DisplayFor(modelItem => item.FechaCaducidad)</td>
+                            @* <td>@Html.DisplayFor(modelItem => item.FechaCaducidad)</td>
                             <td>@Html.DisplayFor(modelItem => item.FechaCompra)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Proveedor.Contacto)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Proveedor.Contacto)</td> *@
                         </tr>
                     }
                 </tbody>
