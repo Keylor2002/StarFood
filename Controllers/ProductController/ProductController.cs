@@ -60,8 +60,8 @@ namespace StarFood.Controllers
                 _unitOfWork.Save();
                 return Json(new { success = true, message = "Producto creado correctamente" });
             }
-            return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
-            //return RedirectToAction("Index");
+
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -125,17 +125,6 @@ namespace StarFood.Controllers
             });
 
             return Json(new { data = formattedList });
-            //var product = _unitOfWork.Producto.GetAll();
-            //return Json(new { data = product, success = true });
         }
-
-        //public IActionResult SelectCategory()
-        //{
-        //    List<Categoria> categorySelect = new List<Categoria>();
-
-        //    categorySelect.Add(_unitOfWork.Categoria.GetAll());
-        //    ViewBag.Category = category;
-        //    return View();
-        //}
     }
 }
