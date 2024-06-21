@@ -6,7 +6,7 @@ namespace StarFood.Models
 {
     public class TransaccionProducto
     {
-        Key]
+        [Key]
     public int IDTransacProducto { get; set; }
 
         [ForeignKey("Producto")]
