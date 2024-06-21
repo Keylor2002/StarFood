@@ -1,9 +1,9 @@
-﻿body, html {
+﻿/*body, html {
     height: 100%;
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: lightsteelblue; /* Color de fondo para toda la pantalla */
-    display: flex;
+    background-color: lightsteelblue;*/ /* Color de fondo para toda la pantalla */
+    /*display: flex;
     justify-content: center;
     align-items: center;
 }
@@ -81,4 +81,4 @@
 
     .btn-secondary:hover {
         background-color: #5a6268;
-    }
+    }*/

@@ -1,105 +1,26 @@
-html {
-    font-size: 16px; /* Tamaño de fuente base */
-}
-
-/* Media query para pantallas más grandes */
-@media (min-width: 768px) {
-    html {
-        font-size: 18px; /* Aumentamos el tamaño de fuente para pantallas más grandes */
-    }
-}
-
-/* Estilos para el HTML y el body */
-html, body {
-    height: 100%; /* Ajustamos la altura al 100% del viewport */
-    margin: 0; /* Eliminamos los márgenes por defecto */
-    font-family: Arial, sans-serif; /* Ejemplo de familia de fuentes */
-}
-
-/* Contenedor principal */
-.container {
-    width: 100%; /* El contenedor ocupa todo el ancho disponible */
-    max-width: 1200px; /* Máximo ancho del contenedor */
-    margin: 0 auto; /* Centramos el contenedor horizontalmente */
-    padding: 20px; /* Espacio interno del contenedor */
-    box-sizing: border-box; /* Incluimos el padding en el ancho total */
-}
-
-/* Ejemplo de sección con diseño flexible */
-.section {
-    display: flex; /* Usamos flexbox para el diseño flexible */
-    justify-content: space-between; /* Distribución de espacio entre elementos */
-    align-items: center; /* Alineación vertical de elementos */
-}
-
-/* Ejemplo de elemento flexible dentro de la sección */
-.element {
-    flex: 1; /* Ocupa todo el espacio disponible */
-    margin: 10px; /* Margen entre elementos */
-    padding: 10px; /* Espacio interno del elemento */
-    background-color: #f0f0f0; /* Color de fondo */
-    border: 1px solid #ccc; /* Borde del elemento */
-    text-align: center; /* Alineación del texto */
-}
-
-/* Media query para pantallas pequeñas */
-@media (max-width: 768px) {
-    .section {
-        flex-direction: column; /* Cambiamos a dirección de columna en pantallas pequeñas */
-    }
-
-    .element {
-        width: 100%; /* Ancho completo en pantallas pequeñas */
-    }
-}
-
-body {
-    background-color: #DAF7A6;
-    color: #000000;
-}
-
-.sidebar {
-    color: black;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 250px;
-    padding-top: 3.5rem;
-    background-color: #f8f9fa;
-    z-index: 1;
-}
-
-.navbar {
-    z-index: 2;
-}
-
+/* Estilo para el contenido principal que se desplaza al abrir y cerrar el sidebar */
 .main-content {
-    margin-left: 250px;
-    padding-top: 3.5rem;
-}
-
-.card-body a.nav-link {
-    color: black;
-}
-
-/* Estilos para el navbar */
-.navbar-dark .navbar-nav .nav-link {
-    color: rgba(255, 255, 255, 0.8);
-}
-
-    .navbar-dark .navbar-nav .nav-link:hover,
-    .navbar-dark .navbar-nav .nav-link:focus {
-        color: rgba(255, 255, 255, 1);
-    }
-
-
-.main-content {
-    margin-left: 250px; /* Ajustar según el ancho del sidebar */
-    padding: 20px;
     transition: margin-left 0.3s ease-in-out;
 }
 
+/* Cuando el sidebar está cerrado, ajustar el margen izquierdo */
 .sidebar-closed .main-content {
-    margin-left: 110px; /* Ajustar según el ancho minimizado del sidebar */
+    margin-left: 120px; /* Ancho del sidebar minimizado */
+}
+
+/* Estilo para el sidebar cuando está minimizado */
+.sidebar-closed .sidebar {
+    width: 120px;
+}
+
+/* Responsividad para el sidebar y el main-content */
+@media (max-width: 768px) {
+    .sidebar,
+    .sidebar-closed #sidebar {
+        width: 100%;
+    }
+
+    .sidebar-closed .main-content {
+        margin-left: 120px;
+    }
 }
