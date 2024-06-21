@@ -10,7 +10,9 @@ namespace StarFood.Models
         public int IDCategoria { get; set; }
 
         [Required]
-        [MaxLength(80)]
+        [MaxLength(30, ErrorMessage = "La longitud máxima es de 30 caracteres.")]
+        [MinLength(4, ErrorMessage = "La longitud minima es de 4 caracteres.")]
+        [RegularExpression(@"^[^0-9]*$", ErrorMessage = "El campo no puede contener números.")]
         public string Nombre { get; set; }
 
         [ValidateNever]

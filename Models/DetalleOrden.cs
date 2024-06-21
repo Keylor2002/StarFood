@@ -7,20 +7,23 @@ namespace StarFood.Models
     public class Detalleorden
     {
         [Key]
-        public int IDDetallePedido { get; set; }
+    public int IDDetallePedido { get; set; }
 
-        [ForeignKey("Pedido")]
-        public int IDPedido { get; set; }
+    [ForeignKey("Pedido")]
+    public int IDPedido { get; set; }
 
-        [ValidateNever]
-        public Orden Pedido { get; set; }
-        
-        [ForeignKey("Platillo")]
-        public int IDPlatillo { get; set; }
+    [ValidateNever]
+    public Orden Pedido { get; set; }
+ 
+    [ForeignKey("Platillo")]
+    public int IDPlatillo { get; set; }
 
-        [ValidateNever]
-        public Platillo Platillo { get; set; } 
-        public int Cantidad { get; set; }
+    [ValidateNever]
+    public Platillo Platillo { get; set; } 
+
+    [Required(ErrorMessage = "La cantidad es obligatoria.")]
+    [Range(1, int.MaxValue, ErrorMessage = "La cantidad debe ser mayor que cero.")]
+    public int Cantidad { get; set; }
 
     }
 }

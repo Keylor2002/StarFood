@@ -9,8 +9,8 @@ namespace StarFood.Models
         [Key]
         public int IDPlatillo { get; set; }
 
-        [Required]
-        [MaxLength(60)]
+        [Required(ErrorMessage = "El nombre del platillo es obligatorio.")]
+        [MaxLength(60, ErrorMessage = "La longitud máxima para el nombre del platillo es de 60 caracteres.")]
         public string Nombre { get; set; }
 
         [ForeignKey("Categoria")]
@@ -19,14 +19,14 @@ namespace StarFood.Models
         [ValidateNever]
         public Categoria Categoria { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El precio del platillo es obligatorio.")]
         [Column(TypeName = "decimal(10, 2)")]
+        [Range(0.01, 9999999999.99, ErrorMessage = "El precio del platillo debe estar entre 0.01 y 9999999999.99.")]
         public decimal Precio { get; set; }
 
         public string Descripcion { get; set; }
 
         public bool Suspendido { get; set; }
-
         [Required]
         public string ImagenUrl { get; set; }
     }

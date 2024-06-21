@@ -14,9 +14,11 @@ namespace StarFood.Models
         [ValidateNever]
         public Usuario Usuario { get; set; }
 
+        [Required(ErrorMessage = "La fecha del pedido es obligatoria.")]
         public DateTime FechaPedido { get; set; }
-        public DateTime FechaEntrega { get; set; }
 
+        [Required(ErrorMessage = "La fecha de entrega es obligatoria.")]
+        public DateTime FechaEntrega { get; set; }
         public ICollection<Detalleorden> DetallePedido { get; set; } 
         public bool Cancelado { get; set; }
     }
