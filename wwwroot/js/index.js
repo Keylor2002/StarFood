@@ -33,8 +33,4 @@ $(document).ready(function () {
 	});
 });
 
-new DataTable('#example', {
-layout: {
-topStart: 'searchPanes'
-}
-});
+

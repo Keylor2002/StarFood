@@ -1,6 +1,4 @@
-﻿/* styles.css */
-
-/* Estilos para el dropdown del menú */
+﻿/* Estilos para el dropdown del menú */
 .dropdown-menu {
     background: none;
     border: none;
@@ -8,7 +6,7 @@
 }
 
     .dropdown-menu .dropdown-item {
-        color: black;
+        color: white;
     }
 
         .dropdown-menu .dropdown-item:hover {

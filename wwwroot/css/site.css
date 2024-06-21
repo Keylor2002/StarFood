@@ -1,20 +1,20 @@
 /* Estilo para el contenido principal que se desplaza al abrir y cerrar el sidebar */
-.main-content {
+/*.main-content {
     transition: margin-left 0.3s ease-in-out;
-}
+}*/
 
 /* Cuando el sidebar está cerrado, ajustar el margen izquierdo */
-.sidebar-closed .main-content {
-    margin-left: 120px; /* Ancho del sidebar minimizado */
-}
+/*.sidebar-closed .main-content {
+    margin-left: 120px;*/ /* Ancho del sidebar minimizado */
+/*}*/
 
 /* Estilo para el sidebar cuando está minimizado */
-.sidebar-closed .sidebar {
+/*.sidebar-closed .sidebar {
     width: 120px;
-}
+}*/
 
 /* Responsividad para el sidebar y el main-content */
-@media (max-width: 768px) {
+/*@media (max-width: 768px) {
     .sidebar,
     .sidebar-closed #sidebar {
         width: 100%;
@@ -23,4 +23,4 @@
     .sidebar-closed .main-content {
         margin-left: 120px;
     }
-}
+}*/
