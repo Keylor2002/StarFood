@@ -28,22 +28,22 @@ namespace StarFood.Controllers.BillController
 
         // Works
         [HttpPost]
-        public IActionResult Create([FromBody] Factura bill)
+        public IActionResult Create(Factura bill)
         {
             if (ModelState.IsValid)
             {
-                Orden pedido = _unitOfWork.Pedido.GetFirstOrDefault(x => x.IDPedido == bill.IDPedido, null);
-                //decimal totalventa = 0;
-                if (pedido != null && pedido.DetallePedido != null)
-                {
-                    foreach (var detalle in pedido.DetallePedido)
-                    {
-                       bill.TotalVenta += (detalle.Platillo.Precio * detalle.Cantidad);
-                    }
-                }
-                //bill.TotalVenta = totalventa;
-                bill.CantidadCambio = bill.CantidadPago - bill.TotalVenta;
-                bill.FechaVenta = DateTime.Now;
+                //Orden pedido = _unitOfWork.Pedido.GetFirstOrDefault(x => x.IDPedido == bill.IDPedido, null);
+                ////decimal totalventa = 0;
+                //if (pedido != null && pedido.DetallePedido != null)
+                //{
+                //    foreach (var detalle in pedido.DetallePedido)
+                //    {
+                //       bill.TotalVenta += (detalle.Platillo.Precio * detalle.Cantidad);
+                //    }
+                //}
+                ////bill.TotalVenta = totalventa;
+                //bill.CantidadCambio = bill.CantidadPago - bill.TotalVenta;
+                //bill.FechaVenta = DateTime.Now;
 
                 _unitOfWork.Factura.Add(bill);
                 _unitOfWork.Save();
