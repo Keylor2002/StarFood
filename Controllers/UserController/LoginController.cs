@@ -21,9 +21,9 @@ namespace StarFood.Controllers.User_Controller
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public IActionResult Login(string nombreUsuario, string contraseña)
+        public IActionResult Login(string email, string contraseña)
         {
-            IdentityUser user = _userManager.FindByNameAsync(nombreUsuario).Result;
+            IdentityUser user = _userManager.FindByEmailAsync(email).Result;
             if (user != null && _userManager.CheckPasswordAsync(user, contraseña).Result)
             {
                 return Json(new { data = user.Id, success = true });

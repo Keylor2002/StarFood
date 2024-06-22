@@ -18,7 +18,8 @@ namespace StarFood.Controllers.BillController
 
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<Factura> billList = _unitOfWork.Factura.GetAll();
+            return View(billList);
         }
 
         public IActionResult Create()
