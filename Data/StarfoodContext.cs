@@ -15,7 +15,7 @@ namespace StarFood.Data
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Proveedor> Proveedores { get; set; }
         public DbSet<Producto> Productos { get; set; }
-        public DbSet<PedidoDeProducto> PedidosDeProducto { get; set; }
+        
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Platillo> Platillos { get; set; }
         public DbSet<Orden> Pedidos { get; set; }
@@ -36,13 +36,13 @@ namespace StarFood.Data
             base.OnModelCreating(modelBuilder);
 
             // Configuración de relaciones con DeleteBehavior.Restrict para evitar ciclos
-            modelBuilder.Entity<PedidoDeProducto>()
+            modelBuilder.Entity<TransaccionProducto>()
                 .HasOne(p => p.Producto)
                 .WithMany()
                 .HasForeignKey(p => p.IDProducto)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<PedidoDeProducto>()
+            modelBuilder.Entity<TransaccionProducto>()
                 .HasOne(p => p.Proveedor)
                 .WithMany()
                 .HasForeignKey(p => p.IDProveedor)

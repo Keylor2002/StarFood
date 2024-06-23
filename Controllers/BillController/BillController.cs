@@ -48,13 +48,13 @@ namespace StarFood.Controllers.BillController
 
                 _unitOfWork.Factura.Add(bill);
                 _unitOfWork.Save();
-                TempData["success"] = "Factura pagada";
-                return Json(new { success = true, message = "Add correctly" });
+                //TempData["success"] = "Factura pagada";
+                return RedirectToAction("Index");
             }
 
             // En caso de que el ModelState no sea válido
-            TempData["error"] = "Error en los datos de la factura";
-            return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
+            TempData["success"] = "Factura pagada correctantamente";
+            return View(bill);
         }
         public IActionResult GetAll()
         {

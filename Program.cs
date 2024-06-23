@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using StarFood.Business_Logic;
+
 using StarFood.Data;
 using StarFood.Models;
 using StarFood.Repository;
@@ -41,9 +41,9 @@ builder.Services.AddTransient<StarfoodContext>();
 
 //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
 //    .AddEntityFrameworkStores<StarfoodContext>();
-builder.Services.AddScoped<BusinessCategorias>();
-builder.Services.AddTransient<DataCategory>(provider => new DataCategory(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddTransient<BusinessCategorias>();
+
+//builder.Services.AddTransient<DataCategory>(provider => new DataCategory(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 builder.Services.AddControllersWithViews()
         .AddNewtonsoftJson(options =>

@@ -7,12 +7,12 @@ using StarFood.Utility;
 namespace StarFood.Controllers.UserController
 {
     [Authorize(Roles = Roles.Admin_Role)]
-    public class ControladorUsuario : Controller
+    public class UserController : Controller
     {
         private IUnitOfWork _db;
         private UserManager<IdentityUser> _userManager;
 
-        public ControladorUsuario(IUnitOfWork unitOfWork, UserManager<IdentityUser> userManager)
+        public UserController(IUnitOfWork unitOfWork, UserManager<IdentityUser> userManager)
         {
             _db = unitOfWork;
             _userManager = userManager;

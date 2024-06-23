@@ -8,12 +8,12 @@ namespace StarFood.Controllers.UserController
 {
     [ApiController]
     [EnableCors("GeneralPolicy")]
-    public class ControladorAutenticacion : Controller
+    public class AuthController : Controller
     {
         private readonly IUnitOfWork _db;
         private UserManager<IdentityUser> _userManager;
 
-        public ControladorAutenticacion(IUnitOfWork unitOfWork, UserManager<IdentityUser> userManager)
+        public AuthController(IUnitOfWork unitOfWork, UserManager<IdentityUser> userManager)
         {
             _db = unitOfWork;
             _userManager = userManager;

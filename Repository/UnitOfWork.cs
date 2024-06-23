@@ -8,32 +8,32 @@ namespace StarFood.Repository
     {
         private StarfoodContext _db;
 
-        public IRepositorioCategoria Categoria { get; private set; }
-        public IRepositorioPlatilloProducto PlatilloProducto { get; private set; }
-        public IRepositorioUsuario Usuario { get; private set; }
-        public IRepositorioProveedor Proveedor { get; private set; }
-        public IRepositorioProducto Producto { get; private set; }
-        public IRepositorioPlatillo Platillo { get; private set; }
-        public IRepositorioPedidoDeProducto PedidoDeProducto { get; private set; }
-        public IRepositorioPedido Pedido { get; private set; }
-        public IRepositorioMetodoPago MetodoPago { get; private set; }
-        public IRepositorioFactura Factura { get; private set; }
-        public IRepositorioDetallePedido DetallePedido { get; private set; }
+        public ICategoryRepository Categoria { get; private set; }
+        public IDishProductRepository PlatilloProducto { get; private set; }
+        public IUserRepository Usuario { get; private set; }
+        public ISupplierRepository Proveedor { get; private set; }
+        public IProductRepository Producto { get; private set; }
+        public IDishRepository Platillo { get; private set; }
+        
+        public IOrderRepository Pedido { get; private set; }
+        public IRepositoryPaymentMethod MetodoPago { get; private set; }
+        public IBillRepository Factura { get; private set; }
+        public IDetailOrderRepository DetallePedido { get; private set; }
 
         public UnitOfWork(StarfoodContext db)
         {
             _db = db;
-            Usuario = new RepositorioUsuario(_db);
-            Categoria = new RepositorioCategoria(_db);
-            Pedido = new RepositorioPedido(_db);
-            Platillo = new RepositorioPlatillo(_db);
-            PlatilloProducto = new RepositorioPlatilloProducto(_db);
-            PedidoDeProducto = new RepositorioPedidoDeProducto(_db);
-            Producto = new RepositorioProducto(_db);
-            Proveedor = new RepositorioProveedor(_db);
-            Factura = new RepositorioFactura(_db);
-            MetodoPago = new RepositorioMetodoPago(_db);
-            DetallePedido = new RepositorioDetallePedido(_db);
+            Usuario = new UserRepository(_db);
+            Categoria = new CategoryRepository(_db);
+            Pedido = new OrderRepository(_db);
+            Platillo = new DishRepository(_db);
+            PlatilloProducto = new DishProductRepository(_db);
+            
+            Producto = new ProductRepository(_db);
+            Proveedor = new SupplierRepository(_db);
+            Factura = new BillRepository(_db);
+            MetodoPago = new PaymentMethodRepository(_db);
+            DetallePedido = new DetailOrderRepository(_db);
         }
 
         public void Save()
