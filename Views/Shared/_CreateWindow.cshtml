@@ -1,0 +1,24 @@
+﻿@model StarFood.Models.Categoria
+
+<div class="newitem-content">
+    <h4>Crear Nueva Categoría</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Nombre" class="control-label"></label>
+                    <input asp-for="Nombre" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-secondary" onclick="closeNewItem()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

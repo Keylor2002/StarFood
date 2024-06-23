@@ -4,6 +4,7 @@
 @{
     ViewData["Title"] = "Categorías Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var newCategory = new StarFood.Models.Categoria();
 }
 
 <!DOCTYPE html>
@@ -24,6 +25,7 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="~/css/index.css">
+    <link rel="stylesheet" type="text/css" href="~/css/_sidebar.css">
 </head>
 
 <body>
@@ -34,7 +36,7 @@
                 <p class="text-muted">Gestiona todas las categorías de productos aquí</p>
             </div>
             <div class="col-md-4 text-end">
-                <a class="btn btn-info" asp-action="Create"><i class="fas fa-plus"></i> Crear Nueva Categoría</a>
+                <button id="btnCreateCategory" class="btn btn-info newitem-open"><i class="fas fa-plus"></i> Crear Nueva Categoría</button>
             </div>
         </div>
 
@@ -61,13 +63,16 @@
                         <td>@Html.DisplayFor(modelItem => item.IDCategoria)</td>
                         <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
                         <td>
-                            <div class="dropdown">
-                                <button class="btn btn-link p-0 dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-three-dots"></i>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                                    <li><a class="dropdown-item text-dark" href="@Url.Action("Edit", "Category", new { id = item.IDCategoria })"><i class="fas fa-pencil-alt"></i> Editar</a></li>
-                                    <li><a class="dropdown-item text-dark" href="javascript:void(0);" onclick="toggleSuspend('@item.IDCategoria')">Habilitar/Deshabilitar</a></li>
+                            <div class="dropdown pb-4">
+                                <a href="/#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="see-options" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="d-none d-sm-inline mx-1"><i id="see-options-icon" class="bi bi-three-dots"></i></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                                    <li>asegurar</li>
+                                    <li>asegurar</li>
+                                    <li>asegurar</li>
+                                    @* <li><a class="dropdown-item text-dark" href="@Url.Action("Edit", "Category", new { id = @item.IDCategoria })"><i class="fas fa-pencil-alt"></i> Editar</a></li>
+                                    <li><a class="dropdown-item text-dark" href="javascript:void(0);" onclick="toggleSuspend('@item.IDCategoria')">Habilitar/Deshabilitar</a></li> *@
                                 </ul>
                             </div>
                         </td>
@@ -75,6 +80,12 @@
                 }
             </tbody>
         </table>
+    </div>
+
+    <!-- New Item Sidebar -->
+    <div id="newItemSidebar" class="newitem">
+        <a href="javascript:void(0)" class="newitem-close">&times;</a>
+        @await Html.PartialAsync("_CreateWindow", newCategory)
     </div>
 
     <!-- jQuery -->
@@ -90,36 +101,8 @@
     <!-- DataTables Responsive -->
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $('#categoriesTable').DataTable({
-                responsive: true,
-                language: {
-                    url: '//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json'
-                }
-            });
-        });
-
-        function toggleSuspend(id) {
-            if (confirm("¿Estás seguro de que deseas habilitar/deshabilitar esta categoría?")) {
-                $.ajax({
-                    url: '@Url.Action("ToggleSuspend", "Category")',
-                    type: 'POST',
-                    data: { id: id },
-                    success: function (response) {
-                        if (response.success) {
-                            location.reload();
-                        } else {
-                            alert('Error al habilitar/deshabilitar la categoría.');
-                        }
-                    },
-                    error: function () {
-                        alert('Error en la solicitud.');
-                    }
-                });
-            }
-        }
-    </script>
+    <script src="~/js/newitem.js"></script>
+    <script src="~/js/_sidebar.js"></script>
+    <script src="~/js/index.js"></script>
 </body>
 </html>
