@@ -7,7 +7,7 @@
         ISupplierRepository Proveedor { get; }
         IProductRepository Producto { get; }
         IDishRepository Platillo { get; }
-        
+        ITransactProductRepository transactProduct { get; }
         IOrderRepository Pedido { get; }
         IRepositoryPaymentMethod MetodoPago { get; }
         IBillRepository Factura { get; }

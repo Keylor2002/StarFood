@@ -14,7 +14,7 @@ namespace StarFood.Repository
         public ISupplierRepository Proveedor { get; private set; }
         public IProductRepository Producto { get; private set; }
         public IDishRepository Platillo { get; private set; }
-        
+        public ITransactProductRepository TransaccionProducto { get; private set; }
         public IOrderRepository Pedido { get; private set; }
         public IRepositoryPaymentMethod MetodoPago { get; private set; }
         public IBillRepository Factura { get; private set; }
@@ -28,7 +28,8 @@ namespace StarFood.Repository
             Pedido = new OrderRepository(_db);
             Platillo = new DishRepository(_db);
             PlatilloProducto = new DishProductRepository(_db);
-            
+            TransaccionProducto = new TransactProductRepository(_db);
+
             Producto = new ProductRepository(_db);
             Proveedor = new SupplierRepository(_db);
             Factura = new BillRepository(_db);

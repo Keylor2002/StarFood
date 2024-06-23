@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using StarFood.Models;
+using System.Collections.Generic;
 
 namespace StarFood.Data
 {
@@ -15,7 +16,7 @@ namespace StarFood.Data
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Proveedor> Proveedores { get; set; }
         public DbSet<Producto> Productos { get; set; }
-        
+        public DbSet<TransaccionProducto> TransaccionProducto { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Platillo> Platillos { get; set; }
         public DbSet<Orden> Pedidos { get; set; }
