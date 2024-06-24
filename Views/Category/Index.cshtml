@@ -68,11 +68,11 @@
                                     <span class="d-none d-sm-inline mx-1"><i id="see-options-icon" class="bi bi-three-dots"></i></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                                    @* <li>asegurar</li>
                                     <li>asegurar</li>
-                                    <li>asegurar</li>
-                                    <li>asegurar</li>
-                                    @* <li><a class="dropdown-item text-dark" href="@Url.Action("Edit", "Category", new { id = @item.IDCategoria })"><i class="fas fa-pencil-alt"></i> Editar</a></li>
-                                    <li><a class="dropdown-item text-dark" href="javascript:void(0);" onclick="toggleSuspend('@item.IDCategoria')">Habilitar/Deshabilitar</a></li> *@
+                                    <li>asegurar</li> *@
+                                    <li><a class="dropdown-item text-dark" href="@Url.Action("Edit", "Category", new { id = @item.IDCategoria })"><i class="fas fa-pencil-alt"></i> Editar</a></li>
+                                    <li><a class="dropdown-item text-dark" href="javascript:void(0);" onclick="toggleSuspend('@item.IDCategoria')">Habilitar/Deshabilitar</a></li>
                                 </ul>
                             </div>
                         </td>

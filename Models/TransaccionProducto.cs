@@ -25,6 +25,11 @@ namespace StarFood.Models
         [Column(TypeName = "decimal(10, 2)")]
         public decimal PrecioCosto { get; set; }
 
+        [Required(ErrorMessage = "El precio de venta es obligatorio.")]
+        [Column(TypeName = "decimal(10, 2)")]
+        [Range(0, 9999999999.99, ErrorMessage = "El precio de venta debe estar entre 0 y 9999999999.99.")]
+        public decimal PrecioVenta { get; set; }
+
         [Required(ErrorMessage = "La fecha de caducidad es obligatoria.")]
         public DateTime FechaCaducidad { get; set; }
 

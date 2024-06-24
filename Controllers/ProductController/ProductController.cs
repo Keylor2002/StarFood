@@ -58,10 +58,11 @@ namespace StarFood.Controllers
             {
                 _unitOfWork.Producto.Add(producto);
                 _unitOfWork.Save();
-                return Json(new { success = true, message = "Producto creado correctamente" });
+                return RedirectToAction("Index");
+                //return Json(new { success = true, message = "Producto creado correctamente" });
             }
 
-            return RedirectToAction("Index");
+            return View(producto);
         }
 
         [HttpGet]

@@ -22,6 +22,7 @@ namespace StarFood.Models
         [ValidateNever]
         public Categoria Categoria { get; set; }
 
+        [ValidateNever]
         [Required(ErrorMessage = "El precio de venta es obligatorio.")]
         [Column(TypeName = "decimal(10, 2)")]
         [Range(0, 9999999999.99, ErrorMessage = "El precio de venta debe estar entre 0 y 9999999999.99.")]
