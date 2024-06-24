@@ -20,27 +20,28 @@
     <!-- DataTables JS -->
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- jQuery (necesario para Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 
-@await RenderSectionAsync("Scripts", required: false)
 <body>
-
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    
- 
-@* @if (User.IsInRole(Roles.Admin_Role)) {}*@
-
 
     @Html.Partial("_SideBar")
-        <div class="main-content" id="main-content">
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
-        </div>
+    <div class="main-content" id="main-content">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
 
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-
 
 @section Scripts {
     <script src="~/js/_sidebar.js"></script>

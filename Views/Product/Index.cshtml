@@ -1,13 +1,13 @@
-﻿@model IEnumerable<StarFood.Models.Producto>
+﻿@model Tuple<IEnumerable<StarFood.Models.Producto>, StarFood.Models.Producto>
 
 @{
-    ViewData["Title"] = "Productos Index";
+    ViewData["Title"] = "Lista de Productos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container mt-4">
-
     <div class="rounded-box">
+        <h2 class="text-left mb-4">@ViewData["Title"]</h2>
         <!-- SearchBox and AddButton -->
         <div class="row mb-3 align-items-center">
             <div class="col-md-10">
@@ -20,7 +20,7 @@
         <!-- Buttons Row -->
         <div class="row mb-3 text-center">
             <div class="col-md-4">
-                <a class="btn btn-info w-100" asp-action="Create">Crear</a>
+                <button type="button" class="btn btn-info w-100" data-toggle="modal" data-target="#createProductModal">Crear</button>
             </div>
             <div class="col-md-4">
                 <a class="btn btn-info w-100" asp-action="Edit">Editar</a>
@@ -35,27 +35,26 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Nombre)</th>
-                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Categoria)</th>
-                        @* <th>@Html.DisplayNameFor(model => model.FirstOrDefault().PrecioCosto)</th> *@
-                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().CantidadExistente)</th>
-                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().PrecioVenta)</th>
-                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().UnidadMedida)</th>
+                        <th>@Html.DisplayNameFor(model => model.Item1.FirstOrDefault().IDProducto)</th>
+                        <th>@Html.DisplayNameFor(model => model.Item1.FirstOrDefault().Nombre)</th>
+                        <th>@Html.DisplayNameFor(model => model.Item1.FirstOrDefault().Categoria)</th>
+                        <th>@Html.DisplayNameFor(model => model.Item1.FirstOrDefault().CantidadExistente)</th>
+                        <th>@Html.DisplayNameFor(model => model.Item1.FirstOrDefault().PrecioVenta)</th>
+                        <th>@Html.DisplayNameFor(model => model.Item1.FirstOrDefault().UnidadMedida)</th>
                         <th>Agregar cantidad</th>
-                   
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.Item1)
                     {
                         <tr>
+                            <td>@Html.DisplayFor(modelItem => item.IDProducto)</td>
                             <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
                             <td>@Html.DisplayFor(modelItem => item.Categoria.Nombre)</td>
                             <td>@Html.DisplayFor(modelItem => item.CantidadExistente)</td>
                             <td>@Html.DisplayFor(modelItem => item.PrecioVenta)</td>
                             <td>@Html.DisplayFor(modelItem => item.UnidadMedida)</td>
                             <td><button class="submit" onclick="redirectToCreate()">Agregar</button></td>
-
                         </tr>
                     }
                 </tbody>
@@ -64,8 +63,94 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    function redirectToCreate() {
-        window.location.href = '@Url.Action("Create", "TransactProduct")';
+<!-- Modal -->
+<div class="modal fade" id="createProductModal" tabindex="-1" role="dialog" aria-labelledby="createProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createProductModalLabel">Crear Producto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Create" method="post" id="create-product-form">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label for="Nombre" class="col-form-label">Nombre:</label>
+                        <input asp-for="Item2.Nombre" class="form-control form-element" />
+                        <span asp-validation-for="Item2.Nombre" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="CategoriaID" class="col-form-label">Categoría:</label>
+                        <select asp-for="Item2.CategoriaID" class="form-control form-element" asp-items="@(ViewBag.Categorias)"></select>
+                        <span asp-validation-for="Item2.CategoriaID" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="PrecioVenta" class="col-form-label">Precio de Venta:</label>
+                        <input asp-for="Item2.PrecioVenta" class="form-control form-element" />
+                        <span asp-validation-for="Item2.PrecioVenta" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="UnidadMedida" class="col-form-label">Unidad de Medida:</label>
+                        <select asp-for="Item2.UnidadMedida" class="form-control form-element" asp-items="@(ViewBag.UnidadesMedida)"></select>
+                        <span asp-validation-for="Item2.UnidadMedida" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Suspendido" class="col-form-label">Suspendido:</label>
+                        <select asp-for="Item2.Suspendido" class="form-control form-element" asp-items="@(ViewBag.SuspendidoOptions)"></select>
+                        <span asp-validation-for="Item2.Suspendido" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group row justify-content-center mt-3">
+                        <button type="submit" class="btn btn-info mx-2 button-narrow">Crear</button>
+                        <button type="button" class="btn btn-secondary mx-2 button-narrow" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#create-product-form').submit(function (e) {
+                e.preventDefault();
+                var form = $(this);
+                $.ajax({
+                    type: form.attr('method'),
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            $('#createProductModal').modal('hide');
+                            location.reload();
+                        } else {
+                            $('#createProductModal .modal-body').html(response);
+                        }
+                    }
+                });
+            });
+        });
+
+        function redirectToCreate() {
+            window.location.href = '@Url.Action("Create", "TransactProduct")';
+        }
+    </script>
+}
+
+<style>
+    .form-element {
+        width: 100%;
     }
-</script>
+
+    .button-narrow {
+        width: 100px; /* Ancho de los botones */
+    }
+
+    h2.text-left {
+        margin-bottom: 30px; /* Espacio adicional entre el título y la barra de búsqueda */
+    }
+</style>
