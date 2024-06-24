@@ -21,7 +21,7 @@ namespace StarFood.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Producto> productList = _unitOfWork.Producto.GetAll();
+            IEnumerable<Producto> productList = _unitOfWork.Producto.GetAll(includeProperties: "Categoria");
             return View(productList);
         }
 
@@ -97,7 +97,7 @@ namespace StarFood.Controllers
 
         public IActionResult GetAll()
         {
-            var productList = _unitOfWork.Producto.GetAll(includeProperties: "Categoria,Proveedor");
+            var productList = _unitOfWork.Producto.GetAll(includeProperties: "Categoria");
 
             var formattedList = productList.Select(producto => new
             {

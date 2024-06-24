@@ -6,6 +6,7 @@
 }
 
 <div class="container mt-4">
+
     <div class="rounded-box">
         <!-- SearchBox and AddButton -->
         <div class="row mb-3 align-items-center">
@@ -35,15 +36,13 @@
                 <thead>
                     <tr>
                         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Nombre)</th>
-                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Categoria.Nombre)</th>
+                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Categoria)</th>
                         @* <th>@Html.DisplayNameFor(model => model.FirstOrDefault().PrecioCosto)</th> *@
                         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().CantidadExistente)</th>
                         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().PrecioVenta)</th>
                         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().UnidadMedida)</th>
                         <th>Agregar cantidad</th>
-                        @* <th>@Html.DisplayNameFor(model => model.FirstOrDefault().FechaCaducidad)</th>
-                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().FechaCompra)</th>
-                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Proveedor.Contacto)</th> *@
+                   
                     </tr>
                 </thead>
                 <tbody>
@@ -52,14 +51,11 @@
                         <tr>
                             <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
                             <td>@Html.DisplayFor(modelItem => item.Categoria.Nombre)</td>
-                            @* <td>@Html.DisplayFor(modelItem => item.PrecioCosto)</td> *@
                             <td>@Html.DisplayFor(modelItem => item.CantidadExistente)</td>
                             <td>@Html.DisplayFor(modelItem => item.PrecioVenta)</td>
                             <td>@Html.DisplayFor(modelItem => item.UnidadMedida)</td>
                             <td><button class="submit" onclick="redirectToCreate()">Agregar</button></td>
-                            @* <td>@Html.DisplayFor(modelItem => item.FechaCaducidad)</td>
-                            <td>@Html.DisplayFor(modelItem => item.FechaCompra)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Proveedor.Contacto)</td> *@
+
                         </tr>
                     }
                 </tbody>

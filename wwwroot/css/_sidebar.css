@@ -5,6 +5,10 @@
     --color-secondary: #1A2130;
 }
 
+#sidebar .nav-link.active {
+    background-color: #007bff; /* Fondo azul para indicar activo */
+    color: white; /* Texto blanco */
+}
 .sidebar {
     position: fixed;
     top: 0;

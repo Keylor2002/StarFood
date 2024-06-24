@@ -20,51 +20,48 @@
                 <a href="/Home/Index" id="inicio-link" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                     <span class="fs-5 d-none d-sm-inline"><h1 class="sidebar-title">StarFood</h1></span>
                 </a>
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="sidebar-menu">
-                    <li class="nav-item">
-                        <a href="/Home/Index" class="nav-link align-middle px-0">
-                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Inicio</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/Category/Index" id="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-list-task"></i> <span class="ms-1 d-none d-sm-inline">
-                                Categorias
-                            </span>
-                        </a>
-                        <a href="/Product/Index" id="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi bi-basket"></i> <span class="ms-1 d-none d-sm-inline">
-                                Productos
-                            </span>
-                        </a>
-                        <a href="/Supplier/Index" id="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-list-task"></i> <span class="ms-1 d-none d-sm-inline">
-                                Proveedores
-                            </span>
-                        </a>
-                        <a href="/Order/Index" id="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-list-task"></i> <span class="ms-1 d-none d-sm-inline">
-                                Pedidos
-                            </span>
-                        </a>
-                        <a href="/Bill/Index" id="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-file-earmark-text"></i> <span class="ms-1 d-none d-sm-inline">
-                                Facturas
-                            </span>
-                        </a>
-                        <a href="/OrderDetail/Index" id="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi bi-truck"></i> <span class="ms-1 d-none d-sm-inline">
-                                    Ordenes de Encargos
-                            </span>
-                        </a>
-                        <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#sidebar-menu">
-                            <li class="w-100">
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 1 </a>
+                    <div id="sidebar">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "Home")" class="nav-link @(isActive("Home", "Index")) align-middle px-0">
+                                <i class="fs-4 bi bi-house-door"></i> <span class="ms-1 d-none d-sm-inline">Inicio</span>
+                                </a>
                             </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2 </a>
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "Category")" class="nav-link @(isActive("Category", "Index")) align-middle px-0">
+                                <i class="fs-4 bi bi-list-task"></i> <span class="ms-1 d-none d-sm-inline">Categorias</span>
+                                </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "Product")" class="nav-link @(isActive("Product", "Index")) align-middle px-0">
+                                <i class="fs-4 bi bi-basket"></i> <span class="ms-1 d-none d-sm-inline">Productos</span>
+                                </a>
+                            </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index", "Supplier")" class="nav-link @(isActive("Supplier", "Index")) px-0 align-middle">
+                                <i class="fs-4 bi-list-task"></i> <span class="ms-1 d-none d-sm-inline">Proveedores</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index", "Order")" class="nav-link @(isActive("Order", "Index")) px-0 align-middle">
+                                <i class="fs-4 bi-list-task"></i> <span class="ms-1 d-none d-sm-inline">Pedidos</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index", "Bill")" class="nav-link @(isActive("Bill", "Index")) px-0 align-middle">
+                                <i class="fs-4 bi-file-earmark-text"></i> <span class="ms-1 d-none d-sm-inline">Facturas</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index", "OrderDetail")" class="nav-link @(isActive("OrderDetail", "Index")) px-0 align-middle">
+                                <i class="fs-4 bi bi-truck"></i> <span class="ms-1 d-none d-sm-inline">Ordenes de Encargos</span>
+                            </a>
+                        </li>
                         </ul>
+                    </div>
+
+                       
+                       
                     </li>
                     <li>
                         <a href="#" class="nav-link px-0 align-middle">
@@ -125,3 +122,20 @@
         </div>
     </div>
 </div>
+
+@* Función Razor para agregar la clase "active" si la página actual coincide *@
+@functions {
+    // Función para verificar y agregar la clase "active" si la página actual coincide
+    public string isActive(string controller, string action = null)
+    {
+        string currentController = ViewContext.RouteData.Values["Controller"].ToString();
+        string currentAction = ViewContext.RouteData.Values["Action"].ToString();
+
+        // Si tanto el controlador como la acción coinciden, agregamos la clase "active"
+        if (controller == currentController && (action == null || action == currentAction))
+        {
+            return "active";
+        }
+        return "";
+    }
+}
