@@ -12,8 +12,8 @@ using StarFood.Data;
 namespace StarFood.Migrations
 {
     [DbContext(typeof(StarfoodContext))]
-    [Migration("20240624012033_finallyDatabaseContext")]
-    partial class finallyDatabaseContext
+    [Migration("20240624051100_FinallyMigration")]
+    partial class FinallyMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -512,6 +512,12 @@ namespace StarFood.Migrations
 
                     b.Property<decimal>("PrecioCosto")
                         .HasColumnType("decimal(10, 2)");
+
+                    b.Property<decimal>("PrecioVenta")
+                        .HasColumnType("decimal(10, 2)");
+
+                    b.Property<int>("cantidad")
+                        .HasColumnType("int");
 
                     b.HasKey("IDTransacProducto");
 

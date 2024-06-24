@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace StarFood.Migrations
 {
     /// <inheritdoc />
-    public partial class finallyDatabaseContext : Migration
+    public partial class FinallyMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -360,6 +360,8 @@ namespace StarFood.Migrations
                     IDProducto = table.Column<int>(type: "int", nullable: false),
                     IDProveedor = table.Column<int>(type: "int", nullable: false),
                     PrecioCosto = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    cantidad = table.Column<int>(type: "int", nullable: false),
+                    PrecioVenta = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     FechaCaducidad = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaCompra = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },

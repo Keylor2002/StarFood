@@ -510,6 +510,12 @@ namespace StarFood.Migrations
                     b.Property<decimal>("PrecioCosto")
                         .HasColumnType("decimal(10, 2)");
 
+                    b.Property<decimal>("PrecioVenta")
+                        .HasColumnType("decimal(10, 2)");
+
+                    b.Property<int>("cantidad")
+                        .HasColumnType("int");
+
                     b.HasKey("IDTransacProducto");
 
                     b.HasIndex("IDProducto");

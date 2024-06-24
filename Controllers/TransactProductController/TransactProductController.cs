@@ -55,9 +55,11 @@ namespace StarFood.Controllers.TransactProductController
             {
                 var producto = _unitOfWork.Producto.GetFirstOrDefault(x => x.IDProducto == transaccionProducto.IDProducto, null);
                 producto.PrecioVenta = transaccionProducto.PrecioVenta;
+                producto.CantidadExistente = transaccionProducto.cantidad;
                 _unitOfWork.Producto.Update(producto);
                 _unitOfWork.TransaccionProducto.Add(transaccionProducto);
                 _unitOfWork.Save();
+                TempData["success"] = "Lote de producto creado correctamente";
                 //return Json(new { success = true, message = "Categoria creada correctamente" });
                 return RedirectToAction("Index");
             }
