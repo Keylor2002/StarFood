@@ -18,7 +18,7 @@ namespace StarFood.Controllers.TransactProductController
 
         public IActionResult Index()
         {
-            IEnumerable<TransaccionProducto> TransaccionList = _unitOfWork.transactProduct.GetAll();
+            IEnumerable<TransaccionProducto> TransaccionList = _unitOfWork.TransaccionProducto.GetAll();
             return View(TransaccionList);
 
         }
@@ -36,7 +36,7 @@ namespace StarFood.Controllers.TransactProductController
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.transactProduct.Add(transaccionProducto);
+                _unitOfWork.TransaccionProducto.Add(transaccionProducto);
                 _unitOfWork.Save();
                 //return Json(new { success = true, message = "Categoria creada correctamente" });
                 return RedirectToAction("Index");
@@ -57,7 +57,7 @@ namespace StarFood.Controllers.TransactProductController
                 return NotFound();
             }
 
-            var transaccionProducto = _unitOfWork.transactProduct.GetFirstOrDefault(x => x.IDProducto == id, null);
+            var transaccionProducto = _unitOfWork.TransaccionProducto.GetFirstOrDefault(x => x.IDProducto == id, null);
             if (transaccionProducto == null)
             {
                 return NotFound();
@@ -75,7 +75,7 @@ namespace StarFood.Controllers.TransactProductController
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.transactProduct.Update(transaccionProducto);
+                _unitOfWork.TransaccionProducto.Update(transaccionProducto);
                 _unitOfWork.Save();
                 //return Json(new { success = true, message = "Categoria actualizada correctamente" });
             }
@@ -91,14 +91,14 @@ namespace StarFood.Controllers.TransactProductController
                 return NotFound();
             }
 
-            var transaccionProducto = _unitOfWork.transactProduct.GetFirstOrDefault(x => x.IDProducto == id, null);
+            var transaccionProducto = _unitOfWork.TransaccionProducto.GetFirstOrDefault(x => x.IDProducto == id, null);
             if (transaccionProducto == null)
             {
                 return NotFound();
             }
 
             
-            _unitOfWork.transactProduct.Update(transaccionProducto);
+            _unitOfWork.TransaccionProducto.Update(transaccionProducto);
             _unitOfWork.Save();
 
             
@@ -145,7 +145,7 @@ namespace StarFood.Controllers.TransactProductController
         // Works
         public IActionResult GetAll()
         {
-            var transaccionProducto = _unitOfWork.transactProduct.GetAll();
+            var transaccionProducto = _unitOfWork.TransaccionProducto.GetAll();
             return Json(new { data = transaccionProducto, success = true });
         }
     }
