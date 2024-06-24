@@ -56,7 +56,7 @@
                             <td>@Html.DisplayFor(modelItem => item.CantidadExistente)</td>
                             <td>@Html.DisplayFor(modelItem => item.PrecioVenta)</td>
                             <td>@Html.DisplayFor(modelItem => item.UnidadMedida)</td>
-                            <td><button class="submit">Agregar</button></td>
+                            <td><button class="submit" onclick="redirectToCreate()">Agregar</button></td>
                             @* <td>@Html.DisplayFor(modelItem => item.FechaCaducidad)</td>
                             <td>@Html.DisplayFor(modelItem => item.FechaCompra)</td>
                             <td>@Html.DisplayFor(modelItem => item.Proveedor.Contacto)</td> *@
@@ -67,3 +67,9 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    function redirectToCreate() {
+        window.location.href = '@Url.Action("Create", "TransactProduct")';
+    }
+</script>

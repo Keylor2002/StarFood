@@ -1,19 +1,19 @@
 ﻿@model StarFood.Models.TransaccionProducto
 
 @{
-    ViewData["Title"] = "Crear Transacción de Producto";
+    ViewData["Title"] = "Agregar Lote Producto";
 }
 
-<h1 class="mb-3" style="margin-left: 30px;">Crear Transacción de Producto</h1>
+<h1 class="mb-3" style="margin-left: 30px;">Agregar Lote Producto</h1>
 
 <div class="row">
     <div class="col-md-6 mx-auto">
-        <!-- Columna centralizada -->
+
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row mb-3">
                 <div class="col-sm-6">
-                    <!-- Primera fila -->
+
                     <div class="form-group">
                         <label for="IDProducto" class="col-form-label">Producto:</label>
                         <select asp-for="IDProducto" class="form-control" asp-items="@(new SelectList(ViewBag.Productos, "Value", "Text"))"></select>
@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <!-- Segunda fila -->
+
                     <div class="form-group">
                         <label for="FechaCaducidad" class="col-form-label">Fecha de Caducidad:</label>
                         <input asp-for="FechaCaducidad" class="form-control" />
