@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using StarFood.Models;
 using StarFood.Repository.IRepository;
 
@@ -26,6 +27,22 @@ namespace StarFood.Controllers.TransactProductController
 
         public IActionResult Create()
         {
+            ViewBag.Productos = _unitOfWork.Producto.GetAll()
+                .Select(c => new SelectListItem
+                {
+                    Value = c.IDProducto.ToString(),
+                    Text = c.Nombre
+                }).ToList();
+
+            ViewBag.Proveedores = _unitOfWork.Proveedor.GetAll()
+                .Select(p => new SelectListItem
+                {
+                    Value = p.IDProveedor.ToString(),
+                    Text = p.Empresa
+                }).ToList();
+
+           
+
             return View();
         }
 
