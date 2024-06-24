@@ -61,7 +61,7 @@ namespace StarFood.Controllers.TransactProductController
                 _unitOfWork.Save();
                 TempData["success"] = "Lote de producto creado correctamente";
                 //return Json(new { success = true, message = "Categoria creada correctamente" });
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Product");
             }
             TempData["success"] = "Lote de producto creado correctamente";
             return View(transaccionProducto);
