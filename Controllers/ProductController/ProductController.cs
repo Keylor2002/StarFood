@@ -21,7 +21,7 @@ namespace StarFood.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Producto> productList = _unitOfWork.Producto.GetAll(includeProperties: "Categoria");
+            IEnumerable<Producto> productList = _unitOfWork.Producto.GetAll();
             return View(productList);
         }
 
@@ -48,6 +48,12 @@ namespace StarFood.Controllers
                 new SelectListItem { Value = "Unit", Text = "Unidad" }
             };
 
+            ViewBag.SuspendidoOptions = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "true", Text = "Sí" },
+                new SelectListItem { Value = "false", Text = "No" }
+            };
+
             return View();
         }
 
@@ -58,9 +64,36 @@ namespace StarFood.Controllers
             {
                 _unitOfWork.Producto.Add(producto);
                 _unitOfWork.Save();
-                return RedirectToAction("Index");
-                //return Json(new { success = true, message = "Producto creado correctamente" });
+                return Json(new { success = true, message = "Producto creado correctamente" });
             }
+
+            // Si el modelo no es válido, vuelve a cargar las listas
+            ViewBag.Categorias = _unitOfWork.Categoria.GetAll()
+                .Select(c => new SelectListItem
+                {
+                    Value = c.IDCategoria.ToString(),
+                    Text = c.Nombre
+                }).ToList();
+
+            ViewBag.Proveedores = _unitOfWork.Proveedor.GetAll()
+                .Select(p => new SelectListItem
+                {
+                    Value = p.IDProveedor.ToString(),
+                    Text = p.Empresa
+                }).ToList();
+
+            ViewBag.UnidadesMedida = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "Kg", Text = "Kilogramo" },
+                new SelectListItem { Value = "L", Text = "Litro" },
+                new SelectListItem { Value = "Unit", Text = "Unidad" }
+            };
+
+            ViewBag.SuspendidoOptions = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "true", Text = "Sí" },
+                new SelectListItem { Value = "false", Text = "No" }
+            };
 
             return View(producto);
         }
@@ -79,6 +112,33 @@ namespace StarFood.Controllers
                 return NotFound(new { success = false, message = "Producto no encontrado" });
             }
 
+            ViewBag.Categorias = _unitOfWork.Categoria.GetAll()
+                .Select(c => new SelectListItem
+                {
+                    Value = c.IDCategoria.ToString(),
+                    Text = c.Nombre
+                }).ToList();
+
+            ViewBag.Proveedores = _unitOfWork.Proveedor.GetAll()
+                .Select(p => new SelectListItem
+                {
+                    Value = p.IDProveedor.ToString(),
+                    Text = p.Empresa
+                }).ToList();
+
+            ViewBag.UnidadesMedida = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "Kg", Text = "Kilogramo" },
+                new SelectListItem { Value = "L", Text = "Litro" },
+                new SelectListItem { Value = "Unit", Text = "Unidad" }
+            };
+
+            ViewBag.SuspendidoOptions = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "true", Text = "Sí" },
+                new SelectListItem { Value = "false", Text = "No" }
+            };
+
             return View(producto);
         }
 
@@ -92,12 +152,40 @@ namespace StarFood.Controllers
                 return RedirectToAction("Index");
             }
 
+            // Si el modelo no es válido, vuelve a cargar las listas
+            ViewBag.Categorias = _unitOfWork.Categoria.GetAll()
+                .Select(c => new SelectListItem
+                {
+                    Value = c.IDCategoria.ToString(),
+                    Text = c.Nombre
+                }).ToList();
+
+            ViewBag.Proveedores = _unitOfWork.Proveedor.GetAll()
+                .Select(p => new SelectListItem
+                {
+                    Value = p.IDProveedor.ToString(),
+                    Text = p.Empresa
+                }).ToList();
+
+            ViewBag.UnidadesMedida = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "Kg", Text = "Kilogramo" },
+                new SelectListItem { Value = "L", Text = "Litro" },
+                new SelectListItem { Value = "Unit", Text = "Unidad" }
+            };
+
+            ViewBag.SuspendidoOptions = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "true", Text = "Sí" },
+                new SelectListItem { Value = "false", Text = "No" }
+            };
+
             return View(producto);
         }
 
         public IActionResult GetAll()
         {
-            var productList = _unitOfWork.Producto.GetAll(includeProperties: "Categoria");
+            var productList = _unitOfWork.Producto.GetAll(includeProperties: "Categoria,Proveedor");
 
             var formattedList = productList.Select(producto => new
             {
@@ -115,15 +203,15 @@ namespace StarFood.Controllers
                     IdCategoria = producto.Categoria.IDCategoria,
                     NombreCategoria = producto.Categoria.Nombre
                 }
-            //    ,
+                //    ,
 
-            //    //Proveedor = new
-            //    //{
-            //    //    IDProveedor = producto.Proveedor.IDProveedor,
-            //    //    Empresa = producto.Proveedor.Empresa,
-            //    //    Contacto = producto.Proveedor.Contacto,
-            //    //    Nombre = producto.Proveedor.Nombre,
-            //    //}
+                //    //Proveedor = new
+                //    //{
+                //    //    IDProveedor = producto.Proveedor.IDProveedor,
+                //    //    Empresa = producto.Proveedor.Empresa,
+                //    //    Contacto = producto.Proveedor.Contacto,
+                //    //    Nombre = producto.Proveedor.Nombre,
+                //    //}
             });
 
             return Json(new { data = formattedList });
