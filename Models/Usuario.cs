@@ -3,8 +3,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StarFood.Models
 {
+    /*
+    The Usuario class acts as a model and inherits properties from IdentityUser for login.
+    @IDUsuario it is a user DNI.
+    @NombreUsuario it is a short name or nickname with which the user wants to be recognized in the system.
+    @Suspendido this is what allows you to block or unblock a user.
+    */
     public class Usuario : IdentityUser
     {
+        /*
+        @[Tags] this allows you to add constraints both in the model and in the database.
+        */
         [Required]
         [StringLength(9)]
         public string IDUsuario { get; set; }

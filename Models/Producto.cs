@@ -6,6 +6,10 @@ namespace StarFood.Models
 {
     public class Producto
     {
+
+        /*
+        @[Tags] this allows you to add constraints both in the model and in the database.
+        */
         [Key]
         public int IDProducto { get; set; }
 
