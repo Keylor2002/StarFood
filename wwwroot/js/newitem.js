@@ -29,22 +29,22 @@ function closeNewItem() {
     document.getElementById("newItemSidebar").style.width = "0";
 }
 
-function toggleSuspend(id) {
-    if (confirm("¿Estás seguro de que deseas habilitar/deshabilitar esta categoría?")) {
-        $.ajax({
-            url: '@Url.Action("ToggleSuspend", "Category")',
-            type: 'POST',
-            data: { id: id },
-            success: function (response) {
-                if (response.success) {
-                    location.reload();
-                } else {
-                    alert('Error al habilitar/deshabilitar la categoría.');
-                }
-            },
-            error: function () {
-                alert('Error en la solicitud.');
-            }
-        });
-    }
-}
+//function toggleSuspend(id) {
+//    if (confirm("¿Estás seguro de que deseas habilitar/deshabilitar esta categoría?")) {
+//        $.ajax({
+//            url: '@Url.Action("ToggleSuspend", "Category")',
+//            type: 'POST',
+//            data: { id: id },
+//            success: function (response) {
+//                if (response.success) {
+//                    location.reload();
+//                } else {
+//                    alert('Error al habilitar/deshabilitar la categoría.');
+//                }
+//            },
+//            error: function () {
+//                alert('Error en la solicitud.');
+//            }
+//        });
+//    }
+//}
