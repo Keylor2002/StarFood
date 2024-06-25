@@ -4,6 +4,17 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace StarFood.Models
 {
+    /*
+    The Producto class acts as a model and data master in the system.
+    @IDProducto it is a product identifier.
+    @Nombre it is a name with which the product wants to be recognized in the system.
+    @CategoriaID it is a foreign key to identify the category to which the product belongs.
+    @Categoria it is a category object to use the attributes of the category to which the product belongs.
+    @Precioventa it is a price to sell product.
+    @CantidadExistente it is existing quantity of product.
+    @UnidadMedida it is the measurement of units or weight that the product will have.
+    @Suspendido this is what allows you to block or unblock a product.
+    */
     public class Producto
     {
 
