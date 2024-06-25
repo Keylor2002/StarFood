@@ -31,7 +31,7 @@ namespace StarFood.Controllers.ProductController
             return View(Tuple.Create(productos, producto));
         }
 
-        public IActionResult Delete(string searchString)
+        public IActionResult Edit(string searchString)
         {
             var productos = _unitOfWork.Producto.GetAll();
             if (!string.IsNullOrEmpty(searchString))
@@ -44,17 +44,56 @@ namespace StarFood.Controllers.ProductController
         }
 
         [HttpPost]
+        public IActionResult Edit(Producto producto)
+        {
+            if (ModelState.IsValid)
+            {
+                _unitOfWork.Producto.Update(producto);
+                _unitOfWork.Save();
+                return Json(new { success = true, message = "Producto editado correctamente" });
+            }
+
+            LoadViewBags();
+            return PartialView("_CreateProductoPartial", producto);
+        }
+
+        [HttpGet]
+        public IActionResult GetProduct(int id)
+        {
+            if (id == 0)
+            {
+                return Json(new { success = false, message = "ID no proporcionado" });
+            }
+
+            var producto = _unitOfWork.Producto.GetFirstOrDefault(x => x.IDProducto == id, null, null);
+            if (producto == null)
+            {
+                return Json(new { success = false, message = "Producto no encontrado" });
+            }
+
+            return Json(new
+            {
+                idProducto = producto.IDProducto,
+                nombre = producto.Nombre,
+                categoriaID = producto.CategoriaID,
+                precioVenta = producto.PrecioVenta,
+                unidadMedida = producto.UnidadMedida,
+                suspendido = producto.Suspendido
+            });
+        }
+
+        [HttpPost]
         public IActionResult DeletePOST(int id)
         {
             var producto = _unitOfWork.Producto.GetFirstOrDefault(u => u.IDProducto == id, null, null);
             if (producto == null)
             {
-                return Json(new { success = false, message = "Error while deleting" });
+                return Json(new { success = false, message = "Error al eliminar el producto" });
             }
 
             _unitOfWork.Producto.Remove(producto);
             _unitOfWork.Save();
-            return Json(new { success = true, message = "Producto deleted successfully" });
+            return Json(new { success = true, message = "Producto eliminado correctamente" });
         }
 
         private void LoadViewBags()
@@ -78,6 +117,18 @@ namespace StarFood.Controllers.ProductController
                 new SelectListItem { Value = "true", Text = "Sí" },
                 new SelectListItem { Value = "false", Text = "No" }
             };
+        }
+
+        public IActionResult Delete(string searchString)
+        {
+            var productos = _unitOfWork.Producto.GetAll();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                productos = productos.Where(p => p.Nombre.Contains(searchString) || p.IDProducto.ToString().Contains(searchString));
+            }
+            var producto = new Producto();
+            LoadViewBags();
+            return View(Tuple.Create(productos, producto));
         }
     }
 }
