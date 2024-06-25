@@ -2,8 +2,30 @@
     ViewData["Title"] = "Home Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+
+
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="~/css/index.css">
+    <link rel="stylesheet" type="text/css" href="~/css/_sidebar.css">
+</head>
+
+@* <!DOCTYPE html>
 <body>
     <section class="container mt-4" id="">
         <div class="rounded-box">
@@ -271,4 +293,4 @@
         const preview = row.querySelector('.preview');
         row.removeChild(preview);
     }
-</script>
+</script> *@

@@ -6,8 +6,11 @@
 }
 
 #sidebar .nav-link.active {
-    background-color: #007bff; /* Fondo azul para indicar activo */
+    background-color: #343a40; /* Fondo azul para indicar activo */
     color: white; /* Texto blanco */
+    border-radius: 10px;
+    width: 150px;
+    box-shadow: inherit;
 }
 .sidebar {
     position: fixed;
@@ -70,18 +73,6 @@
     display: block;
 }
 
-.dropdown-menu {
-    background-color: var(--color-dark);
-    border: none;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    margin-top: 10px;
-    width: 100%;
-    padding: 0;
-}
-
-        .dropdown-menu a:hover {
-            background-color: var(--color-secondary);
-        }
 
 .main-content {
     margin-left: 220px;

@@ -1,26 +1,37 @@
-/* Estilo para el contenido principal que se desplaza al abrir y cerrar el sidebar */
-/*.main-content {
-    transition: margin-left 0.3s ease-in-out;
-}*/
 
-/* Cuando el sidebar está cerrado, ajustar el margen izquierdo */
-/*.sidebar-closed .main-content {
-    margin-left: 120px;*/ /* Ancho del sidebar minimizado */
-/*}*/
 
-/* Estilo para el sidebar cuando está minimizado */
-/*.sidebar-closed .sidebar {
-    width: 120px;
-}*/
+        .header {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            max-height: 55px;
+        }
 
-/* Responsividad para el sidebar y el main-content */
-/*@media (max-width: 768px) {
-    .sidebar,
-    .sidebar-closed #sidebar {
-        width: 100%;
-    }
+        .header-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            justify-content: right;
+        }
 
-    .sidebar-closed .main-content {
-        margin-left: 120px;
-    }
-}*/
+        .animated-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(270deg, #000, #333, #555, #333, #000);
+            background-size: 800% 800%;
+            animation: bgAnimation 20s ease infinite;
+        }
+
+        @keyframes bgAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }

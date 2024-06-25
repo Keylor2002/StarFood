@@ -1,115 +1,363 @@
-﻿@model IEnumerable<Proveedor>
+﻿@* @model IEnumerable<Proveedor>
 
 @{
     ViewData["Title"] = "Proveedor Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-4">
-    <div class="rounded-box">
-        <!-- SearchBox and AddButton -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="~/css/index.css">
+    <link rel="stylesheet" type="text/css" href="~/css/_sidebar.css">
+</head>
+
+<body>
+    <div class="container mt-4">
         <div class="row mb-3 align-items-center">
-            <div class="col-md-10">
-                <form class="d-flex" method="get" asp-action="Index">
-                    <input class="form-control me-2" type="search" placeholder="Buscar por nombre" aria-label="Buscar" name="searchString">
-                    <button class="btn btn-info" type="submit">Buscar</button>
-                </form>
+            <div class="col-md-8">
+                <h2 class="mb-0">@ViewData["Title"]</h2>
+                <p class="text-muted">Aquí puedes ver todos tus proveedores</p>
+            </div>
+            <div class="col-md-4 text-end">
+                <button id="btnCreateCategory" class="btn btn-info newitem-open"><i class="fas fa-plus"></i> Ingresar Nuevo Proveedor </button>
             </div>
         </div>
-        <!-- Buttons Row -->
-        <div class="row mb-3 text-center">
-            <div class="col-md-4">
-                <a class="btn btn-info w-100" asp-action="Create">Crear</a>
+
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="alert alert-info" role="alert">
+                    <strong>Total de Categorías:</strong> @Model.Count()
+                </div>
             </div>
-          @*   <div class="col-md-4">
-                <a class="btn btn-info w-100" asp-action="Edit">Editar</a>
-            </div>
-            <div class="col-md-4">
-                <a class="btn btn-info w-100" asp-action="Delete">Borrar</a>
-            </div> *@
         </div>
-        <hr />
-        <!-- Table -->
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
+
+        <table id="categoriesTable" class="table table-striped nowrap" style="width:100%">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().IDProveedor)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Nombre)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Empresa)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Contacto)</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
                     <tr>
-                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Nombre)</th>
-                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Empresa)</th>
-                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Contacto)</th>
-                        <th>Acciones</th>
+                        <td>@Html.DisplayFor(modelItem => item.IDProveedor)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Empresa)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Contacto)</td>
+                        <td class="d-flex justify-content-end">
+                            <a class="btn btn-primary btn-sm me-2" href="@Url.Action("Edit", new { id = item.IDProveedor })" title="Editar">
+                                <i class="fas fa-pencil-alt"></i>
+                            </a>
+                            <button class="btn btn-secondary btn-sm" onclick="copyToClipboard('@item.IDProveedor')" title="Copiar ID">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Empresa)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Contacto)</td>
-                            <td>
-                                <a class="btn btn-info btn-sm" asp-action="Edit" asp-route-id="@item.IDProveedor">Editar</a>
-                                <a class="btn btn-info btn-sm" asp-action="Delete" asp-route-id="@item.IDProveedor">Borrar</a>
-                            </td>
-                        </tr>
-                    
-                    }
-                </tbody>
-            </table>
-        </div>
+                }
+            </tbody>
+        </table>
     </div>
-</div>
+</body>
+</html>
 
-<style>
-    .rounded-box {
-        background-color: var(--color-dark);
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        padding: 20px;
-        margin: 0 auto; /* Center the container */
-    }
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    .table {
-        background-color: var(--color-light);
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
+    <!-- Bootstrap Bundle (incluye Popper.js y Bootstrap JS) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-        .table th,
-        .table td {
-            border-color: var(--color-accent);
-            color: var(--color-dark);
+    <!-- DataTables JS -->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
+
+    <!-- DataTables Responsive -->
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.min.js"></script>
+    <script src="~/js/newitem.js"></script>
+    <script src="~/js/_sidebar.js"></script>
+    <script src="~/js/index.js"></script>
+    
+
+
+@* @model IEnumerable<Proveedor>
+
+@{
+    ViewData["Title"] = "Proveedor Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+
+
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="~/css/index.css">
+    <link rel="stylesheet" type="text/css" href="~/css/_sidebar.css">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-8">
+                <h2 class="mb-0">@ViewData["Title"]</h2>
+                <p class="text-muted">Aquí puedes ver todos tus proveedores</p>
+            </div>
+            <div class="col-md-4 text-end">
+                <button id="btnCreateCategory" class="btn btn-info newitem-open"><i class="fas fa-plus"></i> Ingresar Nuevo Proveedor </button>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="alert alert-info" role="alert">
+                    <strong>Total de Categorías:</strong> @Model.Count()
+                </div>
+            </div>
+        </div>
+
+        <table id="categoriesTable" class="table table-striped nowrap" style="width:100%">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().IDProveedor)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Nombre)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Empresa)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Contacto)</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.IDProveedor)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Empresa)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Contacto)</td>
+                        <td></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+     <!-- New Item Sidebar -->
+    <div id="newItemSidebar" class="newitem">
+        <a href="javascript:void(0)" class="newitem-close">&times;</a>
+        @await Html.PartialAsync("_CreateWindow", newCategory)
+    </div>
+ 
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap Bundle (incluye Popper.js y Bootstrap JS) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
+
+    <!-- DataTables Responsive -->
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.min.js"></script>
+    <script src="~/js/newitem.js"></script>
+    <script src="~/js/_sidebar.js"></script>
+    <script src="~/js/index.js"></script>
+</body>
+</html>
+
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#create-product-form').submit(function (e) {
+                e.preventDefault();
+                var form = $(this);
+                $.ajax({
+                    type: form.attr('method'),
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            $('#createProductModal').modal('hide');
+                            location.reload();
+                        } else {
+                            $('#createProductModal .modal-body').html(response);
+                        }
+                    }
+                });
+            });
+        });
+
+        function redirectToCreate() {
+            window.location.href = '@Url.Action("Create", "Supplier")';
         }
+    </script>
+} *@
 
-        .table th {
-            background-color: var(--color-accent);
-            color: var(--color-light);
+@model IEnumerable<Proveedor>
+
+@{
+    ViewData["Title"] = "Proveedor Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="~/css/index.css">
+    <link rel="stylesheet" type="text/css" href="~/css/_sidebar.css">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-8">
+                <h2 class="mb-0">@ViewData["Title"]</h2>
+                <p class="text-muted">Aquí puedes ver todos tus proveedores</p>
+            </div>
+            <div class="col-md-4 text-end">
+                <button id="btnCreateCategory" class="btn btn-info newitem-open"><i class="fas fa-plus"></i> Ingresar Nuevo Proveedor </button>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="alert alert-info" role="alert">
+                    <strong>Total de Categorías:</strong> @Model.Count()
+                </div>
+            </div>
+        </div>
+
+        <table id="categoriesTable" class="table table-striped nowrap" style="width:100%">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().IDProveedor)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Nombre)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Empresa)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Contacto)</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.IDProveedor)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Empresa)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Contacto)</td>
+                        <td class="d-flex justify-content-end">
+                            <a class="btn btn-primary btn-sm me-2" href="@Url.Action("Edit", new { id = item.IDProveedor })" title="Editar">
+                                <i class="fas fa-pencil-alt"></i>
+                            </a>
+                            <button class="btn btn-secondary btn-sm" onclick="copyToClipboard('@item.IDProveedor')" title="Copiar ID">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap Bundle (incluye Popper.js y Bootstrap JS) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
+
+    <!-- DataTables Responsive -->
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.min.js"></script>
+    <script src="~/js/newitem.js"></script>
+    <script src="~/js/_sidebar.js"></script>
+    <script src="~/js/index.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#categoriesTable').DataTable({
+                responsive: true,
+                language: {
+                    search: "Buscar:",
+                    lengthMenu: "Mostrar _MENU_ registros por página",
+                    zeroRecords: "No se encontraron registros coincidentes",
+                    info: "Mostrando página _PAGE_ de _PAGES_",
+                    infoEmpty: "No hay registros disponibles",
+                    infoFiltered: "(filtrado de _MAX_ registros totales)",
+                    paginate: {
+                        first: "Primero",
+                        last: "Último",
+                        next: "Siguiente",
+                        previous: "Anterior"
+                    },
+                    aria: {
+                        sortAscending: ": activar para ordenar la columna de manera ascendente",
+                        sortDescending: ": activar para ordenar la columna de manera descendente"
+                    }
+                }
+            });
+        });
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function () {
+                alert('ID copiado al portapapeles: ' + text);
+            }, function (err) {
+                console.error('No se pudo copiar el texto: ', err);
+            });
         }
-
-    .table-hover tbody tr:hover {
-        background-color: var(--color-secondary);
-        color: var(--color-dark);
-    }
-
-    .btn-primary {
-        background-color: var(--color-secondary);
-        width: 100%; /* Make the button take up the full width of the column */
-    }
-
-    .btn-secondary {
-        background-color: var(--color-light);
-        margin-left: 20px;
-    }
-
-    input[type="search"] {
-        width: 100%; /* Make the input take up the full width of the column */
-        padding: 10px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-        input[type="search"]:focus {
-            border-color: #aaa;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
-</style>
+    </script>
+</body>
+</html>

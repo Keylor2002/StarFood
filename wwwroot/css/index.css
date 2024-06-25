@@ -1,18 +1,4 @@
-﻿/* Estilos para el dropdown del menú */
-.dropdown-menu {
-    background: none;
-    border: none;
-    box-shadow: none;
-}
-
-    .dropdown-menu .dropdown-item {
-        color: white;
-    }
-
-        .dropdown-menu .dropdown-item:hover {
-            background-color: rgba(0, 0, 0, 0.1);
-        }
-/* Estilos para el contenedor principal */
+﻿/* Estilos para el contenedor principal */
 .container {
     margin-top: 2rem;
 }
@@ -22,9 +8,14 @@
     float: right;
 }
 
-.bi-three-dots {
-    color: #000000;
+.btn-sm {
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    border-radius: .2rem;
+    margin-right: 10px;
 }
+
 /* Estilos para el newitem deslizante */
 .newitem {
     height: 100%;
