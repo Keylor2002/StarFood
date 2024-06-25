@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Hosting;
 using StarFood.Models;
 using StarFood.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Linq;
-using StarFood.Repository;
+using System.Linq.Expressions;
 
-namespace StarFood.Controllers
+namespace StarFood.Controllers.ProductController
 {
     public class ProductController : Controller
     {
@@ -20,80 +19,42 @@ namespace StarFood.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string searchString)
         {
             var productos = _unitOfWork.Producto.GetAll();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                productos = productos.Where(p => p.Nombre.Contains(searchString) || p.IDProducto.ToString().Contains(searchString));
+            }
+            var producto = new Producto();
+            LoadViewBags();
+            return View(Tuple.Create(productos, producto));
+        }
+
+        public IActionResult Delete(string searchString)
+        {
+            var productos = _unitOfWork.Producto.GetAll();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                productos = productos.Where(p => p.Nombre.Contains(searchString) || p.IDProducto.ToString().Contains(searchString));
+            }
             var producto = new Producto();
             LoadViewBags();
             return View(Tuple.Create(productos, producto));
         }
 
         [HttpPost]
-        public IActionResult Create(Producto producto)
+        public IActionResult DeletePOST(int id)
         {
-            if (ModelState.IsValid)
-            {
-                _unitOfWork.Producto.Add(producto);
-                _unitOfWork.Save();
-                return Json(new { success = true, message = "Producto creado correctamente" });
-            }
-
-            LoadViewBags();
-            return PartialView("_CreateProductoPartial", producto);
-        }
-
-        [HttpGet]
-        public IActionResult Edit(int id)
-        {
-            if (id == 0)
-            {
-                return NotFound(new { success = false, message = "ID no proporcionado" });
-            }
-
-            var producto = _unitOfWork.Producto.GetFirstOrDefault(x => x.IDProducto == id, null);
+            var producto = _unitOfWork.Producto.GetFirstOrDefault(u => u.IDProducto == id, null, null);
             if (producto == null)
             {
-                return NotFound(new { success = false, message = "Producto no encontrado" });
+                return Json(new { success = false, message = "Error while deleting" });
             }
 
-            LoadViewBags();
-            return View(producto);
-        }
-
-        [HttpPost]
-        public IActionResult Edit(Producto producto)
-        {
-            if (ModelState.IsValid)
-            {
-                _unitOfWork.Producto.Update(producto);
-                _unitOfWork.Save();
-                return RedirectToAction("Index");
-            }
-
-            LoadViewBags();
-            return View(producto);
-        }
-
-        public IActionResult GetAll()
-        {
-            var productList = _unitOfWork.Producto.GetAll(includeProperties: "Categoria,Proveedor");
-
-            var formattedList = productList.Select(producto => new
-            {
-                IDProducto = producto.IDProducto,
-                Nombre = producto.Nombre,
-                CantidadExistente = producto.CantidadExistente,
-                PrecioVenta = producto.PrecioVenta,
-                UnidadMedida = producto.UnidadMedida,
-                Suspendido = producto.Suspendido,
-                Categoria = new
-                {
-                    IdCategoria = producto.Categoria.IDCategoria,
-                    NombreCategoria = producto.Categoria.Nombre
-                }
-            });
-
-            return Json(new { data = formattedList });
+            _unitOfWork.Producto.Remove(producto);
+            _unitOfWork.Save();
+            return Json(new { success = true, message = "Producto deleted successfully" });
         }
 
         private void LoadViewBags()
@@ -103,13 +64,6 @@ namespace StarFood.Controllers
                 {
                     Value = c.IDCategoria.ToString(),
                     Text = c.Nombre
-                }).ToList();
-
-            ViewBag.Proveedores = _unitOfWork.Proveedor.GetAll()
-                .Select(p => new SelectListItem
-                {
-                    Value = p.IDProveedor.ToString(),
-                    Text = p.Empresa
                 }).ToList();
 
             ViewBag.UnidadesMedida = new List<SelectListItem>

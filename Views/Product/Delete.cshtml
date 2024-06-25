@@ -1,76 +1,128 @@
-﻿@model StarFood.Models.Producto
+﻿@model Tuple<IEnumerable<StarFood.Models.Producto>, StarFood.Models.Producto>
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Eliminar Producto";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Producto</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Categoria)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Categoria.Nombre)
-        </dd>
-        <@* dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PrecioCosto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PrecioCosto)
-        </dd> *@
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CantidadExistente)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CantidadExistente)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PrecioVenta)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PrecioVenta)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UnidadMedida)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UnidadMedida)
-        </dd>
-        @* <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaCaducidad)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FechaCaducidad)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaCompra)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FechaCompra)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Proveedor)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Proveedor.Nombre)
-        </dd> *@
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="IDProducto" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+<div class="container mt-4">
+    <div class="rounded-box">
+        <h2 class="text-left mb-4">@ViewData["Title"]</h2>
+        <!-- SearchBox -->
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-10">
+                <form class="d-flex" method="get" asp-action="Delete">
+                    <input class="form-control me-2" type="search" placeholder="Buscar por nombre o ID" aria-label="Buscar" name="searchString">
+                    <button class="btn btn-info" type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
+        <hr />
+        <!-- Table -->
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Item1.FirstOrDefault().IDProducto)</th>
+                        <th>@Html.DisplayNameFor(model => model.Item1.FirstOrDefault().Nombre)</th>
+                        <th>@Html.DisplayNameFor(model => model.Item1.FirstOrDefault().Categoria)</th>
+                        <th>@Html.DisplayNameFor(model => model.Item1.FirstOrDefault().CantidadExistente)</th>
+                        <th>@Html.DisplayNameFor(model => model.Item1.FirstOrDefault().PrecioVenta)</th>
+                        <th>@Html.DisplayNameFor(model => model.Item1.FirstOrDefault().UnidadMedida)</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Item1)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.IDProducto)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Categoria.Nombre)</td>
+                            <td>@Html.DisplayFor(modelItem => item.CantidadExistente)</td>
+                            <td>@Html.DisplayFor(modelItem => item.PrecioVenta)</td>
+                            <td>@Html.DisplayFor(modelItem => item.UnidadMedida)</td>
+                            <td>
+                                <button class="btn btn-danger delete-product" data-product-id="@item.IDProducto">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <a class="btn btn-info w-100" asp-action="Index">Volver a Productos</a>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteProductModal" tabindex="-1" role="dialog" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteProductModalLabel">Confirmar Eliminación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ¿Está seguro que desea eliminar este producto?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="confirm-delete">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        var productIdToDelete;
+
+        $(document).ready(function () {
+            $('.delete-product').click(function () {
+                productIdToDelete = $(this).data('product-id');
+                $('#deleteProductModal').modal('show');
+            });
+
+            $('#confirm-delete').click(function () {
+                $.ajax({
+                    url: '@Url.Action("DeletePOST", "Product")',
+                    type: 'POST',
+                    data: { id: productIdToDelete },
+                    success: function (response) {
+                        if (response.success) {
+                            $('#deleteProductModal').modal('hide');
+                            location.reload();
+                        } else {
+                            alert('Error al eliminar el producto.');
+                        }
+                    }
+                });
+            });
+
+            // No es necesario agregar funcionalidad adicional para el botón de cancelar,
+            // ya que data-dismiss="modal" ya maneja el cierre del modal.
+        });
+    </script>
+}
+
+<style>
+    .form-element {
+        width: 100%;
+    }
+
+    .button-narrow {
+        width: 100px; /* Ancho de los botones */
+    }
+
+    h2.text-left {
+        margin-bottom: 30px; /* Espacio adicional entre el título y la barra de búsqueda */
+    }
+</style>

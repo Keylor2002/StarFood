@@ -12,7 +12,7 @@
         <div class="row mb-3 align-items-center">
             <div class="col-md-10">
                 <form class="d-flex" method="get" asp-action="Index">
-                    <input class="form-control me-2" type="search" placeholder="Buscar por nombre" aria-label="Buscar" name="searchString">
+                    <input class="form-control me-2" type="search" placeholder="Buscar por nombre o ID" aria-label="Buscar" name="searchString">
                     <button class="btn btn-info" type="submit">Buscar</button>
                 </form>
             </div>
@@ -26,7 +26,7 @@
                 <a class="btn btn-info w-100" asp-action="Edit">Editar</a>
             </div>
             <div class="col-md-4">
-                <a class="btn btn-info w-100" asp-action="Delete">Borrar</a>
+                <a class="btn btn-info w-100" asp-action="Delete">Eliminar</a>
             </div>
         </div>
         <hr />
@@ -54,7 +54,7 @@
                             <td>@Html.DisplayFor(modelItem => item.CantidadExistente)</td>
                             <td>@Html.DisplayFor(modelItem => item.PrecioVenta)</td>
                             <td>@Html.DisplayFor(modelItem => item.UnidadMedida)</td>
-                            <td><button class="submit" onclick="redirectToCreate()">Agregar</button></td>
+                            <td><button class="btn btn-info" onclick="redirectToCreate()">Agregar</button></td>
                         </tr>
                     }
                 </tbody>

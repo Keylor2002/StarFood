@@ -1,75 +1,164 @@
-﻿@model StarFood.Models.Producto
+﻿@model Tuple<IEnumerable<StarFood.Models.Producto>, StarFood.Models.Producto>
 
 @{
     ViewData["Title"] = "Editar Producto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="mb-3" style="margin-left: 30px;">Editar Producto</h1>
+<div class="container mt-4">
+    <div class="rounded-box">
+        <h2 class="text-left mb-4">@ViewData["Title"]</h2>
+        <!-- SearchBox -->
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-10">
+                <form class="d-flex" method="get" asp-action="Edit">
+                    <input class="form-control me-2" type="search" placeholder="Buscar por nombre o ID" aria-label="Buscar" name="searchString">
+                    <button class="btn btn-info" type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
+        <hr />
+        <!-- Table -->
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Item1.FirstOrDefault().IDProducto)</th>
+                        <th>@Html.DisplayNameFor(model => model.Item1.FirstOrDefault().Nombre)</th>
+                        <th>@Html.DisplayNameFor(model => model.Item1.FirstOrDefault().Categoria)</th>
+                        <th>@Html.DisplayNameFor(model => model.Item1.FirstOrDefault().CantidadExistente)</th>
+                        <th>@Html.DisplayNameFor(model => model.Item1.FirstOrDefault().PrecioVenta)</th>
+                        <th>@Html.DisplayNameFor(model => model.Item1.FirstOrDefault().UnidadMedida)</th>
+                        <th>Seleccionar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Item1)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.IDProducto)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Categoria.Nombre)</td>
+                            <td>@Html.DisplayFor(modelItem => item.CantidadExistente)</td>
+                            <td>@Html.DisplayFor(modelItem => item.PrecioVenta)</td>
+                            <td>@Html.DisplayFor(modelItem => item.UnidadMedida)</td>
+                            <td>
+                                <button class="btn btn-info select-product" data-product-id="@item.IDProducto" data-toggle="modal" data-target="#editProductModal">Seleccionar</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <a class="btn btn-info w-100" asp-action="Index">Volver a Productos</a>
+            </div>
+        </div>
+    </div>
+</div>
 
-<div class="row">
-    <div class="col-md-6 mx-auto">
-        <!-- Columna centralizada -->
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="row mb-3">
-                <div class="col-sm-6">
-                    <!-- Primera fila -->
+<!-- Modal -->
+<div class="modal fade" id="editProductModal" tabindex="-1" role="dialog" aria-labelledby="editProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProductModalLabel">Editar Producto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Edit" method="post" id="edit-product-form">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <input type="hidden" asp-for="Item2.IDProducto" />
                     <div class="form-group">
                         <label for="Nombre" class="col-form-label">Nombre:</label>
-                        <input asp-for="Nombre" class="form-control" />
-                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                        <input asp-for="Item2.Nombre" class="form-control form-element" />
+                        <span asp-validation-for="Item2.Nombre" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label for="CategoriaID" class="col-form-label">Categoría:</label>
-                        <select asp-for="CategoriaID" class="form-control" asp-items="ViewBag.CategoriaID"></select>
+                        <select asp-for="Item2.CategoriaID" class="form-control form-element" asp-items="@(ViewBag.Categorias)"></select>
+                        <span asp-validation-for="Item2.CategoriaID" class="text-danger"></span>
                     </div>
-                    @* <div class="form-group">
-                        <label for="PrecioCosto" class="col-form-label">Precio de Costo:</label>
-                        <input asp-for="PrecioCosto" class="form-control" />
-                        <span asp-validation-for="PrecioCosto" class="text-danger"></span>
-                    </div> *@
                     <div class="form-group">
                         <label for="PrecioVenta" class="col-form-label">Precio de Venta:</label>
-                        <input asp-for="PrecioVenta" class="form-control" />
-                        <span asp-validation-for="PrecioVenta" class="text-danger"></span>
+                        <input asp-for="Item2.PrecioVenta" class="form-control form-element" />
+                        <span asp-validation-for="Item2.PrecioVenta" class="text-danger"></span>
                     </div>
-                </div>
-                <div class="col-sm-6">
-                    <!-- Segunda fila -->
                     <div class="form-group">
                         <label for="UnidadMedida" class="col-form-label">Unidad de Medida:</label>
-                        <input asp-for="UnidadMedida" class="form-control" />
-                        <span asp-validation-for="UnidadMedida" class="text-danger"></span>
-                    </div>
-                    @* <div class="form-group">
-                        <label for="FechaCaducidad" class="col-form-label">Fecha de Caducidad:</label>
-                        <input asp-for="FechaCaducidad" class="form-control" />
-                        <span asp-validation-for="FechaCaducidad" class="text-danger"></span>
+                        <select asp-for="Item2.UnidadMedida" class="form-control form-element" asp-items="@(ViewBag.UnidadesMedida)"></select>
+                        <span asp-validation-for="Item2.UnidadMedida" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label for="FechaCompra" class="col-form-label">Fecha de Compra:</label>
-                        <input asp-for="FechaCompra" class="form-control" />
-                        <span asp-validation-for="FechaCompra" class="text-danger"></span>
-                    </div> *@
-                    @* <div class="form-group">
-                        <label for="IDProveedor" class="col-form-label">ID del Proveedor:</label>
-                        <select asp-for="IDProveedor" class="form-control" asp-items="ViewBag.IDProveedor"></select>
-                    </div> *@
-                </div>
+                        <label for="Suspendido" class="col-form-label">Suspendido:</label>
+                        <select asp-for="Item2.Suspendido" class="form-control form-element" asp-items="@(ViewBag.SuspendidoOptions)"></select>
+                        <span asp-validation-for="Item2.Suspendido" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group row justify-content-center mt-3">
+                        <button type="submit" class="btn btn-info mx-2 button-narrow">Editar</button>
+                        <button type="button" class="btn btn-secondary mx-2 button-narrow" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
             </div>
-            <div class="form-group row mb-3">
-                <div class="col-sm-12 text-center">
-                    <!-- Botones centrados -->
-                    <button type="submit" class="btn btn-primary">Editar</button>
-                    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
-                </div>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.select-product').click(function () {
+                var productId = $(this).data('product-id');
+                $.ajax({
+                    url: '@Url.Action("GetProduct", "Product")/' + productId,
+                    type: 'GET',
+                    success: function (data) {
+                        $('#edit-product-form').find('input[name="Item2.IDProducto"]').val(data.idProducto);
+                        $('#edit-product-form').find('input[name="Item2.Nombre"]').val(data.nombre);
+                        $('#edit-product-form').find('select[name="Item2.CategoriaID"]').val(data.categoriaID);
+                        $('#edit-product-form').find('input[name="Item2.PrecioVenta"]').val(data.precioVenta);
+                        $('#edit-product-form').find('select[name="Item2.UnidadMedida"]').val(data.unidadMedida);
+                        $('#edit-product-form').find('select[name="Item2.Suspendido"]').val(data.suspendido);
+                    }
+                });
+            });
+
+            $('#edit-product-form').submit(function (e) {
+                e.preventDefault();
+                var form = $(this);
+                $.ajax({
+                    type: form.attr('method'),
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            $('#editProductModal').modal('hide');
+                            location.reload();
+                        } else {
+                            $('#editProductModal .modal-body').html(response);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 }
+
+<style>
+    .form-element {
+        width: 100%;
+    }
+
+    .button-narrow {
+        width: 100px; /* Ancho de los botones */
+    }
+
+    h2.text-left {
+        margin-bottom: 30px; /* Espacio adicional entre el título y la barra de búsqueda */
+    }
+</style>
