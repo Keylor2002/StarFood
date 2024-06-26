@@ -75,7 +75,7 @@ namespace StarFood.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
+            [Required(ErrorMessage = "El campo Contraseña es obligatorio.")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
@@ -131,7 +131,8 @@ namespace StarFood.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    // Si la autenticación falla por alguna razón diferente, agrega un error al ModelState y vuelve a mostrar la página
+                    ModelState.AddModelError(string.Empty, "¡Usuario o contraseña incorrectos!\n \nIngrese sus credenciales de nuevo.");
                     return Page();
                 }
             }

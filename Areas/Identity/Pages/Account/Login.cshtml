@@ -18,6 +18,7 @@
         <section class="left-section d-flex align-items-center justify-content-center">
             <section class="login">
                 <h1>Bienvenidos</h1>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <form id="account" method="post">
                     <input asp-for="Input.Email" class="form-control text-dark" autocomplete="username" aria-required="true" />
                     <label asp-for= "Input.Email" class="form-label"></label>
