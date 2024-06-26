@@ -36,36 +36,34 @@
         });
 }
 
-    function loadDataTable() {
-        dataTable = $('#tblData').DataTable({
-            "ajax": {
-                "url": "/Category/GetAll",
-                "dataSrc": "data"
+function loadDataTable() {
+    dataTable = $('#tblData').DataTable({
+        "ajax": {
+            "url": "/Category/GetAll",
+            "dataSrc": "data"
 
-            },
-            "columns": [
-                { "data": "IDCategoria", "width": "15%" },
-                {
-                    "data": "Nombre",
+        },
+        "columns": [
+            { "data": "IDCategoria", "width": "15%" },
+            {
+                "data": "Nombre",
 
 
-                    "render": function (data) {
-                        return `
+                "render": function (data) {
+                    return `
                     <a href="/Category/Edit/${data.I}" 
                        class="btn btn-primary mx-2>
                         <i class="bi bi-pencil-square"></i> Edit
                     </a>
                     `
-                    },
+                },
 
-                    "width": "30%"
-                }
+                "width": "30%"
+            }
 
-            ]
-        });
+        ]
+    });
 }
-
-<script type="text/javascript">
     function copyToClipboard(text) {
         navigator.clipboard.writeText(text).then(function () {
             alert('ID copiado al portapapeles: ' + text);
@@ -73,4 +71,3 @@
             console.error('Could not copy text: ', err);
         });
         }
-</script>

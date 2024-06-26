@@ -29,23 +29,35 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="@Url.Action("Index", "Category")" class="nav-link @(isActive("Category", "Index")) align-middle px-0">
-                                <i class="fs-4 bi bi-list-task"></i> <span class="ms-1 d-none d-sm-inline">Categorías</span>
+                            <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-list-task"></i> <span class="ms-1 d-none d-sm-inline">Inventario</span>
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="@Url.Action("Index", "Product")" class="nav-link @(isActive("Product", "Index")) align-middle px-0">
-                                <i class="fs-4 bi bi-basket"></i> <span class="ms-1 d-none d-sm-inline">Productos</span>
-                            </a>
+                            <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#sidebar-menu">
+                                <li class="nav-item">
+                                    <a href="@Url.Action("Index", "Category")" class="nav-link @(isActive("Category", "Index")) align-middle px-0">
+                                        <i class="fs-4 bi bi-collection"></i></i> <span class="ms-1 d-none d-sm-inline">Categorías</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="@Url.Action("Index", "Product")" class="nav-link @(isActive("Product", "Index")) align-middle px-0">
+                                        <i class="fs-4 bi bi-basket"></i> <span class="ms-1 d-none d-sm-inline">Productos</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="@Url.Action("Index", "Dish")" class="nav-link @(isActive("Dish", "Index")) align-middle px-0">
+                                        <i class="fs-4 bi bi-egg-fried"></i> <span class="ms-1 d-none d-sm-inline">Productos</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a href="@Url.Action("Index", "Supplier")" class="nav-link @(isActive("Supplier", "Index")) px-0 align-middle">
-                                <i class="fs-4 bi-list-task"></i> <span class="ms-1 d-none d-sm-inline">Proveedores</span>
+                                <i class="fs-4 bi bi-person-bounding-box"></i> <span class="ms-1 d-none d-sm-inline">Proveedores</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="@Url.Action("Index", "Order")" class="nav-link @(isActive("Order", "Index")) px-0 align-middle">
-                                <i class="fs-4 bi-list-task"></i> <span class="ms-1 d-none d-sm-inline">Pedidos</span>
+                                <i class="fs-4 bi bi-arrow-bar-up"></i> <span class="ms-1 d-none d-sm-inline">Pedidos</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -59,41 +71,9 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link px-0 align-middle">
+                            <a href="/Order/Index" class="nav-link px-0 align-middle">
                                 <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Orders</span>
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                                <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Bootstrap</span>
-                            </a>
-                            <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#sidebar-menu">
-                                <li class="w-100">
-                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item 1</span></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item 2</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                                <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Products</span>
-                            </a>
-                            <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#sidebar-menu">
-                                <li class="w-100">
-                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product 1</span></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product 2</span></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product 3</span></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product 4</span></a>
-                                </li>
-                            </ul>
                         </li>
                         <li class="nav-item">
                             <a href="/User/Index" class="nav-link px-0 align-middle">
@@ -114,9 +94,6 @@
                     </ul>
                 </div>
             </div>
-        </div>
-        <div class="col py-3 main-content">
-            <!-- Contenido principal -->
         </div>
     </div>
 </div>
