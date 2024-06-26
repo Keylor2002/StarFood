@@ -4,6 +4,12 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace StarFood.Models
 {
+    /*
+    The Categoria class acts as a model for identifier category of products.
+    @IDCategoria it is a category identifier.
+    @Nombre it is a short name which wants to be recognized in the system.
+    @Suspendido this is what allows you to block or unblock a category.
+    */
     public class Categoria
     {
         /*
