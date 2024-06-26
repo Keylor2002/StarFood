@@ -12,11 +12,11 @@ namespace StarFood.Models
         [Key]
         public int IDFactura { get; set; }
 
-        [ForeignKey("Pedido")]
-        public int IDPedido { get; set; }
+        [ForeignKey("Orden")]
+        public int IDOrden { get; set; }
 
         [ValidateNever]
-        public Orden Pedido { get; set; }
+        public Orden Orden { get; set; }
 
         public DateTime FechaVenta { get; set; }
 

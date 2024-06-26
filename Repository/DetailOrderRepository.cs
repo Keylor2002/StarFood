@@ -4,7 +4,7 @@ using StarFood.Repository.IRepository;
 
 namespace StarFood.Repository
 {
-    public class DetailOrderRepository : repository<Detalleorden>, IDetailOrderRepository
+    public class DetailOrderRepository : repository<DetalleOrden>, IDetailOrderRepository
     {
         private StarfoodContext _db;
 
@@ -13,9 +13,9 @@ namespace StarFood.Repository
             _db = db;
         }
 
-        public void Update(Detalleorden detallePedido)
+        public void Update(DetalleOrden detallePedido)
         {
-            _db.DetallesPedido.Update(detallePedido);
+            _db.DetallesOrdenes.Update(detallePedido);
         }
     }
 }

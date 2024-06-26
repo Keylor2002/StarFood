@@ -58,13 +58,13 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>@Html.DisplayFor(modelItem => item.IDPedido)</td>
-                        <td>@Html.DisplayFor(modelItem => item.FechaPedido)</td>
+                        <td>@Html.DisplayFor(modelItem => item.IDOrden)</td>
+                        <td>@Html.DisplayFor(modelItem => item.FechaOrden)</td>
                         <td class="d-flex justify-content-end">
-                            <a class="btn btn-primary btn-sm me-2" href="@Url.Action("Edit", new { id = item.IDPedido })" title="Editar">
+                            <a class="btn btn-primary btn-sm me-2" href="@Url.Action("Edit", new { id = item.IDOrden })" title="Editar">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
-                            <button class="btn btn-secondary btn-sm" onclick="copyToClipboard('@item.IDPedido')" title="Copiar ID">
+                            <button class="btn btn-secondary btn-sm" onclick="copyToClipboard('@item.IDOrden')" title="Copiar ID">
                                 <i class="fas fa-copy"></i>
                             </button>
                         </td>

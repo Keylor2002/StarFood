@@ -19,7 +19,7 @@ namespace StarFood.Controllers.OrderDetailController
 
         public IActionResult Index()
         {
-            IEnumerable<Detalleorden> orderDetailList = _unitOfWork.DetallePedido.GetAll();
+            IEnumerable<DetalleOrden> orderDetailList = _unitOfWork.DetalleOrden.GetAll();
             return View(orderDetailList);
 
         }
@@ -33,11 +33,11 @@ namespace StarFood.Controllers.OrderDetailController
         // Works
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public IActionResult Create(Detalleorden orderDetail)
+        public IActionResult Create(DetalleOrden orderDetail)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.DetallePedido.Add(orderDetail);
+                _unitOfWork.DetalleOrden.Add(orderDetail);
                 _unitOfWork.Save();
                 return Json(new { success = true, message = "Detalle de orden creada correctamente" });
             }
@@ -55,7 +55,7 @@ namespace StarFood.Controllers.OrderDetailController
                 return NotFound(new { success = false, message = "ID no proporcionado" });
             }
 
-            var orderDetail = _unitOfWork.DetallePedido.GetFirstOrDefault(x => x.IDDetallePedido == id, null);
+            var orderDetail = _unitOfWork.DetalleOrden.GetFirstOrDefault(x => x.IDDetalleOrden == id, null);
             if (orderDetail == null)
             {
                 return NotFound(new { success = false, message = "Detalle de pedido no encontrado" });
@@ -68,11 +68,11 @@ namespace StarFood.Controllers.OrderDetailController
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public IActionResult Edit([FromBody] Detalleorden orderDetail)
+        public IActionResult Edit([FromBody] DetalleOrden orderDetail)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.DetallePedido.Update(orderDetail);
+                _unitOfWork.DetalleOrden.Update(orderDetail);
                 _unitOfWork.Save();
                 //return Json(new { success = true, message = "Categoria actualizada correctamente" });
             }
@@ -121,7 +121,7 @@ namespace StarFood.Controllers.OrderDetailController
         // Works
         public IActionResult GetAll()
         {
-            var orderDetail = _unitOfWork.DetallePedido.GetAll();
+            var orderDetail = _unitOfWork.DetalleOrden.GetAll();
             return Json(new { data = orderDetail, success = true });
         }
     }

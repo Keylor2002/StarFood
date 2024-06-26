@@ -2,8 +2,8 @@
 
 namespace StarFood.Repository.IRepository
 {
-    public interface IDetailOrderRepository : IRepository<Detalleorden>
+    public interface IDetailOrderRepository : IRepository<DetalleOrden>
     {
-        void Update(Detalleorden detallePedido);
+        void Update(DetalleOrden detallePedido);
     }
 }

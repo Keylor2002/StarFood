@@ -8,11 +8,11 @@
         IProductRepository Producto { get; }
         IDishRepository Platillo { get; }
         ITransactProductRepository TransaccionProducto { get; }
-        IOrderRepository Pedido { get; }
+        IOrderRepository Orden { get; }
         IRepositoryPaymentMethod MetodoPago { get; }
         IBillRepository Factura { get; }
         ICategoryRepository Categoria { get; }
-        IDetailOrderRepository DetallePedido { get; }
+        IDetailOrderRepository DetalleOrden { get; }
 
         void Save();
     }

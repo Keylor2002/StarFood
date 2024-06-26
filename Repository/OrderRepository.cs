@@ -15,12 +15,12 @@ namespace StarFood.Repository
 
         public void Update(Orden pedido)
         {
-            _db.Pedidos.Update(pedido);
+            _db.Ordenes.Update(pedido);
         }
 
         public Orden GetLast()
         {
-            return _db.Pedidos.OrderByDescending(p => p.IDPedido).FirstOrDefault();
+            return _db.Ordenes.OrderByDescending(p => p.IDOrden).FirstOrDefault();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace StarFood.Controllers.OrderController
 
         public IActionResult Index()
         {
-            IEnumerable<Orden> orderList = _unitOfWork.Pedido.GetAll();
+            IEnumerable<Orden> orderList = _unitOfWork.Orden.GetAll();
             return View(orderList);
         }
 
@@ -35,7 +35,7 @@ namespace StarFood.Controllers.OrderController
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Pedido.Add(order);
+                _unitOfWork.Orden.Add(order);
                 _unitOfWork.Save();
                 return Json(new { success = true, message = "Categoria creada correctamente" });
             }
@@ -54,7 +54,7 @@ namespace StarFood.Controllers.OrderController
                 return NotFound(new { success = false, message = "ID no proporcionado" });
             }
 
-            var order = _unitOfWork.Pedido.GetFirstOrDefault(x => x.IDPedido == id, null);
+            var order = _unitOfWork.Orden.GetFirstOrDefault(x => x.IDOrden == id, null);
             if (order == null)
             {
                 return NotFound(new { success = false, message = "Pedido no encontrado" });
@@ -72,7 +72,7 @@ namespace StarFood.Controllers.OrderController
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Pedido.Update(order);
+                _unitOfWork.Orden.Update(order);
                 _unitOfWork.Save();
                 //return Json(new { success = true, message = "Categoria actualizada correctamente" });
             }
@@ -119,32 +119,26 @@ namespace StarFood.Controllers.OrderController
         // Works
         public IActionResult GetAll()
         {
-            var orderList = _unitOfWork.Pedido.GetAll(includeProperties: "DetallePedido,Usuario");
+            var orderList = _unitOfWork.Orden.GetAll(includeProperties: "DetalleOrden,Usuario");
 
-            var formattedList = orderList.Select(pedido => new
+            var formattedList = orderList.Select(orden => new
             {
-                IDPedido = pedido.IDPedido,
-                IDUsuario = pedido.IDUsuario,
-                FechaPedido = pedido.FechaPedido,
-                FechaEntrega = pedido.FechaEntrega,
-                Cancelado = pedido.Cancelado,
+                IDOrder = orden.IDOrden,
+                IDUsuario = orden.IDUsuario,
+                FechaPedido = orden.FechaOrden,
+                FechaEntrega = orden.FechaEntrega,
+                Cancelado = orden.Cancelado,
 
                 Usuario = new
                 {
-                    IDUsuario = pedido.Usuario.IDUsuario,
-                    UserName = pedido.Usuario.UserName
+                    IDUsuario = orden.Usuario.IDUsuario,
+                    UserName = orden.Usuario.UserName
                 },
 
-                DetallePedido = pedido.DetallePedido.Select(detalle => new
+                DetallePedido = orden.DetalleOrden.Select(detalle => new
                 {
-                    IDDetallePedido = detalle.IDDetallePedido,
-                    IDPedido = detalle.IDPedido,
-                    IDPlatillo = detalle.IDPlatillo,
-                    Platillo = detalle.Platillo == null ? null : new
-                    {
-                        detalle.Platillo.IDPlatillo,
-                        detalle.Platillo.Nombre // Asumiendo que la entidad Platillo tiene una propiedad Nombre
-                    },
+                    IDDetallePedido = detalle.IDDetalleOrden,
+                    IDPedido = detalle.IDOrden,
                     Cantidad = detalle.Cantidad
                 }).ToList()
             }).ToList();
