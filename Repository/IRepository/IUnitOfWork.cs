@@ -2,7 +2,7 @@
 {
     public interface IUnitOfWork
     {
-        IDishProductRepository PlatilloProducto { get; }
+        IDetailDishRepository DetallePlatillo { get; }
         IUserRepository Usuario { get; }
         ISupplierRepository Proveedor { get; }
         IProductRepository Producto { get; }

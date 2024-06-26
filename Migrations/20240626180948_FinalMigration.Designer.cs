@@ -12,8 +12,8 @@ using StarFood.Data;
 namespace StarFood.Migrations
 {
     [DbContext(typeof(StarfoodContext))]
-    [Migration("20240624051100_FinallyMigration")]
-    partial class FinallyMigration
+    [Migration("20240626180948_FinalMigration")]
+    partial class FinalMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -253,30 +253,59 @@ namespace StarFood.Migrations
                     b.ToTable("Categorias");
                 });
 
-            modelBuilder.Entity("StarFood.Models.Detalleorden", b =>
+            modelBuilder.Entity("StarFood.Models.DetalleOrden", b =>
                 {
-                    b.Property<int>("IDDetallePedido")
+                    b.Property<int>("IDDetalleOrden")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IDDetallePedido"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IDDetalleOrden"));
 
                     b.Property<int>("Cantidad")
                         .HasColumnType("int");
 
-                    b.Property<int>("IDPedido")
+                    b.Property<int>("IDOrden")
+                        .HasColumnType("int");
+
+                    b.HasKey("IDDetalleOrden");
+
+                    b.HasIndex("IDOrden");
+
+                    b.ToTable("DetallesOrdenes");
+                });
+
+            modelBuilder.Entity("StarFood.Models.DetallePlatillo", b =>
+                {
+                    b.Property<int>("IDDetallePlatillo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IDDetallePlatillo"));
+
+                    b.Property<int>("CantidadProducto")
                         .HasColumnType("int");
 
                     b.Property<int>("IDPlatillo")
                         .HasColumnType("int");
 
-                    b.HasKey("IDDetallePedido");
+                    b.Property<int>("IDProducto")
+                        .HasColumnType("int");
 
-                    b.HasIndex("IDPedido");
+                    b.Property<int?>("PlatilloIDPlatillo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductoIDProducto")
+                        .HasColumnType("int");
+
+                    b.HasKey("IDDetallePlatillo");
 
                     b.HasIndex("IDPlatillo");
 
-                    b.ToTable("DetallesPedido");
+                    b.HasIndex("PlatilloIDPlatillo");
+
+                    b.HasIndex("ProductoIDProducto");
+
+                    b.ToTable("DetallesPlatillos");
                 });
 
             modelBuilder.Entity("StarFood.Models.Factura", b =>
@@ -299,7 +328,7 @@ namespace StarFood.Migrations
                     b.Property<int>("IDMetodoPago")
                         .HasColumnType("int");
 
-                    b.Property<int>("IDPedido")
+                    b.Property<int>("IDOrden")
                         .HasColumnType("int");
 
                     b.Property<decimal>("TotalVenta")
@@ -309,7 +338,7 @@ namespace StarFood.Migrations
 
                     b.HasIndex("IDMetodoPago");
 
-                    b.HasIndex("IDPedido");
+                    b.HasIndex("IDOrden");
 
                     b.ToTable("Facturas");
                 });
@@ -334,19 +363,22 @@ namespace StarFood.Migrations
 
             modelBuilder.Entity("StarFood.Models.Orden", b =>
                 {
-                    b.Property<int>("IDPedido")
+                    b.Property<int>("IDOrden")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IDPedido"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IDOrden"));
 
                     b.Property<bool>("Cancelado")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Entregado")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("FechaEntrega")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("FechaPedido")
+                    b.Property<DateTime>("FechaOrden")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("IDUsuario")
@@ -357,11 +389,11 @@ namespace StarFood.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("IDPedido");
+                    b.HasKey("IDOrden");
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("Pedidos");
+                    b.ToTable("Ordenes");
                 });
 
             modelBuilder.Entity("StarFood.Models.Platillo", b =>
@@ -378,6 +410,9 @@ namespace StarFood.Migrations
                     b.Property<string>("Descripcion")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("DetalleOrdenIDDetalleOrden")
+                        .HasColumnType("int");
 
                     b.Property<string>("ImagenUrl")
                         .IsRequired()
@@ -398,28 +433,9 @@ namespace StarFood.Migrations
 
                     b.HasIndex("CategoriaID");
 
+                    b.HasIndex("DetalleOrdenIDDetalleOrden");
+
                     b.ToTable("Platillos");
-                });
-
-            modelBuilder.Entity("StarFood.Models.PlatilloProducto", b =>
-                {
-                    b.Property<int>("IDPlatilloProducto")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IDPlatilloProducto"));
-
-                    b.Property<int>("CantidadProducto")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IDPlatillo")
-                        .HasColumnType("int");
-
-                    b.HasKey("IDPlatilloProducto");
-
-                    b.HasIndex("IDPlatillo");
-
-                    b.ToTable("PlatillosProductos");
                 });
 
             modelBuilder.Entity("StarFood.Models.Producto", b =>
@@ -434,6 +450,9 @@ namespace StarFood.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("CategoriaID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DetalleOrdenIDDetalleOrden")
                         .HasColumnType("int");
 
                     b.Property<string>("Nombre")
@@ -455,6 +474,8 @@ namespace StarFood.Migrations
                     b.HasKey("IDProducto");
 
                     b.HasIndex("CategoriaID");
+
+                    b.HasIndex("DetalleOrdenIDDetalleOrden");
 
                     b.ToTable("Productos");
                 });
@@ -599,23 +620,38 @@ namespace StarFood.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("StarFood.Models.Detalleorden", b =>
+            modelBuilder.Entity("StarFood.Models.DetalleOrden", b =>
                 {
-                    b.HasOne("StarFood.Models.Orden", "Pedido")
-                        .WithMany("DetallePedido")
-                        .HasForeignKey("IDPedido")
+                    b.HasOne("StarFood.Models.Orden", "Orden")
+                        .WithMany("DetalleOrden")
+                        .HasForeignKey("IDOrden")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Orden");
+                });
+
+            modelBuilder.Entity("StarFood.Models.DetallePlatillo", b =>
+                {
                     b.HasOne("StarFood.Models.Platillo", "Platillo")
                         .WithMany()
                         .HasForeignKey("IDPlatillo")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("StarFood.Models.Platillo", null)
+                        .WithMany("DetallePlatillo")
+                        .HasForeignKey("PlatilloIDPlatillo");
+
+                    b.HasOne("StarFood.Models.Producto", "Producto")
+                        .WithMany()
+                        .HasForeignKey("ProductoIDProducto")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Pedido");
-
                     b.Navigation("Platillo");
+
+                    b.Navigation("Producto");
                 });
 
             modelBuilder.Entity("StarFood.Models.Factura", b =>
@@ -626,15 +662,15 @@ namespace StarFood.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("StarFood.Models.Orden", "Pedido")
+                    b.HasOne("StarFood.Models.Orden", "Orden")
                         .WithMany()
-                        .HasForeignKey("IDPedido")
+                        .HasForeignKey("IDOrden")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("MetodoPago");
 
-                    b.Navigation("Pedido");
+                    b.Navigation("Orden");
                 });
 
             modelBuilder.Entity("StarFood.Models.Orden", b =>
@@ -656,18 +692,11 @@ namespace StarFood.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("StarFood.Models.DetalleOrden", null)
+                        .WithMany("Platillo")
+                        .HasForeignKey("DetalleOrdenIDDetalleOrden");
+
                     b.Navigation("Categoria");
-                });
-
-            modelBuilder.Entity("StarFood.Models.PlatilloProducto", b =>
-                {
-                    b.HasOne("StarFood.Models.Platillo", "Platillo")
-                        .WithMany()
-                        .HasForeignKey("IDPlatillo")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Platillo");
                 });
 
             modelBuilder.Entity("StarFood.Models.Producto", b =>
@@ -677,6 +706,10 @@ namespace StarFood.Migrations
                         .HasForeignKey("CategoriaID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("StarFood.Models.DetalleOrden", null)
+                        .WithMany("Producto")
+                        .HasForeignKey("DetalleOrdenIDDetalleOrden");
 
                     b.Navigation("Categoria");
                 });
@@ -700,9 +733,21 @@ namespace StarFood.Migrations
                     b.Navigation("Proveedor");
                 });
 
+            modelBuilder.Entity("StarFood.Models.DetalleOrden", b =>
+                {
+                    b.Navigation("Platillo");
+
+                    b.Navigation("Producto");
+                });
+
             modelBuilder.Entity("StarFood.Models.Orden", b =>
                 {
-                    b.Navigation("DetallePedido");
+                    b.Navigation("DetalleOrden");
+                });
+
+            modelBuilder.Entity("StarFood.Models.Platillo", b =>
+                {
+                    b.Navigation("DetallePlatillo");
                 });
 #pragma warning restore 612, 618
         }

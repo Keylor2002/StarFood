@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace StarFood.Migrations
 {
     /// <inheritdoc />
-    public partial class FinallyMigration : Migration
+    public partial class FinalMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -204,22 +204,23 @@ namespace StarFood.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Pedidos",
+                name: "Ordenes",
                 columns: table => new
                 {
-                    IDPedido = table.Column<int>(type: "int", nullable: false)
+                    IDOrden = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IDUsuario = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UsuarioId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FechaPedido = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaOrden = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaEntrega = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Entregado = table.Column<bool>(type: "bit", nullable: false),
                     Cancelado = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pedidos", x => x.IDPedido);
+                    table.PrimaryKey("PK_Ordenes", x => x.IDOrden);
                     table.ForeignKey(
-                        name: "FK_Pedidos_AspNetUsers_UsuarioId",
+                        name: "FK_Ordenes_AspNetUsers_UsuarioId",
                         column: x => x.UsuarioId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -227,51 +228,23 @@ namespace StarFood.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Platillos",
+                name: "DetallesOrdenes",
                 columns: table => new
                 {
-                    IDPlatillo = table.Column<int>(type: "int", nullable: false)
+                    IDDetalleOrden = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
-                    CategoriaID = table.Column<int>(type: "int", nullable: false),
-                    Precio = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Suspendido = table.Column<bool>(type: "bit", nullable: false),
-                    ImagenUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    IDOrden = table.Column<int>(type: "int", nullable: false),
+                    Cantidad = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Platillos", x => x.IDPlatillo);
+                    table.PrimaryKey("PK_DetallesOrdenes", x => x.IDDetalleOrden);
                     table.ForeignKey(
-                        name: "FK_Platillos_Categorias_CategoriaID",
-                        column: x => x.CategoriaID,
-                        principalTable: "Categorias",
-                        principalColumn: "IDCategoria",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Productos",
-                columns: table => new
-                {
-                    IDProducto = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CategoriaID = table.Column<int>(type: "int", nullable: false),
-                    PrecioVenta = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    CantidadExistente = table.Column<int>(type: "int", nullable: false),
-                    UnidadMedida = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Suspendido = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Productos", x => x.IDProducto);
-                    table.ForeignKey(
-                        name: "FK_Productos_Categorias_CategoriaID",
-                        column: x => x.CategoriaID,
-                        principalTable: "Categorias",
-                        principalColumn: "IDCategoria",
-                        onDelete: ReferentialAction.Restrict);
+                        name: "FK_DetallesOrdenes_Ordenes_IDOrden",
+                        column: x => x.IDOrden,
+                        principalTable: "Ordenes",
+                        principalColumn: "IDOrden",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -280,7 +253,7 @@ namespace StarFood.Migrations
                 {
                     IDFactura = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IDPedido = table.Column<int>(type: "int", nullable: false),
+                    IDOrden = table.Column<int>(type: "int", nullable: false),
                     FechaVenta = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TotalVenta = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     IDMetodoPago = table.Column<int>(type: "int", nullable: false),
@@ -297,58 +270,105 @@ namespace StarFood.Migrations
                         principalColumn: "IDMetodoPago",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Facturas_Pedidos_IDPedido",
-                        column: x => x.IDPedido,
-                        principalTable: "Pedidos",
-                        principalColumn: "IDPedido",
+                        name: "FK_Facturas_Ordenes_IDOrden",
+                        column: x => x.IDOrden,
+                        principalTable: "Ordenes",
+                        principalColumn: "IDOrden",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "DetallesPedido",
+                name: "Platillos",
                 columns: table => new
                 {
-                    IDDetallePedido = table.Column<int>(type: "int", nullable: false)
+                    IDPlatillo = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IDPedido = table.Column<int>(type: "int", nullable: false),
-                    IDPlatillo = table.Column<int>(type: "int", nullable: false),
-                    Cantidad = table.Column<int>(type: "int", nullable: false)
+                    Nombre = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    CategoriaID = table.Column<int>(type: "int", nullable: false),
+                    Precio = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Suspendido = table.Column<bool>(type: "bit", nullable: false),
+                    ImagenUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DetalleOrdenIDDetalleOrden = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DetallesPedido", x => x.IDDetallePedido);
+                    table.PrimaryKey("PK_Platillos", x => x.IDPlatillo);
                     table.ForeignKey(
-                        name: "FK_DetallesPedido_Pedidos_IDPedido",
-                        column: x => x.IDPedido,
-                        principalTable: "Pedidos",
-                        principalColumn: "IDPedido",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_Platillos_Categorias_CategoriaID",
+                        column: x => x.CategoriaID,
+                        principalTable: "Categorias",
+                        principalColumn: "IDCategoria",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_DetallesPedido_Platillos_IDPlatillo",
-                        column: x => x.IDPlatillo,
-                        principalTable: "Platillos",
-                        principalColumn: "IDPlatillo",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_Platillos_DetallesOrdenes_DetalleOrdenIDDetalleOrden",
+                        column: x => x.DetalleOrdenIDDetalleOrden,
+                        principalTable: "DetallesOrdenes",
+                        principalColumn: "IDDetalleOrden");
                 });
 
             migrationBuilder.CreateTable(
-                name: "PlatillosProductos",
+                name: "Productos",
                 columns: table => new
                 {
-                    IDPlatilloProducto = table.Column<int>(type: "int", nullable: false)
+                    IDProducto = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IDPlatillo = table.Column<int>(type: "int", nullable: false),
-                    CantidadProducto = table.Column<int>(type: "int", nullable: false)
+                    Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CategoriaID = table.Column<int>(type: "int", nullable: false),
+                    PrecioVenta = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    CantidadExistente = table.Column<int>(type: "int", nullable: false),
+                    UnidadMedida = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Suspendido = table.Column<bool>(type: "bit", nullable: false),
+                    DetalleOrdenIDDetalleOrden = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PlatillosProductos", x => x.IDPlatilloProducto);
+                    table.PrimaryKey("PK_Productos", x => x.IDProducto);
                     table.ForeignKey(
-                        name: "FK_PlatillosProductos_Platillos_IDPlatillo",
+                        name: "FK_Productos_Categorias_CategoriaID",
+                        column: x => x.CategoriaID,
+                        principalTable: "Categorias",
+                        principalColumn: "IDCategoria",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Productos_DetallesOrdenes_DetalleOrdenIDDetalleOrden",
+                        column: x => x.DetalleOrdenIDDetalleOrden,
+                        principalTable: "DetallesOrdenes",
+                        principalColumn: "IDDetalleOrden");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DetallesPlatillos",
+                columns: table => new
+                {
+                    IDDetallePlatillo = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IDPlatillo = table.Column<int>(type: "int", nullable: false),
+                    CantidadProducto = table.Column<int>(type: "int", nullable: false),
+                    IDProducto = table.Column<int>(type: "int", nullable: false),
+                    ProductoIDProducto = table.Column<int>(type: "int", nullable: false),
+                    PlatilloIDPlatillo = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DetallesPlatillos", x => x.IDDetallePlatillo);
+                    table.ForeignKey(
+                        name: "FK_DetallesPlatillos_Platillos_IDPlatillo",
                         column: x => x.IDPlatillo,
                         principalTable: "Platillos",
                         principalColumn: "IDPlatillo",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_DetallesPlatillos_Platillos_PlatilloIDPlatillo",
+                        column: x => x.PlatilloIDPlatillo,
+                        principalTable: "Platillos",
+                        principalColumn: "IDPlatillo");
+                    table.ForeignKey(
+                        name: "FK_DetallesPlatillos_Productos_ProductoIDProducto",
+                        column: x => x.ProductoIDProducto,
+                        principalTable: "Productos",
+                        principalColumn: "IDProducto",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -422,14 +442,24 @@ namespace StarFood.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DetallesPedido_IDPedido",
-                table: "DetallesPedido",
-                column: "IDPedido");
+                name: "IX_DetallesOrdenes_IDOrden",
+                table: "DetallesOrdenes",
+                column: "IDOrden");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DetallesPedido_IDPlatillo",
-                table: "DetallesPedido",
+                name: "IX_DetallesPlatillos_IDPlatillo",
+                table: "DetallesPlatillos",
                 column: "IDPlatillo");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DetallesPlatillos_PlatilloIDPlatillo",
+                table: "DetallesPlatillos",
+                column: "PlatilloIDPlatillo");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DetallesPlatillos_ProductoIDProducto",
+                table: "DetallesPlatillos",
+                column: "ProductoIDProducto");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Facturas_IDMetodoPago",
@@ -437,13 +467,13 @@ namespace StarFood.Migrations
                 column: "IDMetodoPago");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Facturas_IDPedido",
+                name: "IX_Facturas_IDOrden",
                 table: "Facturas",
-                column: "IDPedido");
+                column: "IDOrden");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pedidos_UsuarioId",
-                table: "Pedidos",
+                name: "IX_Ordenes_UsuarioId",
+                table: "Ordenes",
                 column: "UsuarioId");
 
             migrationBuilder.CreateIndex(
@@ -452,14 +482,19 @@ namespace StarFood.Migrations
                 column: "CategoriaID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PlatillosProductos_IDPlatillo",
-                table: "PlatillosProductos",
-                column: "IDPlatillo");
+                name: "IX_Platillos_DetalleOrdenIDDetalleOrden",
+                table: "Platillos",
+                column: "DetalleOrdenIDDetalleOrden");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Productos_CategoriaID",
                 table: "Productos",
                 column: "CategoriaID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Productos_DetalleOrdenIDDetalleOrden",
+                table: "Productos",
+                column: "DetalleOrdenIDDetalleOrden");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TransaccionProducto_IDProducto",
@@ -491,13 +526,10 @@ namespace StarFood.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "DetallesPedido");
+                name: "DetallesPlatillos");
 
             migrationBuilder.DropTable(
                 name: "Facturas");
-
-            migrationBuilder.DropTable(
-                name: "PlatillosProductos");
 
             migrationBuilder.DropTable(
                 name: "TransaccionProducto");
@@ -506,13 +538,10 @@ namespace StarFood.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "MetodosPago");
-
-            migrationBuilder.DropTable(
-                name: "Pedidos");
-
-            migrationBuilder.DropTable(
                 name: "Platillos");
+
+            migrationBuilder.DropTable(
+                name: "MetodosPago");
 
             migrationBuilder.DropTable(
                 name: "Productos");
@@ -521,10 +550,16 @@ namespace StarFood.Migrations
                 name: "Proveedores");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Categorias");
 
             migrationBuilder.DropTable(
-                name: "Categorias");
+                name: "DetallesOrdenes");
+
+            migrationBuilder.DropTable(
+                name: "Ordenes");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

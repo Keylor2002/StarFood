@@ -38,7 +38,7 @@ namespace StarFood.Data
         public DbSet<DetalleOrden> DetallesOrdenes { get; set; }
         public DbSet<MetodoPago> MetodosPago { get; set; }
         public DbSet<Factura> Facturas { get; set; }
-        public DbSet<PlatilloProducto> PlatillosProductos { get; set; }
+        public DbSet<DetallePlatillo> DetallesPlatillos { get; set; }
 
         /*
         The OnConfiguring method configures the context to use SQL Server with 
@@ -97,7 +97,7 @@ namespace StarFood.Data
                 .HasForeignKey(f => f.IDMetodoPago)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<PlatilloProducto>()
+            modelBuilder.Entity<DetallePlatillo>()
                 .HasOne(pp => pp.Platillo)
                 .WithMany()
                 .HasForeignKey(pp => pp.IDPlatillo)

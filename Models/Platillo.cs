@@ -32,5 +32,8 @@ namespace StarFood.Models
         public bool Suspendido { get; set; }
         [Required]
         public string ImagenUrl { get; set; }
+        
+        [ValidateNever]
+        public ICollection<DetallePlatillo> DetallePlatillo { set; get; }
     }
 }

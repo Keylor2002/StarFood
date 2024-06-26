@@ -1,6 +1,7 @@
 ﻿using StarFood.Data;
 using StarFood.Repository.IRepository;
 using Microsoft.AspNetCore.Identity;
+using StarFood.Models;
 
 namespace StarFood.Repository
 {
@@ -9,7 +10,7 @@ namespace StarFood.Repository
         private StarfoodContext _db;
 
         public ICategoryRepository Categoria { get; private set; }
-        public IDishProductRepository PlatilloProducto { get; private set; }
+        public IDetailDishRepository DetallePlatillo { get; private set; }
         public IUserRepository Usuario { get; private set; }
         public ISupplierRepository Proveedor { get; private set; }
         public IProductRepository Producto { get; private set; }
@@ -27,7 +28,7 @@ namespace StarFood.Repository
             Categoria = new CategoryRepository(_db);
             Orden = new OrderRepository(_db);
             Platillo = new DishRepository(_db);
-            PlatilloProducto = new DishProductRepository(_db);
+            DetallePlatillo = new DetailDishRepository(_db);
             TransaccionProducto = new TransactProductRepository(_db);
 
             Producto = new ProductRepository(_db);
