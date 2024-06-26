@@ -10,7 +10,7 @@ namespace StarFood.Models
         @[Tags] this allows you to add constraints both in the model and in the database.
         */
         [Key]
-        public int IDPedido { get; set; }
+        public int IDOrden { get; set; }
 
         public string IDUsuario { get; set; }
         
@@ -20,9 +20,16 @@ namespace StarFood.Models
         [Required(ErrorMessage = "La fecha del pedido es obligatoria.")]
         public DateTime FechaPedido { get; set; }
 
-        [Required(ErrorMessage = "La fecha de entrega es obligatoria.")]
+        [ValidateNever]
         public DateTime FechaEntrega { get; set; }
-        public ICollection<Detalleorden> DetallePedido { get; set; } 
+
+        [ValidateNever]
+        public ICollection<DetalleOrden> DetalleOrden { get; set; }
+
+        [ValidateNever]
+        public bool Entregado {  get; set; }
+
+        [ValidateNever]
         public bool Cancelado { get; set; }
     }
 }
