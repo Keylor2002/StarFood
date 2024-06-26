@@ -28,7 +28,8 @@ namespace StarFood.Models
         [Column(TypeName = "decimal(10, 2)")]
         public decimal PrecioCosto { get; set; }
 
-        [Range(0, int.MaxValue, ErrorMessage = "La cantidad existente debe ser un valor positivo.")]
+        [Required(ErrorMessage = "El campo de cantidad es obligatorio.")]
+        [Range(1, int.MaxValue, ErrorMessage = "La cantidad existente debe ser un valor positivo.")]
         public int cantidad { get; set; }
 
         [Required(ErrorMessage = "El precio de venta es obligatorio.")]
