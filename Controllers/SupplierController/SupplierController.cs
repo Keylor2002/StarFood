@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StarFood.Models;
+using StarFood.Models.ViewModels;
 using StarFood.Repository.IRepository;
 
 namespace StarFood.Controllers.SupplierController
@@ -18,8 +19,12 @@ namespace StarFood.Controllers.SupplierController
         }
         public IActionResult Index()
         {
-            IEnumerable<Proveedor> supplierList = _unitOfWork.Proveedor.GetAll();
-            return View(supplierList);
+            var supp = _unitOfWork.Proveedor.GetAll();
+            SupplierVM vm = new SupplierVM();
+            vm.Suppliers = supp;
+
+            //List<Proveedor> supplierList = _unitOfWork.Proveedor.GetAll();
+            return View(vm);
         }
 
         // GET: HomeController/Details/5
