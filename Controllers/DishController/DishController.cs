@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StarFood.Models;
+using StarFood.Models.ViewModels;
 using StarFood.Repository.IRepository;
 
 namespace StarFood.Controllers.DishController
@@ -19,9 +20,21 @@ namespace StarFood.Controllers.DishController
 
         public IActionResult Index()
         {
-            IEnumerable<Platillo> DishList = _unitOfWork.Platillo.GetAll();
-            return View(DishList);
+            var supp = _unitOfWork.Platillo.GetAll();
+            DishVM vm = new DishVM();
+            vm.Dishes = supp;
+
+            //List<Proveedor> supplierList = _unitOfWork.Proveedor.GetAll();
+            return View(vm);
             
+        }
+
+        [HttpGet]
+        public IActionResult GetCategorias()
+        {
+            var categorias = _unitOfWork.Categoria.GetAll();
+            var formattedCategories = categorias.Select(c => new { idCategoria = c.IDCategoria, nombre = c.Nombre });
+            return Json(new { data = formattedCategories });
         }
 
 

@@ -1,64 +1,172 @@
-﻿@model IEnumerable<Platillo>
+﻿@model StarFood.Models.ViewModels.DishVM
 
 @{
-    ViewData["Title"] = "Platillos Index";
+    ViewData["Title"] = "Platillos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-4">
-    <div class="rounded-box">
-        <!-- SearchBox and AddButton -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="~/css/index.css">
+    <link rel="stylesheet" type="text/css" href="~/css/_sidebar.css">
+</head>
+<body>
+    <div class="container mt-4">
         <div class="row mb-3 align-items-center">
-            <div class="col-md-10">
-                <form class="d-flex" method="get" asp-action="Index">
-                    <input class="form-control me-2" type="search" placeholder="Buscar por nombre" aria-label="Buscar" name="searchString">
-                    <button class="btn btn-outline-success" type="submit">Buscar</button>
-                </form>
+            <div class="col-md-8">
+                <h2 class="mb-0">@ViewData["Title"]</h2>
+                <p class="text-muted">Aquí puedes ver todos tus platillos</p>
             </div>
+
+            <div class="col-md-4 text-end">
+                <button class="btn btn-outline-success w-100" data-bs-toggle="modal" data-bs-target="#AddDish">Agregar Platillo</button>
+            </div>
+
+            <!-- Modal para agregar platillo -->
+            <div class="modal fade" id="AddDish" tabindex="-1" aria-labelledby="addDishLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addDishLabel">Agregar nuevo platillo</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="createDishForm">
+                                <div class="mb-3">
+                                    <label for="Nombre" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" id="Nombre" name="Nombre" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="Categoria" class="form-label">Categoría</label>
+                                    <select class="form-select" id="CategoriaDropdown" name="CategoriaID" required>
+                                        <!-- Opciones se llenarán con JavaScript -->
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="Precio" class="form-label">Precio</label>
+                                    <input type="number" class="form-control" id="Precio" name="Precio" step="0.01" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="Descripcion" class="form-label">Descripción</label>
+                                    <textarea id="Descripcion" name="Descripcion"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ImagenUrl" class="form-label">URL de la imagen</label>
+                                    <input type="text" class="form-control" id="ImagenUrl" name="ImagenUrl" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="Suspendido" class="form-label">Suspendido</label>
+                                    <input type="checkbox" class="form-check-input" id="Suspendido" name="Suspendido">
+                                </div>
+                                <button type="submit" class="btn btn-info">Crear</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <!-- Buttons Row -->
-        <div class="row mb-3 text-center">
-            <div class="col-md-4">
-                <a class="btn btn-outline-success w-100" asp-action="Create">Crear</a>
-            </div>
-            @* <div class="col-md-4">
-                <a class="btn btn-outline-warning w-100" asp-action="Edit">Editar</a>
-            </div>
-            <div class="col-md-4">
-                <a class="btn btn-outline-danger w-100" asp-action="Delete">Borrar</a> *@
-            </div>
-        </div>
-        <hr />
-        <!-- Table -->
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().IDPlatillo)</th>
-                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Nombre)</th>
-                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Categoria.Nombre)</th>
-                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Precio)</th>
-                        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Descripcion)</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@Html.DisplayFor(modelItem => item.IDPlatillo)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Categoria.Nombre)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Precio)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Descripcion)</td
-                            <td>
-                                <a class="btn btn-info btn-sm" asp-action="Edit" asp-route-id="@item.IDPlatillo">Editar</a>
-                                <a class="btn btn-info btn-sm" asp-action="Delete" asp-route-id="@item.IDPlatillo">Borrar</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+
+        <div class="row" id="dishCardsContainer">
+            @foreach (var dish in Model.Dishes)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="@dish.ImagenUrl" class="card-img-top" alt="@dish.Nombre">
+                        <div class="card-body">
+                            <h5 class="card-title">@dish.Nombre</h5>
+                            <p class="card-text">@dish.Descripcion</p>
+                            <p class="card-text"><strong>Precio:</strong> @dish.Precio.ToString("C")</p>
+                            <p class="card-text"><strong>Categoría:</strong> @dish.Categoria?.Nombre ?? "Sin categoría"</p>
+                            <p class="card-text"><strong>Suspendido:</strong> @(dish.Suspendido ? "Sí" : "No")</p>
+                            <a href="@Url.Action("Edit", new { id = dish.IDPlatillo })" class="btn btn-primary">Editar</a>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
-</div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap Bundle (incluye Popper.js y Bootstrap JS) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/js/newitem.js"></script>
+    <script src="~/js/_sidebar.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Cargar categorías cuando se abre el modal
+            $('#AddDish').on('show.bs.modal', function () {
+                $.ajax({
+                    url: '@Url.Action("GetCategorias", "Dish")',
+                    type: 'GET',
+                    success: function (data) {
+                        var $dropdown = $('#CategoriaDropdown');
+                        $dropdown.empty();
+                        $.each(data.data, function (key, entry) {
+                            $dropdown.append($('<option></option>').attr('value', entry.idCategoria).text(entry.nombre));
+                        });
+                    }
+                });
+            });
+
+            // Manejar el envío del formulario de creación de platillo
+            $('#createDishForm').on('submit', function (e) {
+                e.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    url: '@Url.Action("Create", "Dish")',
+                    type: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        if (response.success) {
+                            alert('Platillo creado correctamente');
+                            location.reload(); // Recargar la página para ver el nuevo platillo
+                        } else {
+                            alert('Error: ' + response.message);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector: 'textarea#Descripcion',
+            apiKey: 'your-api-key', // Agrega tu API Key aquí
+            height: 300,  // Altura del editor
+            plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+            ],
+            toolbar: 'undo redo | formatselect | ' +
+                'bold italic backcolor | alignleft aligncenter ' +
+                'alignright alignjustify | bullist numlist outdent indent | ' +
+                'removeformat | help',
+            content_style: 'body { font-family: Arial, Helvetica, sans-serif; font-size: 14px }'
+        });
+
+        // Resto del código jQuery...
+    </script>
+
+
+</body>
+</html>
+
