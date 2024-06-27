@@ -5,152 +5,180 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-4">
-    <div class="rounded-box">
-        <h2 class="text-left mb-4">@ViewData["Title"]</h2>
-        <!-- SearchBox and AddButton -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="~/css/index.css">
+    <link rel="stylesheet" type="text/css" href="~/css/_sidebar.css">
+</head>
+
+<body>
+    <div class="container mt-4">
         <div class="row mb-3 align-items-center">
-            <div class="col-md-10">
-                <form class="d-flex" method="get" asp-action="Index">
-                    <input class="form-control me-2" type="search" placeholder="Buscar por nombre o ID" aria-label="Buscar" name="searchString">
-                    <button class="btn btn-info" type="submit">Buscar</button>
-                </form>
+            <div class="col-md-8">
+                <h2 class="mb-0">@ViewData["Title"]</h2>
+                <p class="text-muted">Aquí puedes ver los productos disponibles</p>
+            </div>
+            <div class="col-md-4 text-end">
+                <button id="btnCreateProduct" class="btn btn-info newitem-open"><i class="fas fa-plus"></i> Ingresar Nuevo Producto </button>
             </div>
         </div>
-        <!-- Buttons Row -->
-        <div class="row mb-3 text-center">
-            <div class="col-md-4">
-                <button type="button" class="btn btn-info w-100" data-toggle="modal" data-target="#createProductModal">Crear</button>
-            </div>
-            <div class="col-md-4">
-                <a class="btn btn-info w-100" asp-action="Edit">Editar</a>
-            </div>
-            <div class="col-md-4">
-                <a class="btn btn-info w-100" asp-action="Delete">Eliminar</a>
+
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="alert alert-info" role="alert">
+                    <strong>Total de Productos:</strong> @Model.Item1.Count()
+                </div>
             </div>
         </div>
-        <hr />
-        <!-- Table -->
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>@Html.DisplayNameFor(model => model.Item1.FirstOrDefault().IDProducto)</th>
-                        <th>@Html.DisplayNameFor(model => model.Item1.FirstOrDefault().Nombre)</th>
-                        <th>@Html.DisplayNameFor(model => model.Item1.FirstOrDefault().Categoria)</th>
-                        <th>@Html.DisplayNameFor(model => model.Item1.FirstOrDefault().CantidadExistente)</th>
-                        <th>@Html.DisplayNameFor(model => model.Item1.FirstOrDefault().PrecioVenta)</th>
-                        <th>@Html.DisplayNameFor(model => model.Item1.FirstOrDefault().UnidadMedida)</th>
-                        <th>Agregar cantidad</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Item1)
-                    {
-                        <tr>
-                            <td>@Html.DisplayFor(modelItem => item.IDProducto)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Categoria.Nombre)</td>
-                            <td>@Html.DisplayFor(modelItem => item.CantidadExistente)</td>
-                            <td>@Html.DisplayFor(modelItem => item.PrecioVenta)</td>
-                            <td>@Html.DisplayFor(modelItem => item.UnidadMedida)</td>
-                            <td><button class="btn btn-info" onclick="redirectToCreate()">Agregar</button></td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <input type="text" id="searchProduct" class="form-control" placeholder="Buscar producto...">
+            </div>
+            <div class="col-md-3">
+                <select id="pageSize" class="form-control">
+                    <option value="10">Mostrar 10</option>
+                    <option value="25">Mostrar 25</option>
+                    <option value="50">Mostrar 50</option>
+                </select>
+            </div>
         </div>
-    </div>
-</div>
 
-<!-- Modal -->
-<div class="modal fade" id="createProductModal" tabindex="-1" role="dialog" aria-labelledby="createProductModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="createProductModalLabel">Crear Producto</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form asp-action="Create" method="post" id="create-product-form">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row" id="productCards">
+            @foreach (var product in Model.Item1)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">@product.Nombre</h5>
+                            <p class="card-text">
+                                <strong>Categoría:</strong> @product.Categoria.Nombre<br>
+                                <strong>Precio:</strong> @product.PrecioVenta.ToString("C")<br>
+                                <strong>Cantidad:</strong> @product.CantidadExistente
+                            </p>
+                            <a class="btn btn-primary btn-sm me-2" href="@Url.Action("Edit", new { id = product.IDProducto })" title="Editar">
+                                <i class="fas fa-pencil-alt"></i> Editar
+                            </a>
+                            <button class="btn btn-secondary btn-sm" onclick="copyToClipboard('@product.IDProducto')" title="Copiar ID">
+                                <i class="fas fa-copy"></i> Copiar ID
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
 
-                    <div class="form-group">
-                        <label for="Nombre" class="col-form-label">Nombre:</label>
-                        <input asp-for="Item2.Nombre" class="form-control form-element" />
-                        <span asp-validation-for="Item2.Nombre" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="CategoriaID" class="col-form-label">Categoría:</label>
-                        <select asp-for="Item2.CategoriaID" class="form-control form-element" asp-items="@(ViewBag.Categorias)"></select>
-                        <span asp-validation-for="Item2.CategoriaID" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="PrecioVenta" class="col-form-label">Precio de Venta:</label>
-                        <input asp-for="Item2.PrecioVenta" class="form-control form-element" />
-                        <span asp-validation-for="Item2.PrecioVenta" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="UnidadMedida" class="col-form-label">Unidad de Medida:</label>
-                        <select asp-for="Item2.UnidadMedida" class="form-control form-element" asp-items="@(ViewBag.UnidadesMedida)"></select>
-                        <span asp-validation-for="Item2.UnidadMedida" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="Suspendido" class="col-form-label">Suspendido:</label>
-                        <select asp-for="Item2.Suspendido" class="form-control form-element" asp-items="@(ViewBag.SuspendidoOptions)"></select>
-                        <span asp-validation-for="Item2.Suspendido" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group row justify-content-center mt-3">
-                        <button type="submit" class="btn btn-info mx-2 button-narrow">Crear</button>
-                        <button type="button" class="btn btn-secondary mx-2 button-narrow" data-dismiss="modal">Cancelar</button>
-                    </div>
-                </form>
-            </div>
+        <div class="d-flex justify-content-center">
+            <nav>
+                <ul class="pagination" id="paginationControls">
+                    <!-- Pagination controls will be generated here -->
+                </ul>
+            </nav>
         </div>
     </div>
-</div>
 
-@section Scripts {
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap Bundle (incluye Popper.js y Bootstrap JS) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="~/js/newitem.js"></script>
+    <script src="~/js/_sidebar.js"></script>
+    <script src="~/js/index.js"></script>
+
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#create-product-form').submit(function (e) {
-                e.preventDefault();
-                var form = $(this);
-                $.ajax({
-                    type: form.attr('method'),
-                    url: form.attr('action'),
-                    data: form.serialize(),
-                    success: function (response) {
-                        if (response.success) {
-                            $('#createProductModal').modal('hide');
-                            location.reload();
-                        } else {
-                            $('#createProductModal .modal-body').html(response);
-                        }
-                    }
+            let products = @Html.Raw(Json.Serialize(Model.Item1));
+            let pageSize = 10;
+            let currentPage = 1;
+
+            function renderProducts() {
+                let filteredProducts = products.filter(product =>
+                    product.Nombre.toLowerCase().includes($('#searchProduct').val().toLowerCase())
+                );
+
+                let paginatedProducts = filteredProducts.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
+                $('#productCards').html('');
+                paginatedProducts.forEach(product => {
+                    $('#productCards').append(`
+                                <div class="col-md-4 mb-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">${product.Nombre}</h5>
+                                            <p class="card-text">
+                                                <strong>Categoría:</strong> ${product.Categoria.Nombre}<br>
+                                                <strong>Precio:</strong> ${product.PrecioVenta.toFixed(2)}<br>
+                                                <strong>Cantidad:</strong> ${product.CantidadExistente}
+                                            </p>
+                                            <a class="btn btn-primary btn-sm me-2" href="@Url.Action("Edit", new { id = "product.IDProducto" })" title="Editar">
+                                                <i class="fas fa-pencil-alt"></i> Editar
+                                            </a>
+                                            <button class="btn btn-secondary btn-sm" onclick="copyToClipboard('${product.IDProducto}')" title="Copiar ID">
+                                                <i class="fas fa-copy"></i> Copiar ID
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `);
                 });
+
+                renderPagination(filteredProducts.length);
+            }
+
+            function renderPagination(totalItems) {
+                let totalPages = Math.ceil(totalItems / pageSize);
+                $('#paginationControls').html('');
+                for (let i = 1; i <= totalPages; i++) {
+                    $('#paginationControls').append(`
+                                <li class="page-item ${i === currentPage ? 'active' : ''}">
+                                    <a class="page-link" href="#">${i}</a>
+                                </li>
+                            `);
+                }
+            }
+
+            $('#searchProduct').on('input', function () {
+                currentPage = 1;
+                renderProducts();
             });
+
+            $('#pageSize').on('change', function () {
+                pageSize = parseInt($(this).val());
+                currentPage = 1;
+                renderProducts();
+            });
+
+            $('#paginationControls').on('click', 'a', function (e) {
+                e.preventDefault();
+                currentPage = parseInt($(this).text());
+                renderProducts();
+            });
+
+            renderProducts();
         });
 
-        function redirectToCreate() {
-            window.location.href = '@Url.Action("Create", "TransactProduct")';
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function () {
+                alert('ID copiado al portapapeles: ' + text);
+            }, function (err) {
+                console.error('No se pudo copiar el texto: ', err);
+            });
         }
     </script>
-}
-
-<style>
-    .form-element {
-        width: 100%;
-    }
-
-    .button-narrow {
-        width: 100px; /* Ancho de los botones */
-    }
-
-    h2.text-left {
-        margin-bottom: 30px; /* Espacio adicional entre el título y la barra de búsqueda */
-    }
-</style>
+</body>
+</html>
