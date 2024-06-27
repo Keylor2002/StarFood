@@ -1,4 +1,4 @@
-﻿﻿﻿@{
+﻿@{
     ViewData["Title"] = "Home Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -7,37 +7,34 @@
 <html>
 <head>
     <div class="header-container">
-        <h1>Soda Starfood</h1>
         <a href="tu-enlace-de-WhatsApp" class="whatsapp-button">
             <i class="bi bi-whatsapp"></i>
         </a>
     </div>
-
 </head>
 <body>
     <!-- Contenido de la página, incluyendo el carrusel -->
-    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
+    <div id="carouselExampleAutoplaying" class="carousel slide custom-carousel mt-5" data-bs-ride="carousel">
+        <div class="carousel-inner custom-carousel-inner">
 
             <div class="carousel-item active">
                 <img src="\Imagenes\comida.jpg" class="d-block w-100 carousel-img" alt="...">
-                <div class="carousel-caption">
-                    <h1>Bienvenidos Al Home Administrador</h1>
+                <div class="carousel-caption custom-carousel-caption">
+                    <h1>Bienvenidos a Starfood</h1>
                 </div>
             </div>
 
             <div class="carousel-item">
                 <img src="\Imagenes\casado.jpg" class="d-block w-100 carousel-img" alt="...">
-                <div class="carousel-caption">
-                    <h1>Variedad de platillos</h1>
+                <div class="carousel-caption custom-carousel-caption">
+                    <h1>Tus Comidas Favoritas</h1>
                 </div>
             </div>
 
-
             <div class="carousel-item">
                 <img src="\Imagenes\ensalada.jpg" class="d-block w-100 carousel-img" alt="...">
-                <div class="carousel-caption">
-                    <h1>Disfruta de nuestra variedad de platillos</h1>
+                <div class="carousel-caption custom-carousel-caption">
+                    <h1>Disfruta de Nuestra Variedad de Platillos</h1>
                 </div>
             </div>
 
@@ -51,8 +48,9 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-    <div>
-        <h2>Elige una opcion</h2>
+    <div class="mt-3">
+        <!-- Reducido el margen superior -->
+        <h2>Analisis de Datos</h2>
     </div>
 
     <section class="container">
@@ -60,10 +58,11 @@
 
             <div class="col">
                 <a href="/otra-vista">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title" style="color: black"><i class="bi bi-basket"></i> Inventario</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <div class="card fixed-card-size">
+                        <!-- Clase para tamaño fijo -->
+                        <div class="card-body reduced-space-card-body">
+                            <p class="card-text reduced-margin-text">Niveles de Inventario</p>
+                            <canvas id="inventoryChart"></canvas> <!-- Gráfico de inventario -->
                         </div>
                     </div>
                 </a>
@@ -71,10 +70,11 @@
 
             <div class="col">
                 <a href="/otra-vista">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title" style="color: black"><i class="bi bi-newspaper"></i> Facturas</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <div class="card fixed-card-size">
+                        <!-- Clase para tamaño fijo -->
+                        <div class="card-body reduced-space-card-body">
+                            <p class="card-text reduced-margin-text">Estadísticas de Facturación</p>
+                            <canvas id="billingChart"></canvas> <!-- Gráfico de facturación -->
                         </div>
                     </div>
                 </a>
@@ -82,10 +82,11 @@
 
             <div class="col">
                 <a href="/otra-vista">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title" style="color: black"><i class="bi bi-inboxes-fill"></i> Productos</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <div class="card fixed-card-size">
+                        <!-- Clase para tamaño fijo -->
+                        <div class="card-body reduced-space-card-body">
+                            <p class="card-text reduced-margin-text">Productos más Vendidos</p>
+                            <canvas id="productsChart"></canvas> <!-- Gráfico de productos -->
                         </div>
                     </div>
                 </a>
@@ -94,70 +95,152 @@
         </div>
     </section>
 
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Scripts para generar los gráficos -->
+    <script>
+        // Gráfico de Inventario
+        var ctx = document.getElementById('inventoryChart').getContext('2d');
+        var inventoryChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Producto 1', 'Producto 2', 'Producto 3'],
+                datasets: [{
+                    label: 'Cantidad en Inventario',
+                    data: [10, 20, 30],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Gráfico de Facturación
+        var ctx = document.getElementById('billingChart').getContext('2d');
+        var billingChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Enero', 'Febrero', 'Marzo'],
+                datasets: [{
+                    label: 'Facturación',
+                    data: [1000, 2000, 3000],
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Gráfico de Productos Más Vendidos
+        var ctx = document.getElementById('productsChart').getContext('2d');
+        var productsChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Producto A', 'Producto B', 'Producto C'],
+                datasets: [{
+                    label: 'Ventas',
+                    data: [300, 500, 200],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+    </script>
 
 </body>
 
-<script>
-    // FilterBox
-    const searchInput = document.getElementById('searchInput');
-    searchInput.addEventListener('input', filterTable);
-
-    function filterTable() {
-        const searchTerm = searchInput.value.toLowerCase();
-        const rows = document.querySelectorAll('#categoryTable tbody tr');
-
-        rows.forEach(row => {
-            const name = row.querySelector('td:first-child').textContent.toLowerCase();
-            const category = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
-
-            if (name.includes(searchTerm) || category.includes(searchTerm)) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
-        });
+<style>
+    .custom-carousel {
+        height: 40vh; /* Ajusta la altura del carrusel */
+        margin-top: 2rem; /* Añade mayor margen superior */
     }
 
-    // Add event to SeeOptions
-    document.getElementById('dropdownButton').addEventListener('click', function () {
-        // Verify if the SeeOptions is open
-        if (document.getElementById('dropdown').classList.contains('show')) {
-            // Close the SeeOptions
-            document.getElementById('dropdown').classList.remove('show');
-        } else {
-            // Open the SeeOptions
-            document.getElementById('dropdown').classList.add('show');
+    .custom-carousel-inner {
+        height: 100%;
+    }
+
+    .custom-carousel-caption {
+        top: 40%; /* Ajusta el valor para mover el texto más hacia arriba */
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        font-size: 4rem; /* Tamaño de fuente grande */
+        font-weight: bold; /* Negrita */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra para destacar el texto */
+    }
+
+    .whatsapp-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #25d366;
+        color: white;
+        padding: 10px;
+        border-radius: 50%;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+        .whatsapp-button i {
+            font-size: 24px;
         }
-    });
 
-    // Mostrar el preview al pasar el mouse sobre la fila
-    const rows = document.querySelectorAll('#categoryTable tbody tr');
-
-    rows.forEach(row => {
-        row.addEventListener('mouseenter', showPreview);
-        row.addEventListener('mouseleave', hidePreview);
-    });
-
-    function showPreview(event) {
-        const row = event.currentTarget;
-        const name = row.querySelector('td:first-child').textContent;
-        const category = row.querySelector('td:nth-child(2)').textContent;
-        const price = row.querySelector('td:nth-child(3)').textContent;
-
-        // Crea y muestra el elemento de preview
-        const preview = document.createElement('div');
-        preview.classList.add('preview');
-        preview.innerHTML = `
-                <h5>${name}</h5>
-                <p>Categoría: ${category}</p>
-                <p>Precio: ${price}</p>
-            `;
-        row.appendChild(preview);
+    .mt-5 {
+        margin-top: 2rem !important;
     }
 
-    function hidePreview(event) {
-        const row = event.currentTarget;
-        const preview = row.querySelector('.preview');
-        row.removeChild(preview);
+    .card-text {
+        margin-bottom: 0.25rem; /* Reducir margen inferior */
     }
-</script>
+
+    canvas {
+        max-height: 200px;
+        margin: 0 auto;
+    }
+
+    .fixed-card-size {
+        height: 270px; /* Ajusta la altura según sea necesario */
+    }
+
+    .reduced-space-card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; /* Alinear al inicio para reducir espacio */
+        padding: 0.5rem; /* Ajusta el padding */
+    }
+
+    .reduced-margin-text {
+        margin: 0.5rem 0 1rem 0; /* Reduce el espacio entre el texto y el gráfico */
+    }
+</style>
+
+</html>
