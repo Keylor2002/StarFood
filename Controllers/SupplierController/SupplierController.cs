@@ -36,7 +36,8 @@ namespace StarFood.Controllers.SupplierController
         // GET: HomeController/Create
         public IActionResult Create()
         {
-            return View();
+            Proveedor supp = new Proveedor();
+            return PartialView("_CreateSupplier", supp);
         }
 
         // POST: HomeController/Create
@@ -55,25 +56,20 @@ namespace StarFood.Controllers.SupplierController
         }
 
         // GET: HomeController/Edit/5
-        public IActionResult Edit(int? id)
+        public IActionResult Edit(int id)
         {
-            if (id == null)
+            var supp = _unitOfWork.Proveedor.GetFirstOrDefault(x => x.IDProveedor == id, null);
+
+            if (supp == null)
             {
                 return NotFound();
             }
-
-            var user = _unitOfWork.Proveedor.GetFirstOrDefault(x => x.IDProveedor == id, null);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return View(user);
+            return PartialView("_EditSupplier", supp);
         }
 
         // POST: HomeController/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public IActionResult Edit(Proveedor supplier)
         {
             if (ModelState.IsValid)

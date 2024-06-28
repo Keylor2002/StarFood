@@ -1,12 +1,8 @@
 ﻿@model StarFood.Models.ViewModels.SupplierVM
 
 @{
-
-
     ViewData["Title"] = "Proveedor Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
-
 }
 
 
@@ -39,62 +35,10 @@
                 <p class="text-muted">Aquí puedes ver todos tus proveedores</p>
             </div>
 
-           @*Acá inicia el model para la ventana flotante de agregar proveedores*@
-
-
-           @*  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddSupplier">
-                Agregar proveedor
-            </button> *@
-
             <div class="col-md-4 text-end">
             <a class="btn btn-outline-success w-100" data-toggle="modal" data-target="#AddSupplier">Agregar proveedor</a>
             </div>
-
-            <!-- Modal -->
-            <div class="modal" id="AddSupplier" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Agregar nuevo proveedor</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form asp-action="Create">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <div class="row mb-3">
-                                    <div class="col-sm-6 mx-auto">
-                                        <!-- Centrar la primera fila -->
-                                        <div class="form-group">
-                                            <label for="Empresa" class="col-form-label">Empresa:</label>
-                                            <input asp-for="Supplier.Empresa" class="form-control" />
-                                            <span asp-validation-for="Supplier.Empresa" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="Contacto" class="col-form-label">Contacto:</label>
-                                            <input asp-for="Supplier.Contacto" class="form-control" />
-                                            <span asp-validation-for="Supplier.Contacto" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="Nombre" class="col-form-label">Nombre:</label>
-                                            <input asp-for="Supplier.Nombre" class="form-control" />
-                                            <span asp-validation-for="Supplier.Nombre" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-info">Crear</button>
-                                    <a asp-action="Index" class="btn btn-info">Cancelar</a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        @*Acá termina el model para la ventana flotante de agregar proveedores*@
+            @await Html.PartialAsync("_CreateSupplier", new Proveedor())
 
         <div class="row mb-4">
             <div class="col-md-12">
@@ -103,8 +47,8 @@
                 </div>
             </div>
         </div>
-
-        <table id="categoriesTable" class="table table-striped nowrap" style="width:100%">
+        <input type="hidden" id="EditId"/>
+        <table id="SuppliersTable" class="table table-striped nowrap" style="width:100%">
             <thead>
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.Suppliers.FirstOrDefault().IDProveedor)</th>
@@ -122,13 +66,16 @@
                         <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
                         <td>@Html.DisplayFor(modelItem => item.Empresa)</td>
                         <td>@Html.DisplayFor(modelItem => item.Contacto)</td>
-                        <td class="d-flex justify-content-end">
-                            <a class="btn btn-primary btn-sm me-2" href="@Url.Action("Edit", new { id = item.IDProveedor })" title="Editar">
+                        <td class="d-flex justify-content-center">
+                        <button type="button" class="btn btn-primary btn-sm me-2" data-toggle="modal" data-target="@("#EditSupplier-"+item.IDProveedor)" data-url="@Url.Action($"Edit/{item.IDProveedor}")">
                                 <i class="fas fa-pencil-alt"></i>
-                            </a>
-                            <button class="btn btn-secondary btn-sm" onclick="copyToClipboard('@item.IDProveedor')" title="Copiar ID">
-                                <i class="fas fa-copy"></i>
-                            </button>
+                        </button>
+                        @await Html.PartialAsync("_EditSupplier", item)
+                        <button class="btn btn-secondary btn-sm" onclick="copyToClipboard('@item.IDProveedor')" title="Copiar ID">
+                            <i class="fas fa-copy"></i>
+                        </button>
+
+                        
                         </td>
                     </tr>
                 }
@@ -153,9 +100,10 @@
     <script src="~/js/_sidebar.js"></script>
     <script src="~/js/index.js"></script>
 
-    <script type="text/javascript">
+
+        <script type="text/javascript">
         $(document).ready(function () {
-            $('#categoriesTable').DataTable({
+            $('#SuppliersTable').DataTable({
                 responsive: true,
                 language: {
                     search: "Buscar:",
@@ -178,13 +126,13 @@
             });
         });
 
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(function () {
-                alert('ID copiado al portapapeles: ' + text);
-            }, function (err) {
-                console.error('No se pudo copiar el texto: ', err);
-            });
-        }
-    </script>
+            function copyToClipboard(text) {
+                navigator.clipboard.writeText(text).then(function () {
+                    alert('ID copiado al portapapeles: ' + text);
+                }, function (err) {
+                    console.error('No se pudo copiar el texto: ', err);
+                });
+            }
+        </script>
 </body>
 </html>
