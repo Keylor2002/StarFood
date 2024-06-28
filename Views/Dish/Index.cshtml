@@ -69,7 +69,7 @@
         <script src="~/js/index.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            // Cargar categorías cuando se abre el modal
+   
             $('#AddDish').on('show.bs.modal', function () {
                 $.ajax({
                     url: '@Url.Action("GetCategorias", "Dish")',
@@ -85,21 +85,21 @@
             });
                 $('#createDishForm').on('submit', function (e) {
                     e.preventDefault();
-                    var formData = new FormData(this); // Captura todos los datos del formulario, incluidos los archivos
+                    var formData = new FormData(this); 
                     console.log(formData);
                     $.ajax({
                         url: '@Url.Action("Create", "Dish")',
                         type: 'POST',
                         data: formData,
-                        processData: false, // Necesario para enviar data como FormData
-                        contentType: false, // Necesario para enviar data como FormData
+                        processData: false, 
+                        contentType: false, 
                         success: function (response) {
                             if (response.success) {
                                 alert('Imagen subida correctamente');
-                                // Realizar alguna acción después de una carga exitosa
+                               
                             } else {
                                 alert('Error: ' + response.errors.join(', '));
-                                // Manejar errores según sea necesario
+          
                             }
                         },
                         error: function (xhr, status, error) {

@@ -59,7 +59,7 @@ namespace StarFood.Controllers.DishController
 
             {
                 Console.WriteLine("Descripcion antes de sanitizar: " + platillo.Descripcion);
-                var sanitizer = new HtmlSanitizer();
+                
 
                 var categoriaExistente = _unitOfWork.Categoria.GetFirstOrDefault(c => c.IDCategoria == platillo.CategoriaID, null);
                 if (categoriaExistente == null)
@@ -70,11 +70,11 @@ namespace StarFood.Controllers.DishController
                 {
                     platillo.Categoria = categoriaExistente;
 
-                    // Debug: Verificar que la categoría se asignó correctamente
-                    Console.WriteLine("Categoria asignada: " + platillo.Categoria.Nombre);
+            
+                  
                 }
-                    platillo.Descripcion = sanitizer.Sanitize(platillo.Descripcion);
-                Console.WriteLine("Descripcion después de sanitizar: " + platillo.Descripcion);
+                   
+              
 
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
 
