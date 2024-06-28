@@ -43,32 +43,42 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form id="createDishForm">
+                            <form asp-action="Create">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <div class="mb-3">
                                     <label for="Nombre" class="form-label">Nombre</label>
-                                    <input type="text" class="form-control" id="Nombre" name="Nombre" required>
+                                    <input asp-for="Dish.Nombre" class="form-control" />
+                                    <span asp-validation-for="Dish.Nombre" class="text-danger"></span>
                                 </div>
                                 <div class="mb-3">
                                     <label for="Categoria" class="form-label">Categoría</label>
-                                    <select class="form-select" id="CategoriaDropdown" name="CategoriaID" required>
-                                        <!-- Opciones se llenarán con JavaScript -->
+                                    <select asp-for="Dish.Categoria" class="form-select" id="CategoriaDropdown" name="CategoriaID" required>
+                                        
                                     </select>
+
                                 </div>
                                 <div class="mb-3">
                                     <label for="Precio" class="form-label">Precio</label>
-                                    <input type="number" class="form-control" id="Precio" name="Precio" step="0.01" required>
+                                    <input asp-for="Dish.Precio" class="form-control" />
+                                    <span asp-validation-for="Dish.Precio" class="text-danger"></span>
                                 </div>
                                 <div class="mb-3">
                                     <label for="Descripcion" class="form-label">Descripción</label>
-                                    <textarea id="Descripcion" name="Descripcion"></textarea>
+                                    <textarea asp-for="Dish.Descripcion" id="Descripcion" name="Descripcion"></textarea>
+                                    <span asp-validation-for="Dish.Descripcion" class="text-danger"></span>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="ImagenUrl" class="form-label">URL de la imagen</label>
-                                    <input type="text" class="form-control" id="ImagenUrl" name="ImagenUrl" required>
+                                    <label for="ImagenUrl" class="form-label">Seleccionar Imagen</label>
+                                    <div class="input-group">
+                                        <input asp-for="Dish.ImagenUrl" type="file" class="form-control" id="ImagenUrl" name="fileUpload" accept="image/*">
+                                        <span asp-validation-for="Dish.ImagenUrl" class="text-danger"></span>
+                                    </div>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="Suspendido" class="form-label">Suspendido</label>
-                                    <input type="checkbox" class="form-check-input" id="Suspendido" name="Suspendido">
+                                <div class="form-group">
+                                    <label for="Suspendido" class="form-label">
+                                        <span>Suspendido</span>
+                                        <input type="checkbox" class="custom-checkbox" id="Suspendido" name="Suspendido">
+                                    </label>
                                 </div>
                                 <button type="submit" class="btn btn-info">Crear</button>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -152,14 +162,12 @@
             apiKey: 'your-api-key', // Agrega tu API Key aquí
             height: 300,  // Altura del editor
             plugins: [
-                'advlist autolink lists link image charmap print preview anchor',
-                'searchreplace visualblocks code fullscreen',
-                'insertdatetime media table paste code help wordcount'
+                'advlist autolink lists charmap print preview anchor',
+                'searchreplace code fullscreen',
+                'insertdatetime table paste code wordcount'
             ],
-            toolbar: 'undo redo | formatselect | ' +
-                'bold italic backcolor | alignleft aligncenter ' +
-                'alignright alignjustify | bullist numlist outdent indent | ' +
-                'removeformat | help',
+            toolbar: 'undo redo | alignleft aligncenter ' +
+                'alignright alignjustify | bullist numlist outdent indent | ',
             content_style: 'body { font-family: Arial, Helvetica, sans-serif; font-size: 14px }'
         });
 

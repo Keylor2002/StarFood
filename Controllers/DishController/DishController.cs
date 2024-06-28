@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StarFood.Models;
 using StarFood.Models.ViewModels;
+using StarFood.Repository;
 using StarFood.Repository.IRepository;
 
 namespace StarFood.Controllers.DishController
@@ -46,9 +48,31 @@ namespace StarFood.Controllers.DishController
         // Works
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public IActionResult Create([FromBody]Platillo platillo)
+        public IActionResult Create([FromBody]Platillo platillo, IFormFile? file)
         {
+            //if (ModelState.IsValid)
+            //{
+
+            //    var categoriaExistente = _unitOfWork.Categoria.GetFirstOrDefault(c => c.IDCategoria == platillo.CategoriaID, null);
+            //    if (categoriaExistente == null)
+            //    {
+            //        return BadRequest("Categoría no encontrada.");
+            //    }
+
+
+            //    _unitOfWork.Platillo.Add(platillo);
+            //    _unitOfWork.Save();
+
+            //    return Json(new { success = true, message = "Platillo creado correctamente" });
+            //}
+            ////TempData["success"] = "Platillo creado correctamente";
+            ////return RedirectToAction("Index");
+            //return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
+
+
             if (ModelState.IsValid)
+
+
             {
 
                 var categoriaExistente = _unitOfWork.Categoria.GetFirstOrDefault(c => c.IDCategoria == platillo.CategoriaID, null);
@@ -57,16 +81,34 @@ namespace StarFood.Controllers.DishController
                     return BadRequest("Categoría no encontrada.");
                 }
 
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
 
+                if (file != null)
+                {
+                    string fileName = Guid.NewGuid().ToString();
+                    var uploads = Path.Combine(wwwRootPath, @"imagenes\");
+                    var extension = Path.GetExtension(file.FileName);
+
+                    using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+                    {
+                        file.CopyTo(fileStreams);
+                    }
+
+                    platillo.ImagenUrl = @"images\products\" + fileName + extension;
+                }
+
+                // Crear nuevo producto
                 _unitOfWork.Platillo.Add(platillo);
                 _unitOfWork.Save();
 
-                return Json(new { success = true, message = "Platillo creado correctamente" });
+
+                
             }
-            //TempData["success"] = "Platillo creado correctamente";
-            //return RedirectToAction("Index");
-            return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
+
+            // Si el modelo no es válido, volver a la vista con el modelo
+            return View(platillo);
         }
+    
 
 
         // Works

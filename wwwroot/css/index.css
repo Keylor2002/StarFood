@@ -67,6 +67,20 @@
     margin-bottom: 1.5rem;
 }
 
+.checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid black;
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle; 
+    margin-right: 10px;
+}
+
+
 .card-title {
     font-size: 1.25rem;
     font-weight: bold;
