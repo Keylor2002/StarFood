@@ -5,6 +5,7 @@ using StarFood.Models;
 using StarFood.Models.ViewModels;
 using StarFood.Repository;
 using StarFood.Repository.IRepository;
+using Ganss.Xss;
 
 namespace StarFood.Controllers.DishController
 {
@@ -42,44 +43,38 @@ namespace StarFood.Controllers.DishController
 
         public IActionResult Create()
         {
-            return View();
+            Platillo plat = new Platillo();
+            return PartialView("Create", plat);
         }
+
 
         // Works
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public IActionResult Create([FromBody]Platillo platillo, IFormFile? file)
+        public IActionResult Create(Platillo platillo, IFormFile file)
         {
-            //if (ModelState.IsValid)
-            //{
-
-            //    var categoriaExistente = _unitOfWork.Categoria.GetFirstOrDefault(c => c.IDCategoria == platillo.CategoriaID, null);
-            //    if (categoriaExistente == null)
-            //    {
-            //        return BadRequest("Categoría no encontrada.");
-            //    }
-
-
-            //    _unitOfWork.Platillo.Add(platillo);
-            //    _unitOfWork.Save();
-
-            //    return Json(new { success = true, message = "Platillo creado correctamente" });
-            //}
-            ////TempData["success"] = "Platillo creado correctamente";
-            ////return RedirectToAction("Index");
-            //return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
-
 
             if (ModelState.IsValid)
 
 
             {
+                Console.WriteLine("Descripcion antes de sanitizar: " + platillo.Descripcion);
+                var sanitizer = new HtmlSanitizer();
 
                 var categoriaExistente = _unitOfWork.Categoria.GetFirstOrDefault(c => c.IDCategoria == platillo.CategoriaID, null);
                 if (categoriaExistente == null)
                 {
                     return BadRequest("Categoría no encontrada.");
                 }
+                else
+                {
+                    platillo.Categoria = categoriaExistente;
+
+                    // Debug: Verificar que la categoría se asignó correctamente
+                    Console.WriteLine("Categoria asignada: " + platillo.Categoria.Nombre);
+                }
+                    platillo.Descripcion = sanitizer.Sanitize(platillo.Descripcion);
+                Console.WriteLine("Descripcion después de sanitizar: " + platillo.Descripcion);
 
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
 
@@ -94,21 +89,22 @@ namespace StarFood.Controllers.DishController
                         file.CopyTo(fileStreams);
                     }
 
-                    platillo.ImagenUrl = @"images\products\" + fileName + extension;
+                    platillo.ImagenUrl = @"imagenes\" + fileName + extension;
                 }
 
+                
                 // Crear nuevo producto
                 _unitOfWork.Platillo.Add(platillo);
                 _unitOfWork.Save();
 
 
-                
-            }
 
+            }
+            return View(Index);
             // Si el modelo no es válido, volver a la vista con el modelo
-            return View(platillo);
+            //return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
         }
-    
+
 
 
         // Works

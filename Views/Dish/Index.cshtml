@@ -33,62 +33,8 @@
             <div class="col-md-4 text-end">
                 <button class="btn btn-outline-success w-100" data-bs-toggle="modal" data-bs-target="#AddDish">Agregar Platillo</button>
             </div>
-
-            <!-- Modal para agregar platillo -->
-            <div class="modal fade" id="AddDish" tabindex="-1" aria-labelledby="addDishLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="addDishLabel">Agregar nuevo platillo</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form asp-action="Create">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <div class="mb-3">
-                                    <label for="Nombre" class="form-label">Nombre</label>
-                                    <input asp-for="Dish.Nombre" class="form-control" />
-                                    <span asp-validation-for="Dish.Nombre" class="text-danger"></span>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="Categoria" class="form-label">Categoría</label>
-                                    <select asp-for="Dish.Categoria" class="form-select" id="CategoriaDropdown" name="CategoriaID" required>
-                                        
-                                    </select>
-
-                                </div>
-                                <div class="mb-3">
-                                    <label for="Precio" class="form-label">Precio</label>
-                                    <input asp-for="Dish.Precio" class="form-control" />
-                                    <span asp-validation-for="Dish.Precio" class="text-danger"></span>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="Descripcion" class="form-label">Descripción</label>
-                                    <textarea asp-for="Dish.Descripcion" id="Descripcion" name="Descripcion"></textarea>
-                                    <span asp-validation-for="Dish.Descripcion" class="text-danger"></span>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="ImagenUrl" class="form-label">Seleccionar Imagen</label>
-                                    <div class="input-group">
-                                        <input asp-for="Dish.ImagenUrl" type="file" class="form-control" id="ImagenUrl" name="fileUpload" accept="image/*">
-                                        <span asp-validation-for="Dish.ImagenUrl" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="Suspendido" class="form-label">
-                                        <span>Suspendido</span>
-                                        <input type="checkbox" class="custom-checkbox" id="Suspendido" name="Suspendido">
-                                    </label>
-                                </div>
-                                <button type="submit" class="btn btn-info">Crear</button>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+            @await Html.PartialAsync("Create", new Platillo())
+           
 
         <div class="row" id="dishCardsContainer">
             @foreach (var dish in Model.Dishes)
@@ -98,9 +44,9 @@
                         <img src="@dish.ImagenUrl" class="card-img-top" alt="@dish.Nombre">
                         <div class="card-body">
                             <h5 class="card-title">@dish.Nombre</h5>
-                            <p class="card-text">@dish.Descripcion</p>
+                            <p class="card-text">@dish.Descripcion </p>
                             <p class="card-text"><strong>Precio:</strong> @dish.Precio.ToString("C")</p>
-                            <p class="card-text"><strong>Categoría:</strong> @dish.Categoria?.Nombre ?? "Sin categoría"</p>
+                            <p class="card-text"><strong>Categoría:</strong> @dish.Categoria.Nombre</p>
                             <p class="card-text"><strong>Suspendido:</strong> @(dish.Suspendido ? "Sí" : "No")</p>
                             <a href="@Url.Action("Edit", new { id = dish.IDPlatillo })" class="btn btn-primary">Editar</a>
                         </div>
@@ -116,9 +62,11 @@
     <!-- Bootstrap Bundle (incluye Popper.js y Bootstrap JS) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="~/js/newitem.js"></script>
-    <script src="~/js/_sidebar.js"></script>
-
+        <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.min.js"></script>
+        <script src="~/js/newitem.js"></script>
+        <script src="~/js/_sidebar.js"></script>
+        <script src="~/js/index.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             // Cargar categorías cuando se abre el modal
@@ -135,25 +83,48 @@
                     }
                 });
             });
-
-            // Manejar el envío del formulario de creación de platillo
-            $('#createDishForm').on('submit', function (e) {
-                e.preventDefault();
-                var formData = $(this).serialize();
-                $.ajax({
-                    url: '@Url.Action("Create", "Dish")',
-                    type: 'POST',
-                    data: formData,
-                    success: function (response) {
-                        if (response.success) {
-                            alert('Platillo creado correctamente');
-                            location.reload(); // Recargar la página para ver el nuevo platillo
-                        } else {
-                            alert('Error: ' + response.message);
+                $('#createDishForm').on('submit', function (e) {
+                    e.preventDefault();
+                    var formData = new FormData(this); // Captura todos los datos del formulario, incluidos los archivos
+                    console.log(formData);
+                    $.ajax({
+                        url: '@Url.Action("Create", "Dish")',
+                        type: 'POST',
+                        data: formData,
+                        processData: false, // Necesario para enviar data como FormData
+                        contentType: false, // Necesario para enviar data como FormData
+                        success: function (response) {
+                            if (response.success) {
+                                alert('Imagen subida correctamente');
+                                // Realizar alguna acción después de una carga exitosa
+                            } else {
+                                alert('Error: ' + response.errors.join(', '));
+                                // Manejar errores según sea necesario
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Error al subir la imagen:', error);
                         }
-                    }
+                    });
                 });
-            });
+            // Manejar el envío del formulario de creación de platillo
+            // $('#createDishForm').on('submit', function (e) {
+            //     e.preventDefault();
+            //     var formData = $(this).serialize();
+            //     $.ajax({
+
+            //         type: 'POST',
+            //         data: formData,
+            //         success: function (response) {
+            //             if (response.success) {
+            //                 alert('Platillo creado correctamente');
+            //                 location.reload(); // Recargar la página para ver el nuevo platillo
+            //             } else {
+            //                 alert('Error: ' + response.message);
+            //             }
+            //         }
+            //     });
+            // });
         });
     </script>
     <script type="text/javascript">
