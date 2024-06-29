@@ -46,7 +46,7 @@
                             <h5 class="card-title">@dish.Nombre</h5>
                             <p class="card-text">@dish.Descripcion </p>
                             <p class="card-text"><strong>Precio:</strong> @dish.Precio.ToString("C")</p>
-                            <p class="card-text"><strong>Categoría:</strong> @dish.Categoria</p>
+                            <p class="card-text"><strong>Categoría:</strong> @dish.Categoria.Nombre</p>
                             <p class="card-text"><strong>Suspendido:</strong> @(dish.Suspendido ? "Sí" : "No")</p>
                             <a href="@Url.Action("Edit", new { id = dish.IDPlatillo })" class="btn btn-primary">Editar</a>
                         </div>

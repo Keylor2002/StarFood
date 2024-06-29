@@ -24,8 +24,10 @@ namespace StarFood.Controllers.DishController
         public IActionResult Index()
         {
             var supp = _unitOfWork.Platillo.GetAll();
+            var cate = _unitOfWork.Categoria.GetAll();
             DishVM vm = new DishVM();
             vm.Dishes = supp;
+            vm.Categorias = cate;
 
             //List<Proveedor> supplierList = _unitOfWork.Proveedor.GetAll();
             return View(vm);
@@ -58,10 +60,9 @@ namespace StarFood.Controllers.DishController
 
 
             {
-                Console.WriteLine("Descripcion antes de sanitizar: " + platillo.Descripcion);
-                
 
-                var categoriaExistente = _unitOfWork.Categoria.GetFirstOrDefault(c => c.IDCategoria == platillo.CategoriaID, null);
+                var categorias = _unitOfWork.Categoria.GetAll();
+                var categoriaExistente = categorias.FirstOrDefault(c => c.IDCategoria == platillo.CategoriaID);
                 if (categoriaExistente == null)
                 {
                     return BadRequest("Categoría no encontrada.");
