@@ -29,6 +29,7 @@ namespace StarFood.Models
 
         public string Descripcion { get; set; }
 
+        [ValidateNever]
         public bool Suspendido { get; set; }
         [ValidateNever]
         public string ImagenUrl { get; set; }

@@ -35,7 +35,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="Descripcion" class="form-label">Descripción</label>
-                        <textarea asp-for="Descripcion" id="Descripcion" name="Descripcion"></textarea>
+                        <textarea asp-for="Descripcion" id="Descripcion" name="Descripcion" class="form-control"></textarea>
                         <span asp-validation-for="Descripcion" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
@@ -45,12 +45,7 @@
                             <span asp-validation-for="ImagenUrl" class="text-danger"></span>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="Suspendido" class="form-label">
-                            <span>Suspendido</span>
-                            <input type="checkbox" class="custom-checkbox" id="Suspendido" name="Suspendido">
-                        </label>
-                    </div>
+                    
                     <button type="submit" class="btn btn-info">Crear</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 </form>

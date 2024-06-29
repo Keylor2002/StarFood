@@ -107,27 +107,11 @@
                         }
                     });
                 });
-            // Manejar el envío del formulario de creación de platillo
-            // $('#createDishForm').on('submit', function (e) {
-            //     e.preventDefault();
-            //     var formData = $(this).serialize();
-            //     $.ajax({
-
-            //         type: 'POST',
-            //         data: formData,
-            //         success: function (response) {
-            //             if (response.success) {
-            //                 alert('Platillo creado correctamente');
-            //                 location.reload(); // Recargar la página para ver el nuevo platillo
-            //             } else {
-            //                 alert('Error: ' + response.message);
-            //             }
-            //         }
-            //     });
-            // });
+            
         });
     </script>
-    <script type="text/javascript">
+    
+    @* <script>
         tinymce.init({
             selector: 'textarea#Descripcion',
             apiKey: 'your-api-key', // Agrega tu API Key aquí
@@ -139,11 +123,29 @@
             ],
             toolbar: 'undo redo | alignleft aligncenter ' +
                 'alignright alignjustify | bullist numlist outdent indent | ',
-            content_style: 'body { font-family: Arial, Helvetica, sans-serif; font-size: 14px }'
+            content_style: 'body { font-family: Arial, Helvetica, sans-serif; font-size: 14px }' 
+            
         });
 
-        // Resto del código jQuery...
-    </script>
+    </script> *@
+
+        <script>
+
+            document.querySelector('form').addEventListener('submit', function (e) {
+                let descripcionTextarea = document.getElementById('Descripcion');
+                let descripcionValue = descripcionTextarea.value;
+                let cleanedValue = stripHtmlTags(descripcionValue); // Función para eliminar etiquetas HTML
+
+                // Actualizar el valor del textarea con el contenido limpio
+                descripcionTextarea.value = cleanedValue;
+            });
+
+            // Función para eliminar etiquetas HTML
+            function stripHtmlTags(html) {
+                let doc = new DOMParser().parseFromString(html, 'text/html');
+                return doc.body.textContent || "";
+            }
+        </script>
 
 
 </body>

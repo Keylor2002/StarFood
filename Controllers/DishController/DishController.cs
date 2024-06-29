@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Ganss.Xss;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StarFood.Models;
 using StarFood.Models.ViewModels;
 using StarFood.Repository;
 using StarFood.Repository.IRepository;
-using Ganss.Xss;
+
 
 namespace StarFood.Controllers.DishController
 {
@@ -58,9 +59,10 @@ namespace StarFood.Controllers.DishController
 
             if (ModelState.IsValid)
 
-
+               
             {
 
+                platillo.Suspendido = false;
                 var categorias = _unitOfWork.Categoria.GetAll();
                 var categoriaExistente = categorias.FirstOrDefault(c => c.IDCategoria == platillo.CategoriaID);
                 if (categoriaExistente == null)
@@ -70,12 +72,8 @@ namespace StarFood.Controllers.DishController
                 else
                 {
                     platillo.Categoria = categoriaExistente;
-
-            
-                  
+ 
                 }
-                   
-              
 
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
 
@@ -94,16 +92,15 @@ namespace StarFood.Controllers.DishController
                 }
 
                 
-                // Crear nuevo producto
+                
                 _unitOfWork.Platillo.Add(platillo);
                 _unitOfWork.Save();
-
+                return RedirectToAction("Index");
 
 
             }
-            return View(Index);
-            // Si el modelo no es válido, volver a la vista con el modelo
-            //return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
+            return View(platillo);
+
         }
 
 
