@@ -39,12 +39,11 @@ namespace StarFood.Controllers.CategoryController
                 categoria.Suspendido = false;
                 _unitOfWork.Categoria.Add(categoria);
                 _unitOfWork.Save();
-                //return Json(new { success = true, message = "Categoria creada correctamente" });
+                TempData["success"] = "Categoria creada correctamente";
                 return RedirectToAction("Index");
             }
-            TempData["success"] = "Categoria creada correctamente";
+
             return View(categoria);
-            //return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
         }
 
 
