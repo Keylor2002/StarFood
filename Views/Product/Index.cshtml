@@ -18,6 +18,9 @@
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css" />
+
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="~/css/index.css">
     <link rel="stylesheet" type="text/css" href="~/css/_sidebar.css">
@@ -43,50 +46,38 @@
             </div>
         </div>
 
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <input type="text" id="searchProduct" class="form-control" placeholder="Buscar producto...">
-            </div>
-            <div class="col-md-3">
-                <select id="pageSize" class="form-control">
-                    <option value="10">Mostrar 10</option>
-                    <option value="25">Mostrar 25</option>
-                    <option value="50">Mostrar 50</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="row" id="productCards">
-            @foreach (var product in Model.Item1)
-            {
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">@product.Nombre</h5>
-                            <p class="card-text">
-                                <strong>Categoría:</strong> @product.Categoria.Nombre<br>
-                                <strong>Precio:</strong> @product.PrecioVenta.ToString("C")<br>
-                                <strong>Cantidad:</strong> @product.CantidadExistente
-                            </p>
+        <table id="productsTable" class="table table-striped nowrap" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID Producto</th>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model.Item1)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => product.IDProducto)</td>
+                        <td>@Html.DisplayFor(modelItem => product.Nombre)</td>
+                        <td>@Html.DisplayFor(modelItem => product.Categoria.Nombre)</td>
+                        <td>@Html.DisplayFor(modelItem => product.PrecioVenta)</td>
+                        <td>@Html.DisplayFor(modelItem => product.CantidadExistente)</td>
+                        <td class="d-flex justify-content-end">
                             <a class="btn btn-primary btn-sm me-2" href="@Url.Action("Edit", new { id = product.IDProducto })" title="Editar">
-                                <i class="fas fa-pencil-alt"></i> Editar
+                                <i class="fas fa-pencil-alt"></i>
                             </a>
                             <button class="btn btn-secondary btn-sm" onclick="copyToClipboard('@product.IDProducto')" title="Copiar ID">
-                                <i class="fas fa-copy"></i> Copiar ID
+                                <i class="fas fa-copy"></i>
                             </button>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-
-        <div class="d-flex justify-content-center">
-            <nav>
-                <ul class="pagination" id="paginationControls">
-                    <!-- Pagination controls will be generated here -->
-                </ul>
-            </nav>
-        </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 
     <!-- jQuery -->
@@ -95,81 +86,40 @@
     <!-- Bootstrap Bundle (incluye Popper.js y Bootstrap JS) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Custom JS -->
+    <!-- DataTables JS -->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
+
+    <!-- DataTables Responsive -->
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.min.js"></script>
     <script src="~/js/newitem.js"></script>
     <script src="~/js/_sidebar.js"></script>
     <script src="~/js/index.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
-            let products = @Html.Raw(Json.Serialize(Model.Item1));
-            let pageSize = 10;
-            let currentPage = 1;
-
-            function renderProducts() {
-                let filteredProducts = products.filter(product =>
-                    product.Nombre.toLowerCase().includes($('#searchProduct').val().toLowerCase())
-                );
-
-                let paginatedProducts = filteredProducts.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-
-                $('#productCards').html('');
-                paginatedProducts.forEach(product => {
-                    $('#productCards').append(`
-                                <div class="col-md-4 mb-4">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">${product.Nombre}</h5>
-                                            <p class="card-text">
-                                                <strong>Categoría:</strong> ${product.Categoria.Nombre}<br>
-                                                <strong>Precio:</strong> ${product.PrecioVenta.toFixed(2)}<br>
-                                                <strong>Cantidad:</strong> ${product.CantidadExistente}
-                                            </p>
-                                            <a class="btn btn-primary btn-sm me-2" href="@Url.Action("Edit", new { id = "product.IDProducto" })" title="Editar">
-                                                <i class="fas fa-pencil-alt"></i> Editar
-                                            </a>
-                                            <button class="btn btn-secondary btn-sm" onclick="copyToClipboard('${product.IDProducto}')" title="Copiar ID">
-                                                <i class="fas fa-copy"></i> Copiar ID
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            `);
-                });
-
-                renderPagination(filteredProducts.length);
-            }
-
-            function renderPagination(totalItems) {
-                let totalPages = Math.ceil(totalItems / pageSize);
-                $('#paginationControls').html('');
-                for (let i = 1; i <= totalPages; i++) {
-                    $('#paginationControls').append(`
-                                <li class="page-item ${i === currentPage ? 'active' : ''}">
-                                    <a class="page-link" href="#">${i}</a>
-                                </li>
-                            `);
+            $('#productsTable').DataTable({
+                responsive: true,
+                language: {
+                    search: "Buscar:",
+                    lengthMenu: "Mostrar _MENU_ registros por página",
+                    zeroRecords: "No se encontraron registros coincidentes",
+                    info: "Mostrando página _PAGE_ de _PAGES_",
+                    infoEmpty: "No hay registros disponibles",
+                    infoFiltered: "(filtrado de _MAX_ registros totales)",
+                    paginate: {
+                        first: "Primero",
+                        last: "Último",
+                        next: "Siguiente",
+                        previous: "Anterior"
+                    },
+                    aria: {
+                        sortAscending: ": activar para ordenar la columna de manera ascendente",
+                        sortDescending: ": activar para ordenar la columna de manera descendente"
+                    }
                 }
-            }
-
-            $('#searchProduct').on('input', function () {
-                currentPage = 1;
-                renderProducts();
             });
-
-            $('#pageSize').on('change', function () {
-                pageSize = parseInt($(this).val());
-                currentPage = 1;
-                renderProducts();
-            });
-
-            $('#paginationControls').on('click', 'a', function (e) {
-                e.preventDefault();
-                currentPage = parseInt($(this).text());
-                renderProducts();
-            });
-
-            renderProducts();
         });
 
         function copyToClipboard(text) {
