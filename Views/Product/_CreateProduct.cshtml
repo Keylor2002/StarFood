@@ -1,0 +1,65 @@
+﻿@model StarFood.Models.Producto
+
+@{
+    ViewData["Title"] = "Crear Producto";
+}
+
+<!-- Modal -->
+<div class="modal fade" id="AddProduct" aria-labelledby="AddProductLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="AddProductLabel">Agregar nuevo producto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    
+                    <div class="form-group">
+                        <label for="Nombre" class="col-form-label">Nombre:</label>
+                        <input asp-for="Nombre" class="form-control" />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="CategoriaID" class="col-form-label">Categoría:</label>
+                        <select asp-for="CategoriaID" class="form-control" asp-items="@(ViewBag.Categorias)"></select>
+                        <span asp-validation-for="CategoriaID" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="PrecioVenta" class="col-form-label">Precio de Venta:</label>
+                        <input asp-for="PrecioVenta" class="form-control" />
+                        <span asp-validation-for="PrecioVenta" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="CantidadExistente" class="col-form-label">Cantidad Existente:</label>
+                        <input asp-for="CantidadExistente" class="form-control" />
+                        <span asp-validation-for="CantidadExistente" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="UnidadMedida" class="col-form-label">Unidad de Medida:</label>
+                        <select asp-for="UnidadMedida" class="form-control" asp-items="@(ViewBag.UnidadesMedida)"></select>
+                        <span asp-validation-for="UnidadMedida" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Suspendido" class="col-form-label">Suspendido:</label>
+                        <select asp-for="Suspendido" class="form-control" asp-items="@(ViewBag.SuspendidoOptions)"></select>
+                        <span asp-validation-for="Suspendido" class="text-danger"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info newitem-open">Crear</button>
+                        <button type="button" class="btn btn-danger newitem-open" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

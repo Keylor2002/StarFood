@@ -2,133 +2,158 @@
 using StarFood.Models;
 using StarFood.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
+using Microsoft.AspNetCore.Hosting;
 using System.Linq;
-using System.Linq.Expressions;
 
-namespace StarFood.Controllers.ProductController
+namespace StarFood.Controllers
 {
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
+        public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment hostEnvironment)
         {
             _unitOfWork = unitOfWork;
-            _webHostEnvironment = webHostEnvironment;
+            _hostEnvironment = hostEnvironment;
         }
 
-        public IActionResult Index(string searchString)
+        public IActionResult Index()
         {
-            var productos = _unitOfWork.Producto.GetAll();
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                productos = productos.Where(p => p.Nombre.Contains(searchString) || p.IDProducto.ToString().Contains(searchString));
-            }
-            var producto = new Producto();
-            LoadViewBags();
-            return View(Tuple.Create(productos, producto));
+            var products = _unitOfWork.Producto.GetAll(includeProperties: "Categoria");
+            return View(products);
         }
 
-        public IActionResult Edit(string searchString)
+        public IActionResult Details(int id)
         {
-            var productos = _unitOfWork.Producto.GetAll();
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                productos = productos.Where(p => p.Nombre.Contains(searchString) || p.IDProducto.ToString().Contains(searchString));
-            }
-            var producto = new Producto();
-            LoadViewBags();
-            return View(Tuple.Create(productos, producto));
+            return View();
         }
 
-        [HttpPost]
-        public IActionResult Edit(Producto producto)
+        public IActionResult Create()
         {
-            if (ModelState.IsValid)
-            {
-                _unitOfWork.Producto.Update(producto);
-                _unitOfWork.Save();
-                return Json(new { success = true, message = "Producto editado correctamente" });
-            }
-
-            LoadViewBags();
-            return PartialView("_CreateProductoPartial", producto);
-        }
-
-        [HttpGet]
-        public IActionResult GetProduct(int id)
-        {
-            if (id == 0)
-            {
-                return Json(new { success = false, message = "ID no proporcionado" });
-            }
-
-            var producto = _unitOfWork.Producto.GetFirstOrDefault(x => x.IDProducto == id, null, null);
-            if (producto == null)
-            {
-                return Json(new { success = false, message = "Producto no encontrado" });
-            }
-
-            return Json(new
-            {
-                idProducto = producto.IDProducto,
-                nombre = producto.Nombre,
-                categoriaID = producto.CategoriaID,
-                precioVenta = producto.PrecioVenta,
-                unidadMedida = producto.UnidadMedida,
-                suspendido = producto.Suspendido
-            });
-        }
-
-        [HttpPost]
-        public IActionResult DeletePOST(int id)
-        {
-            var producto = _unitOfWork.Producto.GetFirstOrDefault(u => u.IDProducto == id, null, null);
-            if (producto == null)
-            {
-                return Json(new { success = false, message = "Error al eliminar el producto" });
-            }
-
-            _unitOfWork.Producto.Remove(producto);
-            _unitOfWork.Save();
-            return Json(new { success = true, message = "Producto eliminado correctamente" });
-        }
-
-        private void LoadViewBags()
-        {
+            Producto product = new Producto();
             ViewBag.Categorias = _unitOfWork.Categoria.GetAll()
                 .Select(c => new SelectListItem
                 {
                     Value = c.IDCategoria.ToString(),
                     Text = c.Nombre
                 }).ToList();
-
-            ViewBag.UnidadesMedida = new List<SelectListItem>
+            ViewBag.UnidadesMedida = new SelectList(new[]
             {
-                new SelectListItem { Value = "Kg", Text = "Kilogramo" },
-                new SelectListItem { Value = "L", Text = "Litro" },
-                new SelectListItem { Value = "Unit", Text = "Unidad" }
-            };
+                new { Value = "Kg", Text = "Kilogramo" },
+                new { Value = "L", Text = "Litro" },
+                new { Value = "Unidad", Text = "Unidad" }
+            }, "Value", "Text");
 
-            ViewBag.SuspendidoOptions = new List<SelectListItem>
+            ViewBag.SuspendidoOptions = new SelectList(new[]
             {
-                new SelectListItem { Value = "true", Text = "Sí" },
-                new SelectListItem { Value = "false", Text = "No" }
-            };
+                new { Value = "true", Text = "Sí" },
+                new { Value = "false", Text = "No" }
+            }, "Value", "Text");
+
+            return PartialView("_CreateProduct", product);
         }
 
-        public IActionResult Delete(string searchString)
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public IActionResult Create(Producto product)
         {
-            var productos = _unitOfWork.Producto.GetAll();
-            if (!string.IsNullOrEmpty(searchString))
+            if (ModelState.IsValid)
             {
-                productos = productos.Where(p => p.Nombre.Contains(searchString) || p.IDProducto.ToString().Contains(searchString));
+                _unitOfWork.Producto.Add(product);
+                _unitOfWork.Save();
+                TempData["success"] = "Producto agregado correctamente";
+                return RedirectToAction("Index");
             }
-            var producto = new Producto();
-            LoadViewBags();
-            return View(Tuple.Create(productos, producto));
+            ViewBag.Categorias = _unitOfWork.Categoria.GetAll()
+                .Select(c => new SelectListItem
+                {
+                    Value = c.IDCategoria.ToString(),
+                    Text = c.Nombre
+                }).ToList();
+            ViewBag.UnidadesMedida = new SelectList(new[]
+            {
+                new { Value = "Kg", Text = "Kilogramo" },
+                new { Value = "L", Text = "Litro" },
+                new { Value = "Unidad", Text = "Unidad" }
+            }, "Value", "Text");
+
+            ViewBag.SuspendidoOptions = new SelectList(new[]
+            {
+                new { Value = "true", Text = "Sí" },
+                new { Value = "false", Text = "No" }
+            }, "Value", "Text");
+
+            return View(product);
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var product = _unitOfWork.Producto.GetFirstOrDefault(p => p.IDProducto == id, null);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+            ViewBag.Categorias = _unitOfWork.Categoria.GetAll()
+                .Select(c => new SelectListItem
+                {
+                    Value = c.IDCategoria.ToString(),
+                    Text = c.Nombre
+                }).ToList();
+            ViewBag.UnidadesMedida = new SelectList(new[]
+            {
+                new { Value = "Kg", Text = "Kilogramo" },
+                new { Value = "L", Text = "Litro" },
+                new { Value = "Unidad", Text = "Unidad" }
+            }, "Value", "Text");
+
+            ViewBag.SuspendidoOptions = new SelectList(new[]
+            {
+                new { Value = "true", Text = "Sí" },
+                new { Value = "false", Text = "No" }
+            }, "Value", "Text");
+
+            return PartialView("_EditProduct", product);
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public IActionResult Edit(Producto product)
+        {
+            if (ModelState.IsValid)
+            {
+                _unitOfWork.Producto.Update(product);
+                _unitOfWork.Save();
+                TempData["success"] = "Producto editado correctamente";
+                return RedirectToAction("Index");
+            }
+            ViewBag.Categorias = _unitOfWork.Categoria.GetAll()
+                .Select(c => new SelectListItem
+                {
+                    Value = c.IDCategoria.ToString(),
+                    Text = c.Nombre
+                }).ToList();
+            ViewBag.UnidadesMedida = new SelectList(new[]
+            {
+                new { Value = "Kg", Text = "Kilogramo" },
+                new { Value = "L", Text = "Litro" },
+                new { Value = "Unidad", Text = "Unidad" }
+            }, "Value", "Text");
+
+            ViewBag.SuspendidoOptions = new SelectList(new[]
+            {
+                new { Value = "true", Text = "Sí" },
+                new { Value = "false", Text = "No" }
+            }, "Value", "Text");
+
+            return View(product);
+        }
+
+        public IActionResult GetAll()
+        {
+            var products = _unitOfWork.Producto.GetAll(includeProperties: "Categoria");
+            return Json(new { data = products, success = true });
         }
     }
 }

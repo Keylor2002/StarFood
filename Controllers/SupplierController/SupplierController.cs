@@ -86,26 +86,27 @@ namespace StarFood.Controllers.SupplierController
             var supplier = _unitOfWork.Proveedor.GetAll();
             return Json(new {data = supplier, success = true});
         }
-
-        //// GET: HomeController/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: HomeController/Delete/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Delete(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
     }
 }
+
+
+//// GET: HomeController/Delete/5
+//public ActionResult Delete(int id)
+//{
+//    return View();
+//}
+
+//// POST: HomeController/Delete/5
+//[HttpPost]
+//[ValidateAntiForgeryToken]
+//public ActionResult Delete(int id, IFormCollection collection)
+//{
+//    try
+//    {
+//        return RedirectToAction(nameof(Index));
+//    }
+//    catch
+//    {
+//        return View();
+//    }
+//}

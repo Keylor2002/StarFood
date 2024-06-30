@@ -18,44 +18,6 @@
                 <form asp-action="Create" method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     
-                            <!-- Centrar la primera fila -->
-                            <div class="form-group">
-                                <label for="Empresa" class="col-form-label">Empresa:</label>
-                                <input asp-for="Empresa" class="form-control" />
-                                <span asp-validation-for="Empresa" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="Contacto" class="col-form-label">Contacto:</label>
-                                <input asp-for="Contacto" class="form-control" />
-                                <span asp-validation-for="Contacto" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="Nombre" class="col-form-label">Nombre:</label>
-                                <input asp-for="Nombre" class="form-control" />
-                                <span asp-validation-for="Nombre" class="text-danger"></span>
-                            </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-info">Crear</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</a>
-                    </div>
-                </form>
-            </div>
-            
-        </div>
-    </div>
-</div>
-@* 
-<h1 class="mb-3 text-center">Crear Proveedor</h1> <!-- Centrar el título -->
-
-
-
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <!-- Columna centralizada -->
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="row mb-3">
-                <div class="col-sm-6 mx-auto">
                     <!-- Centrar la primera fila -->
                     <div class="form-group">
                         <label for="Empresa" class="col-form-label">Empresa:</label>
@@ -72,18 +34,15 @@
                         <input asp-for="Nombre" class="form-control" />
                         <span asp-validation-for="Nombre" class="text-danger"></span>
                     </div>
-                </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info newitem-open">Crear</button>
+                        <button type="button" class="btn btn-danger newitem-open" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
             </div>
-            <div class="form-group row mb-3">
-                <div class="col text-center">
-                    <!-- Centrar los botones -->
-                    <button type="submit" class="btn btn-info">Crear</button>
-                    <a asp-action="Index" class="btn btn-info">Cancelar</a>
-                </div>
-            </div>
-        </form>
+        </div>
     </div>
-</div>  *@
+</div>
 
 @section Scripts {
     @{

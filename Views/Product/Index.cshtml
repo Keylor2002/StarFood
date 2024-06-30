@@ -1,4 +1,4 @@
-﻿@model Tuple<IEnumerable<StarFood.Models.Producto>, StarFood.Models.Producto>
+﻿@model IEnumerable<StarFood.Models.Producto>
 
 @{
     ViewData["Title"] = "Lista de Productos";
@@ -34,14 +34,18 @@
                 <p class="text-muted">Aquí puedes ver los productos disponibles</p>
             </div>
             <div class="col-md-4 text-end">
-                <button id="btnCreateProduct" class="btn btn-info newitem-open"><i class="fas fa-plus"></i> Ingresar Nuevo Producto </button>
+                <button id="btnCreateProduct" class="btn btn-info newitem-open" data-toggle="modal" data-target="#AddProduct">
+                    <i class="fas fa-plus"></i> Agregar producto
+                </button>
             </div>
         </div>
+
+        @await Html.PartialAsync("_CreateProduct", new StarFood.Models.Producto())
 
         <div class="row mb-4">
             <div class="col-md-12">
                 <div class="alert alert-info" role="alert">
-                    <strong>Total de Productos:</strong> @Model.Item1.Count()
+                    <strong>Total de Productos:</strong> @Model.Count()
                 </div>
             </div>
         </div>
@@ -49,28 +53,29 @@
         <table id="productsTable" class="table table-striped nowrap" style="width:100%">
             <thead>
                 <tr>
-                    <th>ID Producto</th>
-                    <th>Nombre</th>
-                    <th>Categoría</th>
-                    <th>Precio</th>
-                    <th>Cantidad</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().IDProducto)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Nombre)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Categoria.Nombre)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().PrecioVenta)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().CantidadExistente)</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var product in Model.Item1)
+                @foreach (var item in Model)
                 {
                     <tr>
-                        <td>@Html.DisplayFor(modelItem => product.IDProducto)</td>
-                        <td>@Html.DisplayFor(modelItem => product.Nombre)</td>
-                        <td>@Html.DisplayFor(modelItem => product.Categoria.Nombre)</td>
-                        <td>@Html.DisplayFor(modelItem => product.PrecioVenta)</td>
-                        <td>@Html.DisplayFor(modelItem => product.CantidadExistente)</td>
-                        <td class="d-flex justify-content-end">
-                            <a class="btn btn-primary btn-sm me-2" href="@Url.Action("Edit", new { id = product.IDProducto })" title="Editar">
+                        <td>@Html.DisplayFor(modelItem => item.IDProducto)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Categoria.Nombre)</td>
+                        <td>@Html.DisplayFor(modelItem => item.PrecioVenta)</td>
+                        <td>@Html.DisplayFor(modelItem => item.CantidadExistente)</td>
+                        <td class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-primary btn-sm me-2" data-toggle="modal" data-target="@("#EditProduct-" + item.IDProducto)" data-url="@Url.Action($"Edit/{item.IDProducto}")">
                                 <i class="fas fa-pencil-alt"></i>
-                            </a>
-                            <button class="btn btn-secondary btn-sm" onclick="copyToClipboard('@product.IDProducto')" title="Copiar ID">
+                            </button>
+                            @await Html.PartialAsync("_EditProduct", item)
+                            <button class="btn btn-secondary btn-sm" onclick="copyToClipboard('@item.IDProducto')" title="Copiar ID">
                                 <i class="fas fa-copy"></i>
                             </button>
                         </td>
